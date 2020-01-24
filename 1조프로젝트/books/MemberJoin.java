@@ -126,7 +126,7 @@ public class MemberJoin extends JFrame {
 
 					if (r > 0) {
 						checkId = 1;
-						JOptionPane.showMessageDialog(null, "가능");
+						JOptionPane.showMessageDialog(null, "사용할 수 있는 아이디입니다.");
 					} else {
 						checkId = 0;
 						JOptionPane.showMessageDialog(null, "아이디가 중복됩니다.");

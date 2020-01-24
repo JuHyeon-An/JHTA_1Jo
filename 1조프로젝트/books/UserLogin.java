@@ -1,25 +1,18 @@
 package books;
 
 import java.awt.EventQueue;
-
-import javax.swing.JInternalFrame;
-import java.awt.Dimension;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
 import java.awt.Font;
-import javax.swing.SwingConstants;
-import javax.swing.JTextField;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
-
-import java.awt.Color;
-import java.awt.event.ActionListener;
-import java.sql.SQLException;
-import java.awt.event.ActionEvent;
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
-import javax.swing.event.InternalFrameAdapter;
-import javax.swing.event.InternalFrameEvent;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 public class UserLogin extends JInternalFrame {
 	private JLabel lblNewLabel;
@@ -33,7 +26,6 @@ public class UserLogin extends JInternalFrame {
 	//JFrame frame = new BookMain();
 	JFrame frame;
 	private JPasswordField tpwd;
-	UserDao dao = new UserDao();
 	/**
 	 * Launch the application.
 	 */
@@ -60,22 +52,8 @@ public class UserLogin extends JInternalFrame {
 */
 	public UserLogin() {
 		super("login", true, true, true, true);
-		addInternalFrameListener(new InternalFrameAdapter() {
-			@Override
-			public void internalFrameClosing(InternalFrameEvent arg0) {
-				
-				try {
-					UserDao dao = new UserDao();
-					dao.conn.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		});
 		setVisible(true);
-		setBounds(90, 90, 745, 720);
-//		frame.setLocationRelativeTo(null);
+		setBounds(100, 100, 745, 720);
 		getContentPane().setLayout(null);
 		getContentPane().add(getLblNewLabel());
 		getContentPane().add(getLblNewLabel_1());
@@ -133,18 +111,19 @@ public class UserLogin extends JInternalFrame {
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					try {
+						UserDao dao = new UserDao();
 						UserVo vo = new UserVo();
 						vo.setTmId(tmId.getText());
 						vo.setTpwd(tpwd.getText());
-						if (!tmId.getText().equals("") && !tpwd.getText().equals("")) {
+						if (tmId.getText().equals("") && tpwd.getText().equals("")) {
 							int cnt = dao.insert(vo);
 							if (cnt > 0) {
 								UserMain frame = new UserMain(vo.getTmId());
 								frame.setVisible(true);
 							} else
-								JOptionPane.showMessageDialog(UserLogin.this,"아이디 또는 비밀번호가 잘못되었습니다.");							
+								JOptionPane.showMessageDialog(null,"아이디 또는 비밀번호가 잘못되었습니다.");							
 						}else {
-							JOptionPane.showMessageDialog(UserLogin.this, "입력하지 않은 항목이 있습니다.");
+							JOptionPane.showMessageDialog(null,"아이디 또는 비밀번호에 공백이 있습니다.");
 						}
 					} catch (Exception ex) {
 						ex.printStackTrace();

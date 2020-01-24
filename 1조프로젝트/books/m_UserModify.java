@@ -4,15 +4,15 @@
 
 package books;
 
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.Dimension;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class m_UserModify extends JPanel {
 
@@ -34,7 +34,7 @@ public class m_UserModify extends JPanel {
 	private JButton btnNewButton_1;
 
 	UserMain main = new UserMain();
-	
+
 	public m_UserModify() {
 		setPreferredSize(new Dimension(470, 340));
 		setLayout(null);
@@ -52,6 +52,7 @@ public class m_UserModify extends JPanel {
 		add(getTPhone());
 		add(getBtnNewButton());
 		add(getBtnNewButton_1());
+
 	}
 
 	public m_UserModify(String keyId, UserMain userMain) {
@@ -60,14 +61,14 @@ public class m_UserModify extends JPanel {
 		this.main = userMain;
 		m_UserDao dao = new m_UserDao();
 		m_UserInfoVo vo = dao.search(keyId);
-		
-		
+
 		tId.setText(vo.getmId());
 		tName.setText(vo.getmName());
 		tBirth.setText(vo.getmBirth());
 		tPwd.setText(vo.getmPwd());
 		tEmail.setText(vo.getmEmail());
 		tPhone.setText(vo.getmPhone());
+
 	}
 
 	public JLabel getLblNewLabel() {
@@ -109,7 +110,7 @@ public class m_UserModify extends JPanel {
 		}
 		return lblNewLabel_4;
 	}
- 
+
 	public JLabel getLblNewLabel_5() {
 		if (lblNewLabel_5 == null) {
 			lblNewLabel_5 = new JLabel("\uD578\uB4DC\uD3F0");
@@ -189,13 +190,12 @@ public class m_UserModify extends JPanel {
 					vo.setmEmail(tEmail.getText());
 					vo.setmPhone(tPhone.getText());
 
-					
 					int r = dao.update(vo);
 					if (r > 0)
 						JOptionPane.showMessageDialog(null, "수정이 완료되었습니다.");
 					else
-						JOptionPane.showMessageDialog(null, "수정 오류");					
-					
+						JOptionPane.showMessageDialog(null, "수정 오류");
+
 				}
 			});
 			btnNewButton.setBounds(159, 297, 97, 23);
@@ -210,21 +210,21 @@ public class m_UserModify extends JPanel {
 				public void actionPerformed(ActionEvent e) {
 					m_UserModify umf = new m_UserModify();
 					m_UserDao dao = new m_UserDao();
-					int a = JOptionPane.showConfirmDialog(null,"정말 탈퇴하시겠습니까?");
-					int r = 0; 
-					if(a>0) {
-						//아무일도 생기지 않게
-					}else {
+					int a = JOptionPane.showConfirmDialog(null, "정말 탈퇴하시겠습니까?");
+					int r = 0;
+					if (a > 0) {
+						// 아무일도 생기지 않게
+					} else {
 						r = dao.delect(keyId);
-						
-						if(r>0) {
+
+						if (r > 0) {
 							JOptionPane.showMessageDialog(null, "탈퇴가 완료되었습니다.");
 							main.dispose();
 							// 탈퇴되면 창 꺼지도록
-						}else {
+						} else {
 							JOptionPane.showMessageDialog(null, "탈퇴 오류");
 						}
-					} 
+					}
 				}
 			});
 			btnNewButton_1.setBounds(336, 297, 97, 23);
