@@ -36,6 +36,14 @@ public class j_BookCategorySelect extends JPanel {
 		add(getScrollPane());
 
 	}
+	
+	public void tableSetting() {
+		table = new JTable();
+		
+		j_BookDao dao = new j_BookDao();
+		model = dao.TableSetting(table, 2);
+	}
+	
 	public JLabel getLblNewLabel() {
 		if (lblNewLabel == null) {
 			lblNewLabel = new JLabel("\uBD84\uB958\uCF54\uB4DC  \uB9AC\uC2A4\uD2B8");
@@ -57,11 +65,9 @@ public class j_BookCategorySelect extends JPanel {
 	}
 	public JTable getTable() {
 		if (table == null) {
-			table = new JTable();
-			
-			j_BookDao dao = new j_BookDao();
-			model = dao.TableSetting(table, 2);
+			tableSetting();
 		}
 		return table;
 	}
+	
 }

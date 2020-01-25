@@ -115,7 +115,7 @@ public class UserLogin extends JInternalFrame {
 						UserVo vo = new UserVo();
 						vo.setTmId(tmId.getText());
 						vo.setTpwd(tpwd.getText());
-						if (tmId.getText().equals("") && tpwd.getText().equals("")) {
+						if (!tmId.getText().equals("") && !tpwd.getText().equals("")) {
 							int cnt = dao.insert(vo);
 							if (cnt > 0) {
 								UserMain frame = new UserMain(vo.getTmId());

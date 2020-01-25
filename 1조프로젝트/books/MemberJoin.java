@@ -18,6 +18,9 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.JCheckBox;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MemberJoin extends JFrame {
 	
@@ -54,6 +57,13 @@ public class MemberJoin extends JFrame {
 	private JComboBox comboBox;
 	private JComboBox comboBox_1;
 	private JComboBox comboBox_2;
+	private JLabel lblNewLabel_3;
+	private JLabel label_5;
+	private JLabel label_6;
+	private JLabel lblNewLabel_4;
+	private JComboBox comboBox_3;
+	private JTextField textField;
+	private JCheckBox checkbox;
 
 	/**
 	 * Launch the application.
@@ -133,7 +143,7 @@ public class MemberJoin extends JFrame {
 					}
 				}
 			});
-			btnNewButton.setBounds(552, 123, 110, 33);
+			btnNewButton.setBounds(528, 123, 110, 33);
 		}
 		return btnNewButton;
 	}
@@ -160,7 +170,7 @@ public class MemberJoin extends JFrame {
 
 	private JLabel getLabel_2() {
 		if (label_2 == null) {
-			label_2 = new JLabel("\uC0DD\uC77C");
+			label_2 = new JLabel("생년월일");
 			label_2.setBounds(78, 426, 147, 33);
 			label_2.setHorizontalAlignment(SwingConstants.RIGHT);
 			label_2.setFont(new Font("맑은 고딕", Font.PLAIN, 24));
@@ -200,7 +210,7 @@ public class MemberJoin extends JFrame {
 	private JTextField getEmail() {
 		if (email == null) {
 			email = new JTextField();
-			email.setBounds(251, 570, 274, 33);
+			email.setBounds(251, 570, 147, 33);
 			email.setColumns(10);
 		}
 		return email;
@@ -225,7 +235,8 @@ public class MemberJoin extends JFrame {
 						String name = mName.getText();
 						String birth1 = comboBox.getSelectedItem()+"-"+comboBox_1.getSelectedItem()+"-"+comboBox_2.getSelectedItem();							//birth.getText();
 						String phone1 = phone.getText();
-						String email1 = email.getText();
+						String email1 = checkbox.isSelected()? email.getText()+"@"+textField.getText() :
+							email.getText()+"@"+comboBox_3.getSelectedItem();
 						if (!mId.getText().equals("") && !pwd.getText().equals("") && !pwdCheck.getText().equals("")
 								&& !mName.getText().equals("")
 								&& !phone.getText().equals("") && !email.getText().equals("")) {
@@ -322,6 +333,13 @@ public class MemberJoin extends JFrame {
 			panel.add(getComboBox());
 			panel.add(getComboBox_1());
 			panel.add(getComboBox_2());
+			panel.add(getLblNewLabel_3());
+			panel.add(getLabel_5());
+			panel.add(getLabel_6());
+			panel.add(getLblNewLabel_4());
+			panel.add(getComboBox_3());
+			panel.add(getTextField());
+			panel.add(getCheckbox());
 		}
 		return panel;
 	}
@@ -387,7 +405,7 @@ public class MemberJoin extends JFrame {
 	public JComboBox getComboBox_1() {
 		if (comboBox_1 == null) {
 			comboBox_1 = new JComboBox();
-			comboBox_1.setBounds(358, 438, 75, 21);
+			comboBox_1.setBounds(382, 438, 75, 21);
 			for(int i = 1; i<=12; i++) {
 				comboBox_1.addItem(i);
 			}
@@ -397,11 +415,88 @@ public class MemberJoin extends JFrame {
 	public JComboBox getComboBox_2() {
 		if (comboBox_2 == null) {
 			comboBox_2 = new JComboBox();
-			comboBox_2.setBounds(445, 438, 80, 21);
+			comboBox_2.setBounds(490, 438, 80, 21);
 			for(int i = 1; i<=31; i++) {
 				comboBox_2.addItem(i);
 			}
 		}
 		return comboBox_2;
+	}
+	public JLabel getLblNewLabel_3() {
+		if (lblNewLabel_3 == null) {
+			lblNewLabel_3 = new JLabel("년");
+			lblNewLabel_3.setBounds(350, 439, 25, 18);
+		}
+		return lblNewLabel_3;
+	}
+	public JLabel getLabel_5() {
+		if (label_5 == null) {
+			label_5 = new JLabel("월");
+			label_5.setBounds(461, 439, 25, 18);
+		}
+		return label_5;
+	}
+	public JLabel getLabel_6() {
+		if (label_6 == null) {
+			label_6 = new JLabel("일");
+			label_6.setBounds(573, 439, 25, 18);
+		}
+		return label_6;
+	}
+	public JLabel getLblNewLabel_4() {
+		if (lblNewLabel_4 == null) {
+			lblNewLabel_4 = new JLabel("@");
+			lblNewLabel_4.setBounds(404, 572, 19, 30);
+		}
+		return lblNewLabel_4;
+	}
+	public JComboBox getComboBox_3() {
+		if (comboBox_3 == null) {
+			comboBox_3 = new JComboBox();
+			comboBox_3.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+				
+					
+				}
+			});
+			comboBox_3.setBounds(423, 570, 147, 33);
+			comboBox_3.addItem("선택");
+			comboBox_3.addItem("naver.com");
+			comboBox_3.addItem("daum.net");
+			comboBox_3.addItem("gmail.com");
+			
+			
+
+		}
+		return comboBox_3;
+	}
+	public JTextField getTextField() {
+		if (textField == null) {
+			textField = new JTextField();
+			textField.setColumns(10);
+			textField.setBounds(423, 570, 147, 33);
+			textField.setVisible(false);
+		}
+		return textField;
+	}
+	public JCheckBox getCheckbox() {
+		if (checkbox == null) {
+			checkbox = new JCheckBox("직접입력");
+			checkbox.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent arg0) {
+					
+					if(checkbox.isSelected()) {
+						textField.setVisible(true);
+						comboBox_3.setVisible(false);
+					}else {
+						textField.setVisible(false);
+						comboBox_3.setVisible(true);
+					}
+				}
+			});
+			checkbox.setBounds(588, 573, 131, 27);
+		}
+		return checkbox;
 	}
 }

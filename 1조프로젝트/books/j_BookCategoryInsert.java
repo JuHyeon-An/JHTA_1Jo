@@ -22,6 +22,7 @@ public class j_BookCategoryInsert extends JPanel {
 	private JTextField tName;
 	private JTextField tCode;
 	private JButton btnNewButton;
+	j_BookCategorySelect cs = new j_BookCategorySelect();
 
 	/**
 	 * Create the panel.
@@ -94,10 +95,9 @@ public class j_BookCategoryInsert extends JPanel {
 					
 					if(r>0) {
 						JOptionPane.showMessageDialog(null, "분류코드 등록이 완료되었습니다.");
-						j_BookCategorySelect cs = new j_BookCategorySelect();
-						cs.getTable();
+						
+						cs.tableSetting();
 						cs.updateUI();
-						cs.model.fireTableDataChanged();
 						
 					}else {
 						JOptionPane.showMessageDialog(null, "오류발생");

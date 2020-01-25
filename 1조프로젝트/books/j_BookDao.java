@@ -274,7 +274,7 @@ public class j_BookDao {
 		int r = 0;
 
 		try {
-			sql = "insert into book_group values(?,?)";
+			sql = "insert into book_group (group_code, group_name) values(?,?)";
 			PreparedStatement ps = conn.prepareStatement(sql);
 
 			ps.setInt(1, vo.getgCode());
@@ -290,7 +290,7 @@ public class j_BookDao {
 			}
 
 		} catch (Exception ex) {
-
+			ex.printStackTrace();
 		}
 
 		return r;

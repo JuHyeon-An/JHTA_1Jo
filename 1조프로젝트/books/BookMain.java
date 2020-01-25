@@ -16,6 +16,11 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Dimension;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.Color;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class BookMain extends JFrame {
 
@@ -58,6 +63,13 @@ public class BookMain extends JFrame {
 		contentPane.add(getPanel());
 	}
 
+	public void search() {
+		String find = textField.getText();
+		SearchFrame sf = new SearchFrame(find, comboBox.getSelectedIndex());
+		contentPane.add(sf);
+		sf.toFront();
+	}
+	
 	public JLabel getLabel() {
 		if (label == null) {
 			label = new JLabel("\uC911\uC559HTA \uB3C4\uC11C\uAD00");
@@ -82,6 +94,24 @@ public class BookMain extends JFrame {
 	public JTextField getTextField() {
 		if (textField == null) {
 			textField = new JTextField();
+			textField.addFocusListener(new FocusAdapter() {
+				@Override
+				public void focusGained(FocusEvent arg0) {
+					textField.setText("");
+					textField.setForeground(Color.black);
+				}
+			});
+			textField.setForeground(Color.GRAY);
+			textField.setText("\uAC80\uC0C9\uC5B4\uB97C \uC785\uB825\uD558\uC138\uC694.");
+			textField.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyReleased(KeyEvent e) {
+					if(e.getKeyCode() == e.VK_ENTER) {
+						search();
+					} 
+					
+				}
+			});
 			textField.setBounds(171, 232, 581, 36);
 			textField.setColumns(10);
 		}
@@ -95,13 +125,14 @@ public class BookMain extends JFrame {
 			button.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 				
-				String find = textField.getText();
-				SearchFrame sf = new SearchFrame(find, comboBox.getSelectedIndex());
-				contentPane.add(sf);
-				sf.toFront();
+					
+					
+				search();
 				
 				
 				}
+
+			
 			});
 		}
 		return button;
