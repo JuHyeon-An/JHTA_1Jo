@@ -188,13 +188,6 @@ public class j_BookInsert extends JPanel {
 	public JTextField getTDate() {
 		if (tDate == null) {
 			tDate = new JTextField();
-			tDate.addFocusListener(new FocusAdapter() {
-				@Override
-				public void focusGained(FocusEvent arg0) {
-				tDate.setText("");
-				}
-			});
-			tDate.setText("숫자만 입력가능");
 			tDate.setEditable(false);
 			tDate.setColumns(10);
 			tDate.setBounds(132, 310, 126, 24);

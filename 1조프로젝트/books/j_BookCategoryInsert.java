@@ -82,6 +82,7 @@ public class j_BookCategoryInsert extends JPanel {
 	public JButton getBtnNewButton() {
 		if (btnNewButton == null) {
 			btnNewButton = new JButton("¿˙¿Â");
+			btnNewButton.setBackground(new Color(255, 215, 0));
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					

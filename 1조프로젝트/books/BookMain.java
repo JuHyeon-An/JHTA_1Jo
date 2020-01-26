@@ -35,9 +35,6 @@ public class BookMain extends JFrame {
 	private JLabel label_2;
 	private JPanel panel;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -124,15 +121,10 @@ public class BookMain extends JFrame {
 			button.setBounds(764, 231, 97, 36);
 			button.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-				
-					
 					
 				search();
 				
-				
 				}
-
-			
 			});
 		}
 		return button;

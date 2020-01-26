@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
@@ -26,6 +27,7 @@ public class UserLogin extends JInternalFrame {
 	//JFrame frame = new BookMain();
 	JFrame frame;
 	private JPasswordField tpwd;
+	private DialogMessage dm;
 	/**
 	 * Launch the application.
 	 */
@@ -110,24 +112,32 @@ public class UserLogin extends JInternalFrame {
 			btnNewButton = new JButton("\uB85C\uADF8\uC778");
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					String msg = "";
 					try {
 						UserDao dao = new UserDao();
 						UserVo vo = new UserVo();
 						vo.setTmId(tmId.getText());
 						vo.setTpwd(tpwd.getText());
+
+						ImageIcon icon = new ImageIcon("iconBox/books (1).png");
 						if (!tmId.getText().equals("") && !tpwd.getText().equals("")) {
 							int cnt = dao.insert(vo);
 							if (cnt > 0) {
 								UserMain frame = new UserMain(vo.getTmId());
 								frame.setVisible(true);
-							} else
-								JOptionPane.showMessageDialog(null,"아이디 또는 비밀번호가 잘못되었습니다.");							
-						}else {
-							JOptionPane.showMessageDialog(null,"아이디 또는 비밀번호에 공백이 있습니다.");
+							} else {
+								msg = "아이디 또는 비밀번호가 틀렸습니다.";
+							}
+						} else {
+							msg = "아이디 또는 비밀번호에 공백이 있습니다.";
 						}
 					} catch (Exception ex) {
 						ex.printStackTrace();
 					}
+				
+					dm = new DialogMessage(msg);
+					dm.setLocationRelativeTo(UserLogin.this);
+				
 				}
 			});
 			btnNewButton.setBounds(263, 460, 226, 50);
