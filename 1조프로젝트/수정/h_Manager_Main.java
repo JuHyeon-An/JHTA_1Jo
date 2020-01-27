@@ -38,15 +38,11 @@ public class h_Manager_Main extends JFrame {
 	private JMenuItem mntmNewMenuItem;
 	private JPanel panel_8;
 	private JMenuItem mntmNewMenuItem_1;
+	private JPanel panel_9;
+	private JPanel panel_10;
 	private JMenuItem mntmNewMenuItem_2;
 	private JMenuItem mntmNewMenuItem_3;
-	private JMenuItem mntmNewMenuItem_4;
-	private JMenuItem mntmNewMenuItem_5;
-	private JMenuItem mntmNewMenuItem_6;
-	h_Manager_Rent mb = new h_Manager_Rent();
-	private JMenuItem mntmNewMenuItem_7;
-	private JMenuItem mntmNewMenuItem_8;
-	private JMenuItem mntmNewMenuItem_9;
+	private JPanel panel_11;
 
 	/**
 	 * Launch the application.
@@ -79,6 +75,9 @@ public class h_Manager_Main extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		contentPane.add(getPanel_8());
+		contentPane.add(getPanel_9());
+		contentPane.add(getPanel_10());
+		contentPane.add(getPanel_11());
 	}
 	
 
@@ -96,9 +95,6 @@ public class h_Manager_Main extends JFrame {
 		if (mnNewMenu == null) {
 			mnNewMenu = new JMenu("\uB3C4\uC11C\uAD00\uB9AC");
 			mnNewMenu.add(getMntmNewMenuItem());
-			mnNewMenu.add(getMntmNewMenuItem_4());
-			mnNewMenu.add(getMntmNewMenuItem_5());
-			mnNewMenu.add(getMntmNewMenuItem_6());
 			mnNewMenu.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 		
@@ -111,9 +107,6 @@ public class h_Manager_Main extends JFrame {
 		if (mnNewMenu_1 == null) {
 			mnNewMenu_1 = new JMenu("\uB300\uCD9C\uBC18\uB0A9\uAD00\uB9AC");
 			mnNewMenu_1.add(getMntmNewMenuItem_1());
-			mnNewMenu_1.add(getMntmNewMenuItem_7());
-			mnNewMenu_1.add(getMntmNewMenuItem_8());
-			mnNewMenu_1.add(getMntmNewMenuItem_9());
 			mnNewMenu_1.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					//회원
@@ -147,13 +140,15 @@ public class h_Manager_Main extends JFrame {
 
 	public JMenuItem getMntmNewMenuItem() {
 		if (mntmNewMenuItem == null) {
-			mntmNewMenuItem = new JMenuItem("도서 등록");
+			mntmNewMenuItem = new JMenuItem("\uB3C4\uC11C\uAD00\uB9AC");
 			mntmNewMenuItem.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					//도서
+					panel_9.setVisible(false);
+					panel_10.setVisible(false);
+					panel_11.setVisible(false);
 
-					panel_8.removeAll();
-					panel_8.add(new j_Manager_Book(h_Manager_Main.this, 0));
+					panel_8.add(new j_Manager_Book(h_Manager_Main.this));
 					panel_8.updateUI();
 					panel_8.setVisible(true);
 				}
@@ -164,23 +159,23 @@ public class h_Manager_Main extends JFrame {
 	public JPanel getPanel_8() {
 		if (panel_8 == null) {
 			panel_8 = new JPanel();
-			panel_8.setPreferredSize(new Dimension(813, 540));
-			panel_8.setBounds(12, 10, 991, 606);
+			panel_8.setPreferredSize(new Dimension(991, 608));
+			panel_8.setBounds(12, 10, 991, 608);
 			panel_8.setLayout(new BorderLayout(0, 0));
 		}
 		return panel_8;
 	}
 	public JMenuItem getMntmNewMenuItem_1() {
 		if (mntmNewMenuItem_1 == null) {
-			mntmNewMenuItem_1 = new JMenuItem("연체도서관리");
+			mntmNewMenuItem_1 = new JMenuItem("\uB300\uCD9C\uBC18\uB0A9\uAD00\uB9AC");
 			mntmNewMenuItem_1.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					
-					
-					panel_8.removeAll();
-					panel_8.add(new h_Manager_Rent(0));
-					panel_8.updateUI();
-					panel_8.setVisible(true);
+					panel_8.setVisible(false);
+					panel_10.setVisible(false);
+				    panel_11.setVisible(false);
+					panel_9.add(new h_Manager_Rent());
+					panel_9.updateUI();
+					panel_9.setVisible(true);
 				
 				}
 			});
@@ -188,14 +183,34 @@ public class h_Manager_Main extends JFrame {
 		}
 		return mntmNewMenuItem_1;
 	}
+	public JPanel getPanel_9() {
+		if (panel_9 == null) {
+			panel_9 = new JPanel();
+			panel_9.setPreferredSize(new Dimension(991, 608));
+			panel_9.setBounds(12, 10, 991, 608);
+			panel_9.setLayout(new BorderLayout(0, 0));
+		}
+		return panel_9;
+	}
+	public JPanel getPanel_10() {
+		if (panel_10 == null) {
+			panel_10 = new JPanel();
+			panel_10.setPreferredSize(new Dimension(991, 608));
+			panel_10.setBounds(12, 10, 991, 606);
+		}
+		return panel_10;
+	}
 	public JMenuItem getMntmNewMenuItem_2() {
 		if (mntmNewMenuItem_2 == null) {
 			mntmNewMenuItem_2 = new JMenuItem("\uD68C\uC6D0\uAD00\uB9AC");
 			mntmNewMenuItem_2.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					panel_8.add(new h_Manager_Member());
-					panel_8.setVisible(true);
-
+					panel_8.setVisible(false);
+					panel_9.setVisible(false);
+					panel_11.setVisible(false);
+					panel_10.add(new h_Manager_Member());
+					panel_10.setVisible(true);
+					panel_10.setVisible(true);
 					
 				}
 			});
@@ -208,11 +223,12 @@ public class h_Manager_Main extends JFrame {
 			mntmNewMenuItem_3.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					//통계
-					panel_8.removeAll();
-					panel_8.add(new h_Manager_Statistic());
-					panel_8.setVisible(true);
-					panel_8.updateUI();
-					
+					panel_9.setVisible(false);
+					panel_10.setVisible(false);
+					panel_8.setVisible(false);
+					panel_11.add(new h_Manager_Statistic());
+					panel_11.updateUI();
+					panel_11.setVisible(true);
 					
 				}
 			});
@@ -220,99 +236,13 @@ public class h_Manager_Main extends JFrame {
 		}
 		return mntmNewMenuItem_3;
 	}
-	public JMenuItem getMntmNewMenuItem_4() {
-		if (mntmNewMenuItem_4 == null) {
-			mntmNewMenuItem_4 = new JMenuItem("\uB3C4\uC11C \uC870\uD68C \uBC0F \uD3B8\uC9D1");
-			mntmNewMenuItem_4.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-				
-					
-					panel_8.removeAll();
-					panel_8.add(new j_Manager_Book(h_Manager_Main.this, 1));
-					panel_8.updateUI();
-					panel_8.setVisible(true);
-					
-				}
-			});
+	public JPanel getPanel_11() {
+		if (panel_11 == null) {
+			panel_11 = new JPanel();
+			panel_11.setPreferredSize(new Dimension(991, 608));
+			panel_11.setBounds(12, 10, 991, 608);
+			
 		}
-		return mntmNewMenuItem_4;
-	}
-	public JMenuItem getMntmNewMenuItem_5() {
-		if (mntmNewMenuItem_5 == null) {
-			mntmNewMenuItem_5 = new JMenuItem("분류코드 조회 | 편집");
-			mntmNewMenuItem_5.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					
-					panel_8.removeAll();
-					panel_8.add(new j_Manager_Book(h_Manager_Main.this, 2));
-					panel_8.updateUI();
-					panel_8.setVisible(true);
-					
-				}
-			});
-		}
-		return mntmNewMenuItem_5;
-	}
-	public JMenuItem getMntmNewMenuItem_6() {
-		if (mntmNewMenuItem_6 == null) {
-			mntmNewMenuItem_6 = new JMenuItem("희망도서 목록 조회");
-			mntmNewMenuItem_6.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					
-					panel_8.removeAll();
-					panel_8.add(new j_Manager_Book(h_Manager_Main.this, 3));
-					panel_8.updateUI();
-					panel_8.setVisible(true);
-				}
-			});
-		}
-		return mntmNewMenuItem_6;
-	}
-	public JMenuItem getMntmNewMenuItem_7() {
-		if (mntmNewMenuItem_7 == null) {
-			mntmNewMenuItem_7 = new JMenuItem("연체회원관리");
-			mntmNewMenuItem_7.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-				
-					panel_8.removeAll();
-					panel_8.add(new h_Manager_Rent(1));
-					panel_8.updateUI();
-					panel_8.setVisible(true);
-				
-				}
-			});
-		}
-		return mntmNewMenuItem_7;
-	}
-	public JMenuItem getMntmNewMenuItem_8() {
-		if (mntmNewMenuItem_8 == null) {
-			mntmNewMenuItem_8 = new JMenuItem("대출관리");
-			mntmNewMenuItem_8.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					
-					panel_8.removeAll();
-					panel_8.add(new h_Manager_Rent(2));
-					panel_8.updateUI();
-					panel_8.setVisible(true);
-				}
-			});
-		}
-		return mntmNewMenuItem_8;
-	}
-	public JMenuItem getMntmNewMenuItem_9() {
-		if (mntmNewMenuItem_9 == null) {
-			mntmNewMenuItem_9 = new JMenuItem("반납관리");
-			mntmNewMenuItem_9.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					
-					panel_8.removeAll();
-					panel_8.add(new h_Manager_Rent(3));
-					panel_8.updateUI();
-					panel_8.setVisible(true);
-					
-				}
-			});
-		}
-		return mntmNewMenuItem_9;
+		return panel_11;
 	}
 }

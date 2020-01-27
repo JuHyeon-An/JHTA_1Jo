@@ -32,7 +32,7 @@ public class p_MemberSelect extends JPanel {
 
 
 	public p_MemberSelect() {
-		setPreferredSize(new Dimension(677, 410));
+		setPreferredSize(new Dimension(900, 600));
 		setLayout(null);
 		add(getComboBox());
 		add(getTextField());
@@ -47,7 +47,7 @@ public class p_MemberSelect extends JPanel {
 	public JComboBox getComboBox() {
 		if (comboBox == null) {
 			comboBox = new JComboBox();
-			comboBox.setBounds(12, 10, 83, 38);
+			comboBox.setBounds(97, 38, 123, 38);
 			comboBox.addItem("아이디");
 			comboBox.addItem("성명");
 			
@@ -58,7 +58,7 @@ public class p_MemberSelect extends JPanel {
 	public JTextField getTextField() {
 		if (textField == null) {
 			textField = new JTextField();
-			textField.setBounds(105, 10, 442, 38);
+			textField.setBounds(255, 39, 487, 38);
 			textField.setColumns(10);
 		}
 		return textField;
@@ -79,14 +79,14 @@ public class p_MemberSelect extends JPanel {
 					table.setModel(model);
 				}
 			});
-			btnNewButton.setBounds(553, 10, 111, 38);
+			btnNewButton.setBounds(772, 38, 111, 38);
 		}
 		return btnNewButton;
 	} 
 	public JScrollPane getScrollPane() {
 		if (scrollPane == null) {
 			scrollPane = new JScrollPane();
-			scrollPane.setBounds(12, 58, 653, 342);
+			scrollPane.setBounds(12, 92, 871, 444);
 			scrollPane.setViewportView(getTable_1());
 		}
 		return scrollPane;

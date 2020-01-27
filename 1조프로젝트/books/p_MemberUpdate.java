@@ -44,7 +44,7 @@ public class p_MemberUpdate extends JPanel {
 	 * Create the panel.
 	 */ 
 	public p_MemberUpdate() {
-		setPreferredSize(new Dimension(653, 478));
+		setPreferredSize(new Dimension(900, 567));
 		setLayout(null);
 		add(getComboBox());
 		add(getTfind());
@@ -76,7 +76,7 @@ public class p_MemberUpdate extends JPanel {
 	public JComboBox getComboBox() {
 		if (comboBox == null) {
 			comboBox = new JComboBox();
-			comboBox.setBounds(12, 10, 92, 29);
+			comboBox.setBounds(124, 28, 92, 29);
 			comboBox.addItem("¾ÆÀÌµð");
 			comboBox.addItem("¼º¸í");
 		}
@@ -86,7 +86,7 @@ public class p_MemberUpdate extends JPanel {
 	public JTextField getTfind() {
 		if (tfind == null) {
 			tfind = new JTextField();
-			tfind.setBounds(116, 10, 419, 29);
+			tfind.setBounds(228, 28, 419, 29);
 			tfind.setColumns(10);
 		}
 		return tfind;
@@ -115,7 +115,7 @@ public class p_MemberUpdate extends JPanel {
 				} 
 			});
 			btnNewButton.setFont(new Font("ÇÑÄÄ °íµñ", Font.PLAIN, 18));
-			btnNewButton.setBounds(547, 10, 80, 29);
+			btnNewButton.setBounds(659, 28, 80, 29);
 		}
 		return btnNewButton;
 	}
@@ -124,7 +124,7 @@ public class p_MemberUpdate extends JPanel {
 		if (lblNewLabel == null) {
 			lblNewLabel = new JLabel("\uC544\uC774\uB514");
 			lblNewLabel.setFont(new Font("ÇÑÄÄ °íµñ", Font.PLAIN, 16));
-			lblNewLabel.setBounds(22, 49, 92, 29);
+			lblNewLabel.setBounds(238, 72, 92, 29);
 		}
 		return lblNewLabel;
 	}
@@ -133,7 +133,7 @@ public class p_MemberUpdate extends JPanel {
 		if (tmId == null) {
 			tmId = new JTextField();
 			tmId.setEnabled(false);
-			tmId.setBounds(116, 50, 264, 29);
+			tmId.setBounds(332, 73, 264, 29);
 			tmId.setColumns(10);
 		}
 		return tmId;
@@ -143,7 +143,7 @@ public class p_MemberUpdate extends JPanel {
 		if (tmName == null) {
 			tmName = new JTextField();
 			tmName.setColumns(10);
-			tmName.setBounds(116, 135, 264, 29);
+			tmName.setBounds(332, 184, 264, 29);
 		}
 		return tmName;
 	}
@@ -152,7 +152,7 @@ public class p_MemberUpdate extends JPanel {
 		if (label == null) {
 			label = new JLabel("\uC774\uB984");
 			label.setFont(new Font("ÇÑÄÄ °íµñ", Font.PLAIN, 16));
-			label.setBounds(22, 134, 92, 29);
+			label.setBounds(238, 183, 92, 29);
 		}
 		return label;
 	}
@@ -161,7 +161,7 @@ public class p_MemberUpdate extends JPanel {
 		if (tBirth == null) {
 			tBirth = new JTextField();
 			tBirth.setColumns(10);
-			tBirth.setBounds(116, 175, 264, 29);
+			tBirth.setBounds(332, 237, 264, 29);
 		}
 		return tBirth;
 	}
@@ -170,7 +170,7 @@ public class p_MemberUpdate extends JPanel {
 		if (label_1 == null) {
 			label_1 = new JLabel("\uC0DD\uB144\uC6D4\uC77C");
 			label_1.setFont(new Font("ÇÑÄÄ °íµñ", Font.PLAIN, 16));
-			label_1.setBounds(22, 174, 92, 29);
+			label_1.setBounds(238, 236, 92, 29);
 		}
 		return label_1;
 	}
@@ -179,7 +179,7 @@ public class p_MemberUpdate extends JPanel {
 		if (trDate == null) {
 			trDate = new JTextField();
 			trDate.setColumns(10);
-			trDate.setBounds(116, 214, 264, 29);
+			trDate.setBounds(332, 290, 264, 29);
 		}
 		return trDate;
 	}
@@ -188,7 +188,7 @@ public class p_MemberUpdate extends JPanel {
 		if (label_2 == null) {
 			label_2 = new JLabel("\uB4F1\uB85D\uC77C");
 			label_2.setFont(new Font("ÇÑÄÄ °íµñ", Font.PLAIN, 16));
-			label_2.setBounds(22, 214, 92, 29);
+			label_2.setBounds(238, 290, 92, 29);
 		}
 		return label_2;
 	}
@@ -197,7 +197,7 @@ public class p_MemberUpdate extends JPanel {
 		if (tEmail == null) {
 			tEmail = new JTextField();
 			tEmail.setColumns(10);
-			tEmail.setBounds(116, 255, 264, 29);
+			tEmail.setBounds(332, 346, 264, 29);
 		}
 		return tEmail;
 	}
@@ -206,7 +206,7 @@ public class p_MemberUpdate extends JPanel {
 		if (label_3 == null) {
 			label_3 = new JLabel("\uC774\uBA54\uC77C");
 			label_3.setFont(new Font("ÇÑÄÄ °íµñ", Font.PLAIN, 16));
-			label_3.setBounds(22, 254, 92, 29);
+			label_3.setBounds(238, 345, 92, 29);
 		}
 		return label_3;
 	}
@@ -215,7 +215,7 @@ public class p_MemberUpdate extends JPanel {
 		if (tPhone == null) {
 			tPhone = new JTextField();
 			tPhone.setColumns(10);
-			tPhone.setBounds(116, 295, 264, 29);
+			tPhone.setBounds(332, 399, 264, 29);
 		}
 		return tPhone;
 	}
@@ -224,7 +224,7 @@ public class p_MemberUpdate extends JPanel {
 		if (label_4 == null) {
 			label_4 = new JLabel("\uC804\uD654\uBC88\uD638");
 			label_4.setFont(new Font("ÇÑÄÄ °íµñ", Font.PLAIN, 16));
-			label_4.setBounds(22, 294, 92, 29);
+			label_4.setBounds(238, 398, 92, 29);
 		}
 		return label_4;
 	}
@@ -233,7 +233,7 @@ public class p_MemberUpdate extends JPanel {
 		if (tState == null) {
 			tState = new JTextField();
 			tState.setColumns(10);
-			tState.setBounds(116, 335, 264, 29);
+			tState.setBounds(332, 454, 264, 29);
 		}
 		return tState;
 	}
@@ -242,7 +242,7 @@ public class p_MemberUpdate extends JPanel {
 		if (label_5 == null) {
 			label_5 = new JLabel("\uB300\uCD9C\uC5EC\uBD80");
 			label_5.setFont(new Font("ÇÑÄÄ °íµñ", Font.PLAIN, 16));
-			label_5.setBounds(22, 334, 92, 29);
+			label_5.setBounds(238, 453, 92, 29);
 		}
 		return label_5;
 	}
@@ -291,7 +291,7 @@ public class p_MemberUpdate extends JPanel {
 				  }
 				}
 			});
-			btnNewButton_1.setBounds(167, 374, 130, 43);
+			btnNewButton_1.setBounds(295, 498, 130, 43);
 		}
 		return btnNewButton_1;
 	}
@@ -328,7 +328,7 @@ public class p_MemberUpdate extends JPanel {
 
 				}
 			});
-			btnNewButton_2.setBounds(320, 374, 130, 43);
+			btnNewButton_2.setBounds(479, 498, 130, 43);
 		}
 		return btnNewButton_2;
 	}
@@ -337,7 +337,7 @@ public class p_MemberUpdate extends JPanel {
 		if (label_6 == null) {
 			label_6 = new JLabel("\uBE44\uBC00\uBC88\uD638");
 			label_6.setFont(new Font("ÇÑÄÄ °íµñ", Font.PLAIN, 16));
-			label_6.setBounds(22, 89, 92, 29);
+			label_6.setBounds(238, 128, 92, 29);
 		}
 		return label_6;
 	}
@@ -346,7 +346,7 @@ public class p_MemberUpdate extends JPanel {
 		if (tPwd == null) {
 			tPwd = new JTextField();
 			tPwd.setColumns(10);
-			tPwd.setBounds(116, 90, 264, 29);
+			tPwd.setBounds(332, 129, 264, 29);
 		}
 		return tPwd;
 	}

@@ -22,28 +22,30 @@ import java.awt.BorderLayout;
 
 public class j_Manager_Book extends JPanel {
 	private JTabbedPane tabbedPane;
-	private JPanel panel;
-	private JPanel panel_1;
-	private JPanel panel_2;
-	private JPanel panel_3; 
+	private JPanel Insertbook;
+	private JPanel modifybook;
+	private JPanel groupbook;
+	private JPanel hopebook; 
 	h_Manager_Main main;
 	j_BookManagement bookPanel;
 	private JPanel panel_4;
+	int index;
 
 	/**
 	 * Create the panel.
 	 */
 	
-	public j_Manager_Book(h_Manager_Main main) {
+	public j_Manager_Book(h_Manager_Main main, int index) {
 		this();
 		this.main = main;
+		this.index = index;
+		add(getTabbedPane());
 	}
 	
 	public j_Manager_Book() {
 		setBackground(new Color(253, 245, 230));
 		setPreferredSize(new Dimension(876, 590));
 		setLayout(new BorderLayout(0, 0));
-		add(getTabbedPane());
 		setVisible(true);
 
 	}
@@ -53,10 +55,12 @@ public class j_Manager_Book extends JPanel {
 		if (tabbedPane == null) {
 			tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 			tabbedPane.setPreferredSize(new Dimension(700, 500));
-			tabbedPane.addTab("도서등록", null, getPanel(), null);
-			tabbedPane.addTab("도서수정·삭제", null, getPanel_1(), null);
-			tabbedPane.addTab("분류코드설정", null, getPanel_2(), null);
-			tabbedPane.addTab("희망도서목록", null, getPanel_3(), null);
+			tabbedPane.addTab("도서등록", null, getInsertbook(), null);
+			tabbedPane.addTab("도서수정·삭제", null, getModifybook(), null);
+			tabbedPane.addTab("분류코드설정", null, getGroupbook(), null);
+			tabbedPane.addTab("희망도서목록", null, getHopebook(), null);
+			tabbedPane.setSelectedIndex(index);
+			
 			
 			// @주현 tabbedPane 폰트, 배경 설정
 			tabbedPane.setFont(new Font("맑은 고딕 Semilight", Font.PLAIN, 15));
@@ -65,11 +69,11 @@ public class j_Manager_Book extends JPanel {
 		}
 		return tabbedPane;
 	}
-	public JPanel getPanel() {
-		if (panel == null) {
-			panel = new JPanel();
-			panel.setBackground(new Color(253, 245, 230));
-			panel.setPreferredSize(new Dimension(680, 540));
+	public JPanel getInsertbook() {
+		if (Insertbook == null) {
+			Insertbook = new JPanel();
+			Insertbook.setBackground(new Color(253, 245, 230));
+			Insertbook.setPreferredSize(new Dimension(680, 540));
 			j_BookInsert bookInsert = new j_BookInsert();
 			bookInsert.getLblNewLabel().setOpaque(true);
 			bookInsert.getLblNewLabel().setBackground(new Color(253, 245, 230));
@@ -80,17 +84,17 @@ public class j_Manager_Book extends JPanel {
 				}
 			});
 			bookInsert.getBtnNewButton().setLocation(232, 414);
-			panel.add(bookInsert);
-			panel.updateUI();
-			panel.setVisible(true);
+			Insertbook.add(bookInsert);
+			Insertbook.updateUI();
+			Insertbook.setVisible(true);
 		}
-		return panel;
+		return Insertbook;
 	}
-	public JPanel getPanel_1() {
-		if (panel_1 == null) {
-			panel_1 = new JPanel();
+	public JPanel getModifybook() {
+		if (modifybook == null) {
+			modifybook = new JPanel();
 			j_BookManagement bookManagement = new j_BookManagement();
-			panel_1.updateUI();
+			modifybook.updateUI();
 			bookManagement.getBtnNewButton_1().addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					
@@ -103,17 +107,17 @@ public class j_Manager_Book extends JPanel {
 			bookManagement.getScrollPane().setBounds(6, 59, 817, 353);
 			bookManagement.setPreferredSize(new Dimension(830, 462));
 		
-			panel_1.add(bookManagement);
-			panel_1.updateUI();
-			panel_1.setVisible(true);
+			modifybook.add(bookManagement);
+			modifybook.updateUI();
+			modifybook.setVisible(true);
 			
 		}
-		return panel_1;
+		return modifybook;
 	}
-	public JPanel getPanel_2() {
-		if (panel_2 == null) {
-			panel_2 = new JPanel();
-			panel_2.setLayout(null);
+	public JPanel getGroupbook() {
+		if (groupbook == null) {
+			groupbook = new JPanel();
+			groupbook.setLayout(null);
 			j_BookCategoryInsert ci = new j_BookCategoryInsert();
 			ci.getBtnNewButton().setLocation(151, 234);
 			ci.getTCode().setLocation(177, 183);
@@ -121,36 +125,38 @@ public class j_Manager_Book extends JPanel {
 			ci.getLabel().setLocation(101, 186);
 			ci.getLblNewLabel_1().setLocation(101, 146);
 			ci.getLblNewLabel().setBounds(0, 31, 399, 90);
-			ci.setBounds(14, 45, 399, 348);
-			panel_2.add(ci);
-			panel_2.add(getPanel_4_1());
+			ci.setBounds(44, 45, 399, 348);
+			groupbook.add(ci);
+			groupbook.add(getPanel_4_1());
 			
-			panel_2.updateUI();
-			panel_2.setVisible(true);
+			groupbook.updateUI();
+			groupbook.setVisible(true);
 		}
-		return panel_2;
+		return groupbook;
 	}
-	public JPanel getPanel_3() {
-		if (panel_3 == null) {
-			panel_3 = new JPanel();
-			panel_3.setLayout(new BorderLayout(0, 0));
+	public JPanel getHopebook() {
+		if (hopebook == null) {
+			hopebook = new JPanel();
+			hopebook.setLayout(new BorderLayout(0, 0));
 			j_HopeBookList j_HopeBookList_ = new j_HopeBookList();
 			j_HopeBookList_.getScrollPane().setSize(750, 442);
 			j_HopeBookList_.getScrollPane().setLocation(107, 45);
-			panel_3.add(j_HopeBookList_);
-			panel_3.updateUI();
-			panel_3.setVisible(true);
+			hopebook.add(j_HopeBookList_);
+			hopebook.updateUI();
+			hopebook.setVisible(true);
 		}
-		return panel_3;
+		return hopebook;
 	}
 	public JPanel getPanel_4_1() {
 		if (panel_4 == null) {
 			panel_4 = new JPanel();
-			panel_4.setBounds(420, 12, 400, 439);
+			panel_4.setBounds(457, 12, 436, 439);
 			panel_4.setLayout(null);
 			
 			j_BookCategorySelect cs = new j_BookCategorySelect();
-			cs.setBounds(14, 33, 361, 345);
+			cs.getLblNewLabel().setLocation(33, 22);
+			cs.getScrollPane().setBounds(14, 106, 394, 227);
+			cs.setBounds(14, 33, 422, 345);
 			panel_4.add(cs);
 			panel_4.updateUI();
 			panel_4.setVisible(true);

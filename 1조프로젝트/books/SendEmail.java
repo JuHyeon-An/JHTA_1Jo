@@ -34,7 +34,13 @@ public class SendEmail {
         "<h1>JHTA 도서관 연체도서 안내</h1>",
         "<p>빨리 반납해주세요!!!빨리요!!!</p>."
     );
- 
-
+    // 비밀번호 메일 보내기
+    static final String BODY_sendPwd(String pwd) {
+    	return String.join(
+    	        System.getProperty("line.separator"),
+    	        "<h1>JHTA 도서관 비밀번호 안내</h1>",
+    	        "<p>비밀번호는 "+pwd +"입니다.</p>."
+    	    );
+    }
 
 }

@@ -1,69 +1,108 @@
+/*
+ * 2020/01/21
+ * bookPanel 생성자로 전달
+ */
+
 package books;
 
 import javax.swing.JPanel;
-import java.awt.Dimension;
 import javax.swing.JTabbedPane;
+import javax.swing.SwingConstants;
+
+import java.awt.Dimension;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.Font;
+import java.awt.Color;
+import javax.swing.JSeparator;
+import javax.swing.JSlider;
+import java.awt.Component;
+import javax.swing.Box;
+import java.awt.BorderLayout;
 
 public class h_Manager_Rent extends JPanel {
+
 	private JTabbedPane tabbedPane;
-	private JPanel panel;
-	private JPanel panel_1;
-	private JPanel panel_2;
-	private JPanel panel_3;
+	private JPanel delayBook;
+	private JPanel delayMember;
+	private JPanel rentManage;
+	private JPanel returnManage; 
+	private JPanel panel_4;
+	int index;
 
 	
-	public h_Manager_Rent() {
-		setPreferredSize(new Dimension(737, 520));
-		setLayout(null);
+	public h_Manager_Rent(int index) {
+		this();
+		this.index = index;
 		add(getTabbedPane());
-		setVisible(true);
-
 	}
-
+	
+	public h_Manager_Rent() {
+		setBackground(new Color(253, 245, 230));
+		setPreferredSize(new Dimension(876, 590));
+		setLayout(new BorderLayout(0, 0));
+		setVisible(true);
+	}
+	
 	public JTabbedPane getTabbedPane() {
 		if (tabbedPane == null) {
 			tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-			tabbedPane.setBounds(12, 10, 725, 483);
-			tabbedPane.addTab("연체도서관리", null, getPanel(), null);
-			tabbedPane.addTab("연체회원관리", null, getPanel_3(), null);
-			tabbedPane.addTab("대출관리", null, getPanel_1(), null);
-			tabbedPane.addTab("반납관리", null, getPanel_2(), null);
+			tabbedPane.setPreferredSize(new Dimension(700, 500));
+			tabbedPane.addTab("연체도서관리", null, getDelayBook(), null);
+			tabbedPane.addTab("연체회원관리", null, getDelayMember(), null);
+			tabbedPane.addTab("대출관리", null, getRentManage(), null);
+			tabbedPane.addTab("반납관리", null, getReturnManage(), null);
+			tabbedPane.setSelectedIndex(index);
+			
+			// @주현 tabbedPane 폰트, 배경 설정
+			tabbedPane.setFont(new Font("맑은 고딕 Semilight", Font.PLAIN, 15));
+			tabbedPane.setBackground(new Color(253, 245, 230));
+			tabbedPane.setOpaque(true);
 		}
 		return tabbedPane;
 	}
-	public JPanel getPanel() {
-		if (panel == null) {
-			panel = new JPanel();
-			panel.add(new h_RentOverdueB());
-			panel.updateUI();
-			panel.setVisible(true);
+	public JPanel getDelayBook() {
+		if (delayBook == null) {
+			delayBook = new JPanel();
+			delayBook.setBackground(new Color(253, 245, 230));
+			delayBook.setPreferredSize(new Dimension(680, 540));
+			delayBook.add(new h_RentOverdueB());
 		}
-		return panel;
+		return delayBook;
 	}
-	public JPanel getPanel_1() {
-		if (panel_1 == null) {
-			panel_1 = new JPanel();
-			panel_1.add(new h_RentRent());
-			panel_1.updateUI();
-			panel_1.setVisible(true);
+	public JPanel getDelayMember() {
+		if (delayMember == null) {
+			delayMember = new JPanel();
+			delayBook.setBackground(new Color(253, 245, 230));
+			delayBook.setPreferredSize(new Dimension(680, 540));
+			delayMember.add(new h_RentOverdueM());
+			delayMember.updateUI();
+			delayMember.setVisible(true);
+			
 		}
-		return panel_1;
+		return delayMember;
 	}
-	public JPanel getPanel_2() {
-		if (panel_2 == null) {
-			panel_2 = new JPanel();
-			panel_2.add(new h_RentReturn());
-			panel_2.updateUI();
-			panel_2.setVisible(true);
+	public JPanel getRentManage() {
+		if (rentManage == null) {
+			rentManage = new JPanel();
+			rentManage.add(new h_RentRent());
 		}
-		return panel_2;
+		return rentManage;
 	}
-	private JPanel getPanel_3() {
-		if (panel_3 == null) {
-			panel_3 = new JPanel();
-			panel_3.add(new h_RentOverdueM());
-			panel_3.setVisible(true);
+	public JPanel getReturnManage() {
+		if (returnManage == null) {
+			returnManage = new JPanel();
+			returnManage.add(new h_RentReturn(this));
 		}
-		return panel_3;
+		return returnManage;
+	}
+	public JPanel getPanel_4_1() {
+		if (panel_4 == null) {
+			panel_4 = new JPanel();
+			
+			panel_4.setBounds(457, 12, 436, 439);
+			panel_4.setLayout(null);
+		}
+		return panel_4;
 	}
 }

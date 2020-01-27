@@ -250,13 +250,13 @@ public class h_RentReturn extends JPanel {
 						    tFind.selectAll();
 					    
 						}
-						rent.getDelayMember().removeAll();
-						rent.getDelayMember().add(new h_RentOverdueM());
-						rent.getDelayMember().updateUI();
+						rent.getPanel_3().removeAll();
+						rent.getPanel_3().add(new h_RentOverdueM());
+						rent.getPanel_3().updateUI();
 						
-						rent.getDelayBook().removeAll();
-						rent.getDelayBook().add(new h_RentOverdueB());
-						rent.getDelayBook().updateUI();
+						rent.getPanel().removeAll();
+						rent.getPanel().add(new h_RentOverdueB());
+						rent.getPanel().updateUI();
 						
 						rent.getTabbedPane().revalidate();
 						rent.getTabbedPane().repaint();

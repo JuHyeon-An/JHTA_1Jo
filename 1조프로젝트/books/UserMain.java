@@ -103,7 +103,7 @@ public class UserMain extends JFrame {
 			panel = new JPanel();
 			panel.setPreferredSize(new Dimension(900, 850));
 			
-			panel.add(new m_UserModify(keyId, UserMain.this));
+			panel.add(new m_UserModify(keyId));
 			panel.updateUI();
 			panel.setVisible(true);
 		}

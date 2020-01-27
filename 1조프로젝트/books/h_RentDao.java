@@ -7,6 +7,7 @@ import java.sql.ResultSetMetaData;
 import java.util.Vector;
 
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 
 public class h_RentDao {
@@ -49,6 +50,7 @@ public class h_RentDao {
 			model.addColumn("핸드폰번호");
 			
 			rent.getTable().setModel(model);
+			rent.getTable().setRowSorter(new TableRowSorter(model));
 			
 			ResultSet rs = ps.executeQuery();
 			
@@ -290,6 +292,7 @@ public class h_RentDao {
 			model.addColumn("연체일수");
 			
 			returnBook.getTable().setModel(model);
+			returnBook.getTable().setRowSorter(new TableRowSorter(model));
 			
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
@@ -447,6 +450,7 @@ public class h_RentDao {
 			 model.addColumn("연체중인 책 수");
 			 
 			 overdue.getTable().setModel(model);
+			 overdue.getTable().setRowSorter(new TableRowSorter(model));
 			 
 			 ResultSet rs = ps.executeQuery();
 			 while(rs.next()) {

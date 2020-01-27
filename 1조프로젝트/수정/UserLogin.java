@@ -134,7 +134,6 @@ public class UserLogin extends JInternalFrame {
 							if (cnt > 0) {
 								UserMain frame = new UserMain(vo.getTmId());
 								frame.setVisible(true);
-								msg = vo.getTmId()+"님 환영합니다.";
 							} else {
 								msg = "아이디 또는 비밀번호가 틀렸습니다.";
 							}

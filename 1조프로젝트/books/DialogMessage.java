@@ -35,9 +35,6 @@ public class DialogMessage extends JDialog {
 		}
 	}
 
-	/**
-	 * Create the dialog.
-	 */
 	
 	public DialogMessage(String msg) {
 		this();
@@ -62,7 +59,7 @@ public class DialogMessage extends JDialog {
 		contentPanel.add(getMsg());
 		{
 			JLabel lblNewLabel = new JLabel("");
-			lblNewLabel.setIcon(new ImageIcon(DialogMessage.class.getResource("/iconBox/alert (1).png")));
+			lblNewLabel.setIcon(new ImageIcon(DialogMessage.class.getResource("/iconBox/read (1).png")));
 			lblNewLabel.setBounds(14, 0, 67, 74);
 			contentPanel.add(lblNewLabel);
 		}

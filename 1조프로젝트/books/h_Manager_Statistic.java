@@ -16,7 +16,7 @@ public class h_Manager_Statistic extends JPanel {
 
 
 	public h_Manager_Statistic() {
-		setPreferredSize(new Dimension(700, 500));
+		setPreferredSize(new Dimension(800, 550));
 		setLayout(null);
 		add(getLblNewLabel());
 		add(getPanel_1());
@@ -28,7 +28,7 @@ public class h_Manager_Statistic extends JPanel {
 		if (lblNewLabel == null) {
 			lblNewLabel = new JLabel("\uD1B5\uACC4\uC790\uB8CC");
 			lblNewLabel.setFont(new Font("±¼¸²", Font.BOLD, 16));
-			lblNewLabel.setBounds(12, 42, 103, 38);
+			lblNewLabel.setBounds(59, 45, 103, 38);
 		}
 		return lblNewLabel;
 	}
@@ -36,7 +36,7 @@ public class h_Manager_Statistic extends JPanel {
 		if (panel_1 == null) {
 			panel_1 = new JPanel();
 			panel_1.setPreferredSize(new Dimension(676, 177));
-			panel_1.setBounds(12, 90, 676, 177);
+			panel_1.setBounds(63, 98, 676, 194);
 			ChartTest1 test = new ChartTest1();
 		    JFreeChart chart = test.getChart();
 		    ChartPanel panel = new ChartPanel(chart);
@@ -50,7 +50,7 @@ public class h_Manager_Statistic extends JPanel {
 	public JPanel getPanel_2() {
 		if (panel_2 == null) {
 			panel_2 = new JPanel();
-			panel_2.setBounds(12, 277, 676, 213);
+			panel_2.setBounds(63, 307, 676, 213);
 			ChartTest2 test = new ChartTest2();
 			JFreeChart chart = test.getChart();
 			ChartPanel panel = new ChartPanel(chart);

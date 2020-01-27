@@ -1,7 +1,11 @@
 package books;
 
 import javax.swing.JPanel;
+
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+
 import javax.swing.JTabbedPane;
 
 public class h_Manager_Member extends JPanel {
@@ -11,7 +15,7 @@ public class h_Manager_Member extends JPanel {
 
 
 	public h_Manager_Member() {
-		setPreferredSize(new Dimension(767, 524));
+		setPreferredSize(new Dimension(990, 610));
 		setLayout(null);
 		add(getTabbedPane());
 		setVisible(true);
@@ -23,9 +27,11 @@ public class h_Manager_Member extends JPanel {
 	public JTabbedPane getTabbedPane() {
 		if (tabbedPane == null) {
 			tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-			tabbedPane.setBounds(12, 10, 712, 472);
+			tabbedPane.setBounds(12, 10, 961, 585);
 			tabbedPane.addTab("회원수정·삭제", null, getPanel(), null);
 			tabbedPane.addTab("회원조회", null, getPanel_1(), null);
+			tabbedPane.setFont(new Font("맑은 고딕 Semilight", Font.PLAIN, 15));
+			
 		}
 		return tabbedPane;
 	}
