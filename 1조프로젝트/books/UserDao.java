@@ -33,7 +33,7 @@ public class UserDao {
 			
 			
 		}catch(Exception ex) {
-			ex.printStackTrace();
+		//	ex.printStackTrace();
 		}finally {
 			return r;
 		}	

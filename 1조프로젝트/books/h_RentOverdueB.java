@@ -33,6 +33,8 @@ public class h_RentOverdueB extends JPanel {
 		h_RentDao dao = new h_RentDao(this);
 		dao.overdueSelect();
 		overdueBookUpdate();
+		
+		
 
 	}
 	public void overdueBookUpdate() {
@@ -52,6 +54,11 @@ public class h_RentOverdueB extends JPanel {
 	public JTable getTable() {
 		if (table == null) {
 			table = new JTable();
+			table.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
+			table.getTableHeader().setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
+			table.setBackground(Color.decode("#F7FAFC"));
+			table.getTableHeader().setBackground(Color.decode("#54B5BF"));
+			table.setRowHeight(25);
 	
 		}
 		return table;

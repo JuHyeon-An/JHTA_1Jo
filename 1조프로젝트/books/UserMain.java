@@ -2,9 +2,9 @@
 //사용자 메인 프레임
 
 package books;
-
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Font;
 
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
@@ -24,6 +24,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTabbedPane;
 import java.awt.Dimension;
+import java.awt.Color;
 
 public class UserMain extends JFrame {
 
@@ -59,6 +60,7 @@ public class UserMain extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 953, 723);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(255, 255, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -94,6 +96,13 @@ public class UserMain extends JFrame {
 			tabbedPane.addTab("도서관리", null, getPanel1(), null);
 			tabbedPane.addTab("도서검색", null, getPanel2(), null);
 			tabbedPane.addTab("희망도서신청", null, getPanel3(), null);
+			tabbedPane.setFont(new Font("맑은 고딕 Semilight", Font.PLAIN, 15));
+			tabbedPane.setBackground(new Color(255, 255, 255));
+			tabbedPane.setOpaque(true);
+			tabbedPane.setBackgroundAt(0, Color.decode("#B0E0E6"));
+			tabbedPane.setBackgroundAt(1, Color.decode("#B0E0E6"));
+			tabbedPane.setBackgroundAt(2, Color.decode("#B0E0E6"));
+			tabbedPane.setBackgroundAt(3, Color.decode("#B0E0E6"));
 		}
 		return tabbedPane;
 	}
@@ -101,7 +110,7 @@ public class UserMain extends JFrame {
 		if (panel == null) {
 			panel = new JPanel();
 			panel.setPreferredSize(new Dimension(900, 850));
-			
+			panel.setBackground(new Color(240, 248, 255));
 			panel.add(new m_UserModify(keyId));
 			panel.updateUI();
 			panel.setVisible(true);
@@ -111,6 +120,7 @@ public class UserMain extends JFrame {
 	public JPanel getPanel1() {
 		if (panel1 == null) {
 			panel1 = new JPanel();
+			panel1.setBackground(new Color(240, 248, 255));
 			panel1.add(new m_UserBookSearch(keyId));
 			panel1.updateUI();
 		}
@@ -119,6 +129,7 @@ public class UserMain extends JFrame {
 	public JPanel getPanel2() {
 		if (panel2 == null) {
 			panel2 = new JPanel();
+			panel2.setBackground(new Color(240, 248, 255));
 			panel2.add(new m_UserBookRent(keyId));
 			panel2.updateUI();
 			
@@ -128,6 +139,7 @@ public class UserMain extends JFrame {
 	public JPanel getPanel3() {
 		if (panel3 == null) {
 			panel3 = new JPanel();
+			panel3.setBackground(new Color(240, 248, 255));
 			panel3.add(new m_UserHopeBook(keyId));
 			panel3.updateUI();
 		}

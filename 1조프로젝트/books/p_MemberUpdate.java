@@ -13,14 +13,19 @@ import java.awt.Dimension;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
+import javax.swing.SwingConstants;
+import javax.swing.JSeparator;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class p_MemberUpdate extends JPanel {
-	private DialogMessage dm;
-	private String msg = "";
-	private JComboBox comboBox;
 	private JTextField tfind;
 	private JButton btnNewButton;
 	private JLabel lblNewLabel;
@@ -41,14 +46,15 @@ public class p_MemberUpdate extends JPanel {
 	private JButton btnNewButton_2;
 	private JLabel label_6;
 	private JTextField tPwd;
+	private JSeparator separator;
 
 	/**
 	 * Create the panel.
 	 */ 
 	public p_MemberUpdate() {
+		setBackground(new Color(240, 248, 255));
 		setPreferredSize(new Dimension(900, 567));
 		setLayout(null);
-		add(getComboBox());
 		add(getTfind());
 		add(getBtnNewButton()); 
 		add(getLblNewLabel());
@@ -69,26 +75,60 @@ public class p_MemberUpdate extends JPanel {
 		add(getBtnNewButton_2());
 		add(getLabel_6());
 		add(getTPwd());
+		add(getSeparator());
 
 	}
-	private ComboBoxModel ComboBoxModel() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	public JComboBox getComboBox() {
-		if (comboBox == null) {
-			comboBox = new JComboBox();
-			comboBox.setBounds(124, 28, 92, 29);
-			comboBox.addItem("¾ÆÀÌµğ");
-			comboBox.addItem("¼º¸í");
+
+	public void search() {
+		String find = tfind.getText();
+		p_MemberDao dao = new p_MemberDao();
+		p_MemberVo vo = dao.search(find);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+		tmId.setText(vo.getmId());			
+		tPwd.setText(vo.getPwd());
+		tmName.setText(vo.getmName());
+		try {
+			tBirth.setText(sdf.format(sdf.parse(vo.getBirth())));
+			trDate.setText(sdf.format(sdf.parse(vo.getrDate())));
+		} catch (ParseException e1) {
+			e1.printStackTrace();
 		}
-		return comboBox;
-	}
-
+		tEmail.setText(vo.getEmail());
+		tPhone.setText(vo.getPhone());
+		if(vo.getState().equals("1")) {
+		tState.setText("å ì™ì˜™ï¿½ë¹Šå ì²ì²å ì™ì˜™å ï¿½");
+		}else {
+		tState.setText("å ì™ì˜™ï¿½ë¹Šå ì½ê²«å ì²ì²å ì™ì˜™å ï¿½");
+		}
+	} 
+	
 	public JTextField getTfind() {
 		if (tfind == null) {
 			tfind = new JTextField();
-			tfind.setBounds(228, 28, 419, 29);
+			tfind.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyReleased(KeyEvent arg0) {
+					
+					if(arg0.getKeyCode() == arg0.VK_ENTER) {
+						search();
+					}
+					
+				}
+			});
+			tfind.addFocusListener(new FocusAdapter() {
+				@Override
+				public void focusGained(FocusEvent arg0) {
+					
+					tfind.setText("");
+					
+				}
+			});
+			tfind.setForeground(Color.GRAY);
+			tfind.setBackground(Color.WHITE);
+			tfind.setText("\uC218\uC815\uD558\uAC70\uB098 \uC0AD\uC81C\uD560 \uD68C\uC6D0\uC758 \uC544\uC774\uB514\uB97C \uC785\uB825\uD558\uC138\uC694.");
+			tfind.setFont(new Font("ë‚˜ëˆ”ë°”ë¥¸ê³ ë”• Light", Font.PLAIN, 15));
+			tfind.setBounds(274, 28, 349, 29);
 			tfind.setColumns(10);
 		}
 		return tfind;
@@ -97,26 +137,19 @@ public class p_MemberUpdate extends JPanel {
 	public JButton getBtnNewButton() {
 		if (btnNewButton == null) {
 			btnNewButton = new JButton("\uAC80\uC0C9");
+			btnNewButton.setBorder(null);
+			btnNewButton.setBackground(new Color(176, 224, 230));
+			btnNewButton.setForeground(new Color(0, 0, 0));
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					//find ¿¡¼­ ºÒ·¯¿Â °ªÀ» ÅØ½ºÆ®ÇÊµå¿¡ »Ñ·ÁÁÖ´Â ÀÛ¾÷
-					String find = tfind.getText();
-					p_MemberDao dao = new p_MemberDao();
-					p_MemberVo vo = dao.search(find);
-					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				
+				
+					search();
+				}
 
-					tmId.setText(vo.getmId());
-					tPwd.setText((vo.getPwd()) + "");
-					tmName.setText(vo.getmName());
-					tBirth.setText(sdf.format(vo.getBirth()));
-					trDate.setText(sdf.format(vo.getrDate()));
-					tEmail.setText(vo.getEmail());
-					tPhone.setText(vo.getPhone());
-					tState.setText(vo.getState());
-
-				} 
+				
 			});
-			btnNewButton.setFont(new Font("ÇÑÄÄ °íµñ", Font.PLAIN, 18));
+			btnNewButton.setFont(new Font("ë‚˜ëˆ”ë°”ë¥¸ê³ ë”• Light", Font.PLAIN, 15));
 			btnNewButton.setBounds(659, 28, 80, 29);
 		}
 		return btnNewButton;
@@ -125,8 +158,10 @@ public class p_MemberUpdate extends JPanel {
 	public JLabel getLblNewLabel() {
 		if (lblNewLabel == null) {
 			lblNewLabel = new JLabel("\uC544\uC774\uB514");
-			lblNewLabel.setFont(new Font("ÇÑÄÄ °íµñ", Font.PLAIN, 16));
-			lblNewLabel.setBounds(238, 72, 92, 29);
+			lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+			lblNewLabel.setForeground(new Color(0, 0, 0));
+			lblNewLabel.setFont(new Font("ë‚˜ëˆ”ë°”ë¥¸ê³ ë”• Light", Font.PLAIN, 15));
+			lblNewLabel.setBounds(224, 101, 92, 29);
 		}
 		return lblNewLabel;
 	}
@@ -134,8 +169,10 @@ public class p_MemberUpdate extends JPanel {
 	public JTextField getTmId() {
 		if (tmId == null) {
 			tmId = new JTextField();
+			tmId.setForeground(new Color(34, 139, 34));
+			tmId.setFont(new Font("ë‚˜ëˆ”ë°”ë¥¸ê³ ë”• Light", Font.PLAIN, 15));
 			tmId.setEnabled(false);
-			tmId.setBounds(332, 73, 264, 29);
+			tmId.setBounds(328, 101, 264, 29);
 			tmId.setColumns(10);
 		}
 		return tmId;
@@ -144,8 +181,10 @@ public class p_MemberUpdate extends JPanel {
 	public JTextField getTmName() {
 		if (tmName == null) {
 			tmName = new JTextField();
+			tmName.setForeground(new Color(34, 139, 34));
+			tmName.setFont(new Font("ë‚˜ëˆ”ë°”ë¥¸ê³ ë”• Light", Font.PLAIN, 15));
 			tmName.setColumns(10);
-			tmName.setBounds(332, 184, 264, 29);
+			tmName.setBounds(328, 183, 264, 29);
 		}
 		return tmName;
 	}
@@ -153,8 +192,10 @@ public class p_MemberUpdate extends JPanel {
 	public JLabel getLabel() {
 		if (label == null) {
 			label = new JLabel("\uC774\uB984");
-			label.setFont(new Font("ÇÑÄÄ °íµñ", Font.PLAIN, 16));
-			label.setBounds(238, 183, 92, 29);
+			label.setHorizontalAlignment(SwingConstants.RIGHT);
+			label.setForeground(new Color(0, 0, 0));
+			label.setFont(new Font("ë‚˜ëˆ”ë°”ë¥¸ê³ ë”• Light", Font.PLAIN, 15));
+			label.setBounds(224, 183, 92, 29);
 		}
 		return label;
 	}
@@ -162,8 +203,10 @@ public class p_MemberUpdate extends JPanel {
 	public JTextField getTBirth() {
 		if (tBirth == null) {
 			tBirth = new JTextField();
+			tBirth.setForeground(new Color(34, 139, 34));
+			tBirth.setFont(new Font("ë‚˜ëˆ”ë°”ë¥¸ê³ ë”• Light", Font.PLAIN, 15));
 			tBirth.setColumns(10);
-			tBirth.setBounds(332, 237, 264, 29);
+			tBirth.setBounds(328, 224, 264, 29);
 		}
 		return tBirth;
 	}
@@ -171,8 +214,10 @@ public class p_MemberUpdate extends JPanel {
 	public JLabel getLabel_1() {
 		if (label_1 == null) {
 			label_1 = new JLabel("\uC0DD\uB144\uC6D4\uC77C");
-			label_1.setFont(new Font("ÇÑÄÄ °íµñ", Font.PLAIN, 16));
-			label_1.setBounds(238, 236, 92, 29);
+			label_1.setHorizontalAlignment(SwingConstants.RIGHT);
+			label_1.setForeground(new Color(0, 0, 0));
+			label_1.setFont(new Font("ë‚˜ëˆ”ë°”ë¥¸ê³ ë”• Light", Font.PLAIN, 15));
+			label_1.setBounds(224, 224, 92, 29);
 		}
 		return label_1;
 	}
@@ -180,8 +225,10 @@ public class p_MemberUpdate extends JPanel {
 	public JTextField getTrDate() {
 		if (trDate == null) {
 			trDate = new JTextField();
+			trDate.setForeground(new Color(34, 139, 34));
+			trDate.setFont(new Font("ë‚˜ëˆ”ë°”ë¥¸ê³ ë”• Light", Font.PLAIN, 15));
 			trDate.setColumns(10);
-			trDate.setBounds(332, 290, 264, 29);
+			trDate.setBounds(328, 265, 264, 29);
 		}
 		return trDate;
 	}
@@ -189,8 +236,10 @@ public class p_MemberUpdate extends JPanel {
 	public JLabel getLabel_2() {
 		if (label_2 == null) {
 			label_2 = new JLabel("\uB4F1\uB85D\uC77C");
-			label_2.setFont(new Font("ÇÑÄÄ °íµñ", Font.PLAIN, 16));
-			label_2.setBounds(238, 290, 92, 29);
+			label_2.setHorizontalAlignment(SwingConstants.RIGHT);
+			label_2.setForeground(new Color(0, 0, 0));
+			label_2.setFont(new Font("ë‚˜ëˆ”ë°”ë¥¸ê³ ë”• Light", Font.PLAIN, 15));
+			label_2.setBounds(224, 266, 92, 29);
 		}
 		return label_2;
 	}
@@ -198,8 +247,10 @@ public class p_MemberUpdate extends JPanel {
 	public JTextField getTEmail() {
 		if (tEmail == null) {
 			tEmail = new JTextField();
+			tEmail.setForeground(new Color(34, 139, 34));
+			tEmail.setFont(new Font("ë‚˜ëˆ”ë°”ë¥¸ê³ ë”• Light", Font.PLAIN, 15));
 			tEmail.setColumns(10);
-			tEmail.setBounds(332, 346, 264, 29);
+			tEmail.setBounds(328, 306, 264, 29);
 		}
 		return tEmail;
 	}
@@ -207,8 +258,10 @@ public class p_MemberUpdate extends JPanel {
 	public JLabel getLabel_3() {
 		if (label_3 == null) {
 			label_3 = new JLabel("\uC774\uBA54\uC77C");
-			label_3.setFont(new Font("ÇÑÄÄ °íµñ", Font.PLAIN, 16));
-			label_3.setBounds(238, 345, 92, 29);
+			label_3.setHorizontalAlignment(SwingConstants.RIGHT);
+			label_3.setForeground(new Color(0, 0, 0));
+			label_3.setFont(new Font("ë‚˜ëˆ”ë°”ë¥¸ê³ ë”• Light", Font.PLAIN, 15));
+			label_3.setBounds(224, 306, 92, 29);
 		}
 		return label_3;
 	}
@@ -216,8 +269,10 @@ public class p_MemberUpdate extends JPanel {
 	public JTextField getTPhone() {
 		if (tPhone == null) {
 			tPhone = new JTextField();
+			tPhone.setForeground(new Color(34, 139, 34));
+			tPhone.setFont(new Font("ë‚˜ëˆ”ë°”ë¥¸ê³ ë”• Light", Font.PLAIN, 15));
 			tPhone.setColumns(10);
-			tPhone.setBounds(332, 399, 264, 29);
+			tPhone.setBounds(328, 347, 264, 29);
 		}
 		return tPhone;
 	}
@@ -225,8 +280,10 @@ public class p_MemberUpdate extends JPanel {
 	public JLabel getLabel_4() {
 		if (label_4 == null) {
 			label_4 = new JLabel("\uC804\uD654\uBC88\uD638");
-			label_4.setFont(new Font("ÇÑÄÄ °íµñ", Font.PLAIN, 16));
-			label_4.setBounds(238, 398, 92, 29);
+			label_4.setHorizontalAlignment(SwingConstants.RIGHT);
+			label_4.setForeground(new Color(0, 0, 0));
+			label_4.setFont(new Font("ë‚˜ëˆ”ë°”ë¥¸ê³ ë”• Light", Font.PLAIN, 15));
+			label_4.setBounds(224, 347, 92, 29);
 		}
 		return label_4;
 	}
@@ -234,8 +291,10 @@ public class p_MemberUpdate extends JPanel {
 	public JTextField getTState() {
 		if (tState == null) {
 			tState = new JTextField();
+			tState.setForeground(new Color(34, 139, 34));
+			tState.setFont(new Font("ë‚˜ëˆ”ë°”ë¥¸ê³ ë”• Light", Font.PLAIN, 15));
 			tState.setColumns(10);
-			tState.setBounds(332, 454, 264, 29);
+			tState.setBounds(328, 388, 264, 29);
 		}
 		return tState;
 	}
@@ -243,8 +302,10 @@ public class p_MemberUpdate extends JPanel {
 	public JLabel getLabel_5() {
 		if (label_5 == null) {
 			label_5 = new JLabel("\uB300\uCD9C\uC5EC\uBD80");
-			label_5.setFont(new Font("ÇÑÄÄ °íµñ", Font.PLAIN, 16));
-			label_5.setBounds(238, 453, 92, 29);
+			label_5.setHorizontalAlignment(SwingConstants.RIGHT);
+			label_5.setForeground(new Color(0, 0, 0));
+			label_5.setFont(new Font("ë‚˜ëˆ”ë°”ë¥¸ê³ ë”• Light", Font.PLAIN, 15));
+			label_5.setBounds(224, 388, 92, 29);
 		}
 		return label_5;
 	}
@@ -252,9 +313,13 @@ public class p_MemberUpdate extends JPanel {
 	public JButton getBtnNewButton_1() {
 		if (btnNewButton_1 == null) {
 			btnNewButton_1 = new JButton("\uC218\uC815");
+			btnNewButton_1.setBorder(null);
+			btnNewButton_1.setBackground(new Color(176, 224, 230));
+			btnNewButton_1.setForeground(new Color(0, 0, 0));
+			btnNewButton_1.setFont(new Font("ë‚˜ëˆ”ë°”ë¥¸ê³ ë”• Light", Font.PLAIN, 15));
 			btnNewButton_1.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					//°Ë»öÇØ¼­ ºÒ·¯¿Â °ªÀ» ¼öÁ¤ÇÏ´Â°÷
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 					String p = tPwd.getText();
 					String m = tmName.getText();
 					String b = tBirth.getText();
@@ -264,45 +329,41 @@ public class p_MemberUpdate extends JPanel {
 					String st = tState.getText();
 					p_MemberDao dao = new p_MemberDao();
 					p_MemberVo vo = new p_MemberVo();
-					
-					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+					System.out.println("å ì™ì˜™å ì™ì˜™1");
 					if(!p.equals("")&&!m.equals("")&&!b.equals("")&&!d.equals("")&&!em.equals("")&&!ph.equals("")&&!st.equals("")) {
 						
 					try {
 						Date date; 
-						vo.setPwd(Integer.parseInt(tPwd.getText()));
+						vo.setPwd(tPwd.getText());
 						vo.setmName(tmName.getText());
-						vo.setBirth(sdf.parse(tBirth.getText()));
-						vo.setrDate(sdf.parse(trDate.getText()));
+						vo.setBirth(tBirth.getText());
+						vo.setrDate(trDate.getText());
 						vo.setEmail(tEmail.getText());
 						vo.setPhone(tPhone.getText());
-						vo.setState(tState.getText());
+						if(tState.getText().equals("å ì™ì˜™ï¿½ë¹Šå ì²ì²å ì™ì˜™å ï¿½")) {
+							vo.setState("1");							
+						}else {
+							vo.setState("0");
+						}
 						vo.setmId(tmId.getText());
+						
 						int r = dao.update(vo);
+						
 						if (r > 0) {
-							msg = "Á¤º¸¼öÁ¤ÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù";
-							dm = new DialogMessage(msg);
-							dm.setLocationRelativeTo(p_MemberUpdate.this);
-							//JOptionPane.showMessageDialog(null, "Á¤º¸¼öÁ¤ÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù");
+							JOptionPane.showMessageDialog(null, "å ì™ì˜™ç™°ê·£ë˜»å ì™ì˜™å ì™ì˜™å ì™ì˜™ å ì™ì˜™ï¿½ë™´å ì™ì˜™å ì™ì˜™å ì™ì˜™ï¿½ë²‰å ì™ì˜™å ì™ì˜™");
 						} else {
-							msg = "Á¤º¸¼öÁ¤Áß ¿À·ù¹ß»ı";
-							dm = new DialogMessage(msg);
-							dm.setLocationRelativeTo(p_MemberUpdate.this);
-							//JOptionPane.showMessageDialog(null, "Á¤º¸¼öÁ¤Áß ¿À·ù¹ß»ı");
+							JOptionPane.showMessageDialog(null, "å ì™ì˜™ç™°ê·£ë˜»å ì™ì˜™å ì™ì˜™é¤“Î¿ì˜™ å ì¬ë‡å ì¼ì³¸å ì™ì˜™å ï¿½");
 						}
 
 					} catch (Exception ex) {
 						ex.printStackTrace();
 					}
 				  }else {
-					msg = "ºó°ø¹éÀÌ ÀÖ½À´Ï´Ù ¸ğµçÇ×¸ñÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä!";
-					dm = new DialogMessage(msg);
-					dm.setLocationRelativeTo(p_MemberUpdate.this);
-					  //JOptionPane.showMessageDialog(null, "ºó°ø¹éÀÌ ÀÖ½À´Ï´Ù ¸ğµçÇ×¸ñÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä!");
+					  JOptionPane.showMessageDialog(null, "ï¿½ëœ®å ì¸ï¿½â‘¤ë²‰åª›ì‹·ì˜™å ï¿½ å ì™ì˜™å ìˆë²‰å ì™ì˜™å ì™ì˜™ ç­Œë¤´ë«€å ì™ì˜™å ì™ì˜™ç­Œë¤´ë«—å ì™ì˜™ å ì™ì˜™å ì‹¸ì™ì˜™ï¿½ë˜»ç«Šì’™ì˜™ï§ê¾¬ì˜™å ï¿½!");
 				  }
 				}
 			});
-			btnNewButton_1.setBounds(295, 498, 130, 43);
+			btnNewButton_1.setBounds(328, 452, 121, 42);
 		}
 		return btnNewButton_1;
 	}
@@ -310,23 +371,24 @@ public class p_MemberUpdate extends JPanel {
 	public JButton getBtnNewButton_2() {
 		if (btnNewButton_2 == null) {
 			btnNewButton_2 = new JButton("\uD0C8\uD1F4");
+			btnNewButton_2.setBorder(null);
+			btnNewButton_2.setBackground(new Color(176, 224, 230));
+			btnNewButton_2.setForeground(new Color(0, 0, 0));
+			btnNewButton_2.setFont(new Font("ë‚˜ëˆ”ë°”ë¥¸ê³ ë”• Light", Font.PLAIN, 15));
 			btnNewButton_2.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					//»èÁ¦ÇÏ´Â°÷
+
 					p_MemberDao dao = new p_MemberDao();
 					String mId = tmId.getText();   
                     try { 
 					int r = dao.delete(mId);
 					if (r > 0) { 
-						msg = "Å»Åğ¿Ï·á";
-						//JOptionPane.showMessageDialog(null, "Å»Åğ¿Ï·á");
+						JOptionPane.showMessageDialog(null, "å ì™ì˜™å ìˆë˜»å ì™ì˜™ï¿½ë™´å ï¿½");
 					} else {
-						msg = "Å»Åğ ¿À·ù¹ß»ı";
-						//JOptionPane.showMessageDialog(null, "Å»Åğ ¿À·ù¹ß»ı");
+						JOptionPane.showMessageDialog(null, "å ì™ì˜™å ì™ì˜™ å ì¬ë‡å ì¼ì³¸å ì™ì˜™å ï¿½");
+					
 					}
-					dm = new DialogMessage(msg);
-					dm.setLocationRelativeTo(p_MemberUpdate.this);
-					//»èÁ¦ÇÏ°í³ª¼­ ±ú²ıÇÏ°Ô ºñ¿öÁÖ´Â°÷
+	
 					tmId.setText("");
 					tPwd.setText("");
 					tmName.setText("");
@@ -342,7 +404,7 @@ public class p_MemberUpdate extends JPanel {
 
 				}
 			});
-			btnNewButton_2.setBounds(479, 498, 130, 43);
+			btnNewButton_2.setBounds(471, 452, 121, 42);
 		}
 		return btnNewButton_2;
 	}
@@ -350,8 +412,10 @@ public class p_MemberUpdate extends JPanel {
 	public JLabel getLabel_6() {
 		if (label_6 == null) {
 			label_6 = new JLabel("\uBE44\uBC00\uBC88\uD638");
-			label_6.setFont(new Font("ÇÑÄÄ °íµñ", Font.PLAIN, 16));
-			label_6.setBounds(238, 128, 92, 29);
+			label_6.setHorizontalAlignment(SwingConstants.RIGHT);
+			label_6.setForeground(new Color(0, 0, 0));
+			label_6.setFont(new Font("ë‚˜ëˆ”ë°”ë¥¸ê³ ë”• Light", Font.PLAIN, 15));
+			label_6.setBounds(224, 142, 92, 29);
 		}
 		return label_6;
 	}
@@ -359,9 +423,18 @@ public class p_MemberUpdate extends JPanel {
 	public JTextField getTPwd() {
 		if (tPwd == null) {
 			tPwd = new JTextField();
+			tPwd.setForeground(new Color(34, 139, 34));
+			tPwd.setFont(new Font("ë‚˜ëˆ”ë°”ë¥¸ê³ ë”• Light", Font.PLAIN, 15));
 			tPwd.setColumns(10);
-			tPwd.setBounds(332, 129, 264, 29);
+			tPwd.setBounds(328, 142, 264, 29);
 		}
 		return tPwd;
+	}
+	public JSeparator getSeparator() {
+		if (separator == null) {
+			separator = new JSeparator();
+			separator.setBounds(141, 74, 633, 2);
+		}
+		return separator;
 	}
 }

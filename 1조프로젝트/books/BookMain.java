@@ -8,19 +8,26 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Graphics;
+
 import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
 import javax.swing.JDesktopPane;
 import javax.swing.JTextField;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Dimension;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.net.MalformedURLException;
 import java.awt.Color;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import javax.swing.BoxLayout;
+import java.awt.GridLayout;
+import javax.swing.JFormattedTextField;
 
 public class BookMain extends JFrame {
 
@@ -34,6 +41,10 @@ public class BookMain extends JFrame {
 	private JLabel label_1;
 	private JLabel label_2;
 	private JPanel panel;
+	private JPanel panel_1;
+	private JPanel panel_2;
+	private JLabel lblNewLabel;
+	private JFormattedTextField formattedTextField;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -51,7 +62,7 @@ public class BookMain extends JFrame {
 	public BookMain() {
 		setPreferredSize(new Dimension(900, 800));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 950, 900);
+		setBounds(100, 100, 950, 919);
 		contentPane = new JDesktopPane();
 		contentPane.setPreferredSize(new Dimension(950, 800));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -183,9 +194,14 @@ public class BookMain extends JFrame {
 	}
 	public JPanel getPanel() {
 		if (panel == null) {
-			panel = new JPanel();
+			try {
+				panel = new AddPanelImage("img/aa2.gif");
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			panel.setPreferredSize(new Dimension(950, 800));
-			panel.setBounds(0, 0, 934, 852);
+			panel.setBounds(0, 0, 934, 927);
 			panel.setLayout(null);
 			panel.add(getLabel());
 			panel.add(getComboBox());
@@ -195,7 +211,32 @@ public class BookMain extends JFrame {
 			panel.add(getButton_2());
 			panel.add(getLabel_1());
 			panel.add(getLabel_2());
+			panel.add(getPanel_2());
 		}
 		return panel;
+	}
+	public JPanel getPanel_2() {
+		if (panel_2 == null) {
+			panel_2 = new JPanel();
+			panel_2.setBounds(28, 494, 457, 361);
+			panel_2.setLayout(null);
+			panel_2.add(getLblNewLabel());
+			panel_2.add(getFormattedTextField());
+		}
+		return panel_2;
+	}
+	public JLabel getLblNewLabel() {
+		if (lblNewLabel == null) {
+			lblNewLabel = new JLabel("New label");
+			lblNewLabel.setBounds(14, 12, 429, 26);
+		}
+		return lblNewLabel;
+	}
+	public JFormattedTextField getFormattedTextField() {
+		if (formattedTextField == null) {
+			formattedTextField = new JFormattedTextField();
+			formattedTextField.setBounds(14, 50, 429, 42);
+		}
+		return formattedTextField;
 	}
 }

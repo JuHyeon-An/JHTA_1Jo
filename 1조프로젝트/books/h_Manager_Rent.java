@@ -40,7 +40,7 @@ public class h_Manager_Rent extends JPanel {
 	}
 	
 	public h_Manager_Rent() {
-		setBackground(new Color(253, 245, 230));
+		setBackground(new Color(240, 248, 255));
 		setPreferredSize(new Dimension(876, 590));
 		setLayout(new BorderLayout(0, 0));
 		setVisible(true);
@@ -60,15 +60,19 @@ public class h_Manager_Rent extends JPanel {
 			
 			// @주현 tabbedPane 폰트, 배경 설정
 			tabbedPane.setFont(new Font("맑은 고딕 Semilight", Font.PLAIN, 15));
-			tabbedPane.setBackground(new Color(253, 245, 230));
+			tabbedPane.setBackground(new Color(255, 255, 255));
 			tabbedPane.setOpaque(true);
+			tabbedPane.setBackgroundAt(0, Color.decode("#B0E0E6"));
+			tabbedPane.setBackgroundAt(1, Color.decode("#B0E0E6"));
+			tabbedPane.setBackgroundAt(2, Color.decode("#B0E0E6"));
+			tabbedPane.setBackgroundAt(3, Color.decode("#B0E0E6"));
 		}
 		return tabbedPane;
 	}
 	public JPanel getDelayBook() {
 		if (delayBook == null) {
 			delayBook = new JPanel();
-			delayBook.setBackground(new Color(253, 245, 230));
+			delayBook.setBackground(new Color(240, 248, 255));
 			delayBook.setPreferredSize(new Dimension(680, 540));
 			delayBook.add(new h_RentOverdueB());
 		}
@@ -77,8 +81,8 @@ public class h_Manager_Rent extends JPanel {
 	public JPanel getDelayMember() {
 		if (delayMember == null) {
 			delayMember = new JPanel();
-			delayBook.setBackground(new Color(253, 245, 230));
-			delayBook.setPreferredSize(new Dimension(680, 540));
+			delayMember.setBackground(new Color(240, 248, 255));
+			delayMember.setPreferredSize(new Dimension(680, 540));
 			delayMember.add(new h_RentOverdueM());
 			delayMember.updateUI();
 			delayMember.setVisible(true);
@@ -90,6 +94,7 @@ public class h_Manager_Rent extends JPanel {
 		if (rentManage == null) {
 			rentManage = new JPanel();
 			rentManage.add(new h_RentRent());
+			rentManage.setBackground(new Color(240,248,255));
 		}
 		return rentManage;
 	}
@@ -97,6 +102,7 @@ public class h_Manager_Rent extends JPanel {
 		if (returnManage == null) {
 			returnManage = new JPanel();
 			returnManage.add(new h_RentReturn(this));
+			returnManage.setBackground(new Color(240,248,255));
 		}
 		return returnManage;
 	}

@@ -36,9 +36,9 @@ public class j_BookCategoryInsert extends JPanel {
 	 * Create the panel.
 	 */
 	public j_BookCategoryInsert() {
-		setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
-		setBackground(new Color(250, 240, 230));
-		setPreferredSize(new Dimension(800, 340));
+		setBorder(new LineBorder(new Color(176, 196, 222), 1, true));
+		setBackground(Color.decode("#e6f5ff"));
+		setPreferredSize(new Dimension(921, 340));
 		setLayout(null);
 		add(getLblNewLabel());
 		add(getLblNewLabel_1());
@@ -62,29 +62,32 @@ public class j_BookCategoryInsert extends JPanel {
 		if (lblNewLabel == null) {
 			lblNewLabel = new JLabel("\uBD84\uB958\uCF54\uB4DC \uB4F1\uB85D");
 			lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-			lblNewLabel.setFont(new Font("±¼¸²", Font.PLAIN, 30));
-			lblNewLabel.setBounds(0, 31, 348, 90);
+			lblNewLabel.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 34));
+			lblNewLabel.setBounds(59, 31, 348, 90);
 		}
 		return lblNewLabel;
 	}
 	public JLabel getLblNewLabel_1() {
 		if (lblNewLabel_1 == null) {
 			lblNewLabel_1 = new JLabel("\uC7A5\uB974");
-			lblNewLabel_1.setBounds(76, 135, 62, 18);
+			lblNewLabel_1.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
+			lblNewLabel_1.setBounds(135, 135, 62, 18);
 		}
 		return lblNewLabel_1;
 	}
 	public JLabel getLabel() {
 		if (label == null) {
 			label = new JLabel("\uCF54\uB4DC");
-			label.setBounds(76, 175, 62, 18);
+			label.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
+			label.setBounds(135, 175, 62, 18);
 		}
 		return label;
 	}
 	public JTextField getTName() {
 		if (tName == null) {
 			tName = new JTextField();
-			tName.setBounds(152, 132, 116, 24);
+			tName.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
+			tName.setBounds(211, 132, 116, 28);
 			tName.setColumns(10);
 		}
 		return tName;
@@ -92,15 +95,17 @@ public class j_BookCategoryInsert extends JPanel {
 	public JTextField getTCode() {
 		if (tCode == null) {
 			tCode = new JTextField();
+			tCode.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
 			tCode.setColumns(10);
-			tCode.setBounds(152, 172, 116, 24);
+			tCode.setBounds(211, 172, 116, 28);
 		}
 		return tCode;
 	}
 	public JButton getBtnNewButton() {
 		if (btnNewButton == null) {
 			btnNewButton = new JButton("ÀúÀå");
-			btnNewButton.setBackground(new Color(255, 215, 0));
+			btnNewButton.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
+			btnNewButton.setBackground(new Color(176, 224, 230));
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					
@@ -131,7 +136,7 @@ public class j_BookCategoryInsert extends JPanel {
 				
 				
 			});
-			btnNewButton.setBounds(126, 223, 105, 27);
+			btnNewButton.setBounds(185, 223, 105, 27);
 		}
 		return btnNewButton;
 	}
@@ -139,23 +144,23 @@ public class j_BookCategoryInsert extends JPanel {
 		if (separator == null) {
 			separator = new JSeparator();
 			separator.setOrientation(SwingConstants.VERTICAL);
-			separator.setBounds(362, 31, 2, 271);
+			separator.setBounds(459, 31, 2, 271);
 		}
 		return separator;
 	}
 	public JLabel getLabel_1() {
 		if (label_1 == null) {
 			label_1 = new JLabel("\uBD84\uB958\uCF54\uB4DC  \uB9AC\uC2A4\uD2B8");
-			label_1.setBounds(0, 0, 375, 56);
+			label_1.setBounds(0, 12, 375, 56);
 			label_1.setHorizontalAlignment(SwingConstants.CENTER);
-			label_1.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 23));
+			label_1.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 34));
 		}
 		return label_1;
 	}
 	public JScrollPane getScrollPane() {
 		if (scrollPane == null) {
 			scrollPane = new JScrollPane();
-			scrollPane.setBounds(14, 106, 330, 140);
+			scrollPane.setBounds(31, 107, 330, 140);
 			scrollPane.setViewportView(getTable());
 		}
 		return scrollPane;
@@ -169,7 +174,8 @@ public class j_BookCategoryInsert extends JPanel {
 	public JPanel getPanel() {
 		if (panel == null) {
 			panel = new JPanel();
-			panel.setBounds(396, 44, 375, 271);
+			panel.setBackground(Color.decode("#e6f5ff"));
+			panel.setBounds(532, 31, 375, 271);
 			panel.setLayout(null);
 			panel.add(getLabel_1());
 			panel.add(getScrollPane());

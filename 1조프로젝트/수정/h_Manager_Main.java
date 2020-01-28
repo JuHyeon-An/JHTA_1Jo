@@ -1,4 +1,4 @@
-package books;
+package ¼öÁ¤;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -16,6 +16,11 @@ import java.awt.Dimension;
 import javax.swing.JButton;
 
 import javax.swing.JDesktopPane;
+import java.awt.Font;
+import java.awt.Color;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
 
 public class h_Manager_Main extends JFrame {
 
@@ -38,11 +43,16 @@ public class h_Manager_Main extends JFrame {
 	private JMenuItem mntmNewMenuItem;
 	private JPanel panel_8;
 	private JMenuItem mntmNewMenuItem_1;
-	private JPanel panel_9;
-	private JPanel panel_10;
 	private JMenuItem mntmNewMenuItem_2;
 	private JMenuItem mntmNewMenuItem_3;
-	private JPanel panel_11;
+	private JMenuItem mntmNewMenuItem_4;
+	private JMenuItem mntmNewMenuItem_5;
+	private JMenuItem mntmNewMenuItem_6;
+	h_Manager_Rent mb = new h_Manager_Rent();
+	private JMenuItem mntmNewMenuItem_7;
+	private JMenuItem mntmNewMenuItem_8;
+	private JMenuItem mntmNewMenuItem_9;
+	private JMenuItem mntmNewMenuItem_10;
 
 	/**
 	 * Launch the application.
@@ -64,6 +74,9 @@ public class h_Manager_Main extends JFrame {
 	 * Create the frame.
 	 */
 	public h_Manager_Main() {
+		setForeground(new Color(135, 206, 250));
+		setBackground(new Color(173, 216, 230));
+		setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 17));
 		setPreferredSize(new Dimension(850, 550));
 		setTitle("\uAD00\uB9AC\uC790\uBA54\uC778");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -75,15 +88,13 @@ public class h_Manager_Main extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		contentPane.add(getPanel_8());
-		contentPane.add(getPanel_9());
-		contentPane.add(getPanel_10());
-		contentPane.add(getPanel_11());
 	}
 	
 
 	public JMenuBar getMenuBar_1() {
 		if (menuBar == null) {
 			menuBar = new JMenuBar();
+			menuBar.setBackground(new Color(173, 216, 230));
 			menuBar.add(getMnNewMenu());
 			menuBar.add(getMnNewMenu_1());
 			menuBar.add(getMnNewMenu_2());
@@ -94,7 +105,11 @@ public class h_Manager_Main extends JFrame {
 	public JMenu getMnNewMenu() {
 		if (mnNewMenu == null) {
 			mnNewMenu = new JMenu("\uB3C4\uC11C\uAD00\uB9AC");
+			mnNewMenu.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 15));
 			mnNewMenu.add(getMntmNewMenuItem());
+			mnNewMenu.add(getMntmNewMenuItem_4());
+			mnNewMenu.add(getMntmNewMenuItem_5());
+			mnNewMenu.add(getMntmNewMenuItem_6());
 			mnNewMenu.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 		
@@ -106,7 +121,11 @@ public class h_Manager_Main extends JFrame {
 	public JMenu getMnNewMenu_1() {
 		if (mnNewMenu_1 == null) {
 			mnNewMenu_1 = new JMenu("\uB300\uCD9C\uBC18\uB0A9\uAD00\uB9AC");
+			mnNewMenu_1.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 15));
 			mnNewMenu_1.add(getMntmNewMenuItem_1());
+			mnNewMenu_1.add(getMntmNewMenuItem_7());
+			mnNewMenu_1.add(getMntmNewMenuItem_8());
+			mnNewMenu_1.add(getMntmNewMenuItem_9());
 			mnNewMenu_1.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					//È¸¿ø
@@ -120,7 +139,9 @@ public class h_Manager_Main extends JFrame {
 	public JMenu getMnNewMenu_2() {
 		if (mnNewMenu_2 == null) {
 			mnNewMenu_2 = new JMenu("\uD68C\uC6D0\uAD00\uB9AC");
+			mnNewMenu_2.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 15));
 			mnNewMenu_2.add(getMntmNewMenuItem_2());
+			mnNewMenu_2.add(getMntmNewMenuItem_10());
 			mnNewMenu_2.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 				
@@ -132,6 +153,7 @@ public class h_Manager_Main extends JFrame {
 	public JMenu getMnNewMenu_3() {
 		if (mnNewMenu_3 == null) {
 			mnNewMenu_3 = new JMenu("\uD1B5\uACC4");
+			mnNewMenu_3.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 15));
 			mnNewMenu_3.add(getMntmNewMenuItem_3());
 		}
 		return mnNewMenu_3;
@@ -140,15 +162,16 @@ public class h_Manager_Main extends JFrame {
 
 	public JMenuItem getMntmNewMenuItem() {
 		if (mntmNewMenuItem == null) {
-			mntmNewMenuItem = new JMenuItem("\uB3C4\uC11C\uAD00\uB9AC");
+			mntmNewMenuItem = new JMenuItem("µµ¼­ µî·Ï");
+			mntmNewMenuItem.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
 			mntmNewMenuItem.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					//µµ¼­
-					panel_9.setVisible(false);
-					panel_10.setVisible(false);
-					panel_11.setVisible(false);
-
-					panel_8.add(new j_Manager_Book(h_Manager_Main.this));
+					contentPane.removeAll();
+					contentPane.add(panel_8);
+					contentPane.updateUI();
+					panel_8.removeAll();
+					panel_8.add(new j_Manager_Book(h_Manager_Main.this, 0));
 					panel_8.updateUI();
 					panel_8.setVisible(true);
 				}
@@ -159,23 +182,27 @@ public class h_Manager_Main extends JFrame {
 	public JPanel getPanel_8() {
 		if (panel_8 == null) {
 			panel_8 = new JPanel();
-			panel_8.setPreferredSize(new Dimension(991, 608));
-			panel_8.setBounds(12, 10, 991, 608);
-			panel_8.setLayout(new BorderLayout(0, 0));
+			contentPane.setLayer(panel_8, -1);
+			panel_8.setBackground(new Color(245, 255, 250));
+			panel_8.setForeground(new Color(240, 248, 255));
+			panel_8.setPreferredSize(new Dimension(813, 540));
+			panel_8.setBounds(0, 0, 1028, 649);
+			panel_8.setLayout(null);
 		}
 		return panel_8;
 	}
 	public JMenuItem getMntmNewMenuItem_1() {
 		if (mntmNewMenuItem_1 == null) {
-			mntmNewMenuItem_1 = new JMenuItem("\uB300\uCD9C\uBC18\uB0A9\uAD00\uB9AC");
+			mntmNewMenuItem_1 = new JMenuItem("¿¬Ã¼µµ¼­°ü¸®");
+			mntmNewMenuItem_1.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
 			mntmNewMenuItem_1.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					panel_8.setVisible(false);
-					panel_10.setVisible(false);
-				    panel_11.setVisible(false);
-					panel_9.add(new h_Manager_Rent());
-					panel_9.updateUI();
-					panel_9.setVisible(true);
+					
+					
+					panel_8.removeAll();
+					panel_8.add(new h_Manager_Rent(0));
+					panel_8.updateUI();
+					panel_8.setVisible(true);
 				
 				}
 			});
@@ -183,34 +210,17 @@ public class h_Manager_Main extends JFrame {
 		}
 		return mntmNewMenuItem_1;
 	}
-	public JPanel getPanel_9() {
-		if (panel_9 == null) {
-			panel_9 = new JPanel();
-			panel_9.setPreferredSize(new Dimension(991, 608));
-			panel_9.setBounds(12, 10, 991, 608);
-			panel_9.setLayout(new BorderLayout(0, 0));
-		}
-		return panel_9;
-	}
-	public JPanel getPanel_10() {
-		if (panel_10 == null) {
-			panel_10 = new JPanel();
-			panel_10.setPreferredSize(new Dimension(991, 608));
-			panel_10.setBounds(12, 10, 991, 606);
-		}
-		return panel_10;
-	}
 	public JMenuItem getMntmNewMenuItem_2() {
 		if (mntmNewMenuItem_2 == null) {
-			mntmNewMenuItem_2 = new JMenuItem("\uD68C\uC6D0\uAD00\uB9AC");
+			mntmNewMenuItem_2 = new JMenuItem("\uD68C\uC6D0\uC218\uC815\uC0AD\uC81C");
+			mntmNewMenuItem_2.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
 			mntmNewMenuItem_2.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					panel_8.setVisible(false);
-					panel_9.setVisible(false);
-					panel_11.setVisible(false);
-					panel_10.add(new h_Manager_Member());
-					panel_10.setVisible(true);
-					panel_10.setVisible(true);
+					panel_8.removeAll();
+					panel_8.add(new h_Manager_Member(0));
+					panel_8.updateUI();
+					panel_8.setVisible(true);
+
 					
 				}
 			});
@@ -220,15 +230,15 @@ public class h_Manager_Main extends JFrame {
 	public JMenuItem getMntmNewMenuItem_3() {
 		if (mntmNewMenuItem_3 == null) {
 			mntmNewMenuItem_3 = new JMenuItem("\uD1B5\uACC4");
+			mntmNewMenuItem_3.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
 			mntmNewMenuItem_3.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					//Åë°è
-					panel_9.setVisible(false);
-					panel_10.setVisible(false);
-					panel_8.setVisible(false);
-					panel_11.add(new h_Manager_Statistic());
-					panel_11.updateUI();
-					panel_11.setVisible(true);
+					panel_8.removeAll();
+					panel_8.add(new h_Manager_Statistic());
+					panel_8.setVisible(true);
+					panel_8.updateUI();
+					
 					
 				}
 			});
@@ -236,13 +246,121 @@ public class h_Manager_Main extends JFrame {
 		}
 		return mntmNewMenuItem_3;
 	}
-	public JPanel getPanel_11() {
-		if (panel_11 == null) {
-			panel_11 = new JPanel();
-			panel_11.setPreferredSize(new Dimension(991, 608));
-			panel_11.setBounds(12, 10, 991, 608);
-			
+	public JMenuItem getMntmNewMenuItem_4() {
+		if (mntmNewMenuItem_4 == null) {
+			mntmNewMenuItem_4 = new JMenuItem("\uB3C4\uC11C \uC870\uD68C \uBC0F \uD3B8\uC9D1");
+			mntmNewMenuItem_4.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
+			mntmNewMenuItem_4.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+				
+					
+					panel_8.removeAll();
+					panel_8.add(new j_Manager_Book(h_Manager_Main.this, 1));
+					panel_8.updateUI();
+					panel_8.setVisible(true);
+					
+				}
+			});
 		}
-		return panel_11;
+		return mntmNewMenuItem_4;
+	}
+	public JMenuItem getMntmNewMenuItem_5() {
+		if (mntmNewMenuItem_5 == null) {
+			mntmNewMenuItem_5 = new JMenuItem("ºÐ·ùÄÚµå Á¶È¸ | ÆíÁý");
+			mntmNewMenuItem_5.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
+			mntmNewMenuItem_5.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					
+					panel_8.removeAll();
+					panel_8.add(new j_Manager_Book(h_Manager_Main.this, 2));
+					panel_8.updateUI();
+					panel_8.setVisible(true);
+					
+				}
+			});
+		}
+		return mntmNewMenuItem_5;
+	}
+	public JMenuItem getMntmNewMenuItem_6() {
+		if (mntmNewMenuItem_6 == null) {
+			mntmNewMenuItem_6 = new JMenuItem("Èñ¸Áµµ¼­ ¸ñ·Ï Á¶È¸");
+			mntmNewMenuItem_6.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
+			mntmNewMenuItem_6.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					
+					panel_8.removeAll();
+					panel_8.add(new j_Manager_Book(h_Manager_Main.this, 3));
+					panel_8.updateUI();
+					panel_8.setVisible(true);
+				}
+			});
+		}
+		return mntmNewMenuItem_6;
+	}
+	public JMenuItem getMntmNewMenuItem_7() {
+		if (mntmNewMenuItem_7 == null) {
+			mntmNewMenuItem_7 = new JMenuItem("¿¬Ã¼È¸¿ø°ü¸®");
+			mntmNewMenuItem_7.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
+			mntmNewMenuItem_7.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+				
+					panel_8.removeAll();
+					panel_8.add(new h_Manager_Rent(1));
+					panel_8.updateUI();
+					panel_8.setVisible(true);
+				
+				}
+			});
+		}
+		return mntmNewMenuItem_7;
+	}
+	public JMenuItem getMntmNewMenuItem_8() {
+		if (mntmNewMenuItem_8 == null) {
+			mntmNewMenuItem_8 = new JMenuItem("´ëÃâ°ü¸®");
+			mntmNewMenuItem_8.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
+			mntmNewMenuItem_8.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					
+					panel_8.removeAll();
+					panel_8.add(new h_Manager_Rent(2));
+					panel_8.updateUI();
+					panel_8.setVisible(true);
+				}
+			});
+		}
+		return mntmNewMenuItem_8;
+	}
+	public JMenuItem getMntmNewMenuItem_9() {
+		if (mntmNewMenuItem_9 == null) {
+			mntmNewMenuItem_9 = new JMenuItem("¹Ý³³°ü¸®");
+			mntmNewMenuItem_9.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
+			mntmNewMenuItem_9.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					
+					panel_8.removeAll();
+					panel_8.add(new h_Manager_Rent(3));
+					panel_8.updateUI();
+					panel_8.setVisible(true);
+					
+				}
+			});
+		}
+		return mntmNewMenuItem_9;
+	}
+	public JMenuItem getMntmNewMenuItem_10() {
+		if (mntmNewMenuItem_10 == null) {
+			mntmNewMenuItem_10 = new JMenuItem("È¸¿øÁ¶È¸");
+			mntmNewMenuItem_10.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
+			mntmNewMenuItem_10.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					
+					panel_8.removeAll();
+					panel_8.add(new h_Manager_Member(1));
+					panel_8.updateUI();
+					panel_8.setVisible(true);
+				}
+			});
+		}
+		return mntmNewMenuItem_10;
 	}
 }

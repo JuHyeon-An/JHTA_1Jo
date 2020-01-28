@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+import java.awt.Font;
 
 public class h_RentOverdueM extends JPanel {
 	private DialogMessage dm;
@@ -48,12 +49,20 @@ public class h_RentOverdueM extends JPanel {
 	public JTable getTable() {
 		if (table == null) {
 			table = new JTable();
+			table.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
+			table.getTableHeader().setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
+			table.setBackground(Color.decode("#F7FAFC")); 
+			table.getTableHeader().setBackground(Color.decode("#54B5BF")); 
+			table.setRowHeight(25);
+			
 		}
 		return table;
 	}
 	private JButton getBtnNewButton() {
 		if (btnNewButton == null) {
 			btnNewButton = new JButton("\uBA54\uC138\uC9C0 \uBCF4\uB0B4\uAE30");
+			btnNewButton.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
+			btnNewButton.setBackground(new Color(176, 224, 230));
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 				

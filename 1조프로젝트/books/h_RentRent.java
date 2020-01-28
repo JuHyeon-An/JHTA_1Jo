@@ -108,6 +108,7 @@ public class h_RentRent extends JPanel {
 	private JLabel getLblNewLabel() {
 		if (lblNewLabel == null) {
 			lblNewLabel = new JLabel("\uC544\uC774\uB514");
+			lblNewLabel.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
 			lblNewLabel.setBounds(334, 32, 82, 21);
 		}
 		return lblNewLabel;
@@ -201,6 +202,8 @@ public class h_RentRent extends JPanel {
 	private JButton getBtnNewButton() {
 		if (btnNewButton == null) {
 			btnNewButton = new JButton("\uAC80\uC0C9");
+			btnNewButton.setBackground(new Color(176, 224, 230));
+			btnNewButton.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					//¾ÆÀÌµð°Ë»ö(°Ë»ö¹öÆ°)
@@ -215,14 +218,15 @@ public class h_RentRent extends JPanel {
 	private JLabel getLblNewLabel_1() {
 		if (lblNewLabel_1 == null) {
 			lblNewLabel_1 = new JLabel("\uD68C\uC6D0\uC815\uBCF4");
-			lblNewLabel_1.setFont(new Font("±¼¸²", Font.BOLD, 20));
-			lblNewLabel_1.setBounds(24, 28, 98, 34);
+			lblNewLabel_1.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 34));
+			lblNewLabel_1.setBounds(32, 23, 155, 34);
 		}
 		return lblNewLabel_1;
 	}
 	private JLabel getLblNewLabel_2() {
 		if (lblNewLabel_2 == null) {
 			lblNewLabel_2 = new JLabel("\uC544\uC774\uB514");
+			lblNewLabel_2.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
 			lblNewLabel_2.setBounds(48, 77, 82, 21);
 		}
 		return lblNewLabel_2;
@@ -230,6 +234,7 @@ public class h_RentRent extends JPanel {
 	private JLabel getLblNewLabel_3() {
 		if (lblNewLabel_3 == null) {
 			lblNewLabel_3 = new JLabel("\uC774\uB984");
+			lblNewLabel_3.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
 			lblNewLabel_3.setBounds(48, 129, 82, 21);
 		}
 		return lblNewLabel_3;
@@ -255,6 +260,7 @@ public class h_RentRent extends JPanel {
 	private JLabel getLblNewLabel_4() {
 		if (lblNewLabel_4 == null) {
 			lblNewLabel_4 = new JLabel("\uB300\uCD9C\uAC00\uB2A5\uC5EC\uBD80");
+			lblNewLabel_4.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
 			lblNewLabel_4.setBounds(400, 74, 134, 21);
 		}
 		return lblNewLabel_4;
@@ -262,6 +268,7 @@ public class h_RentRent extends JPanel {
 	private JLabel getLblNewLabel_5() {
 		if (lblNewLabel_5 == null) {
 			lblNewLabel_5 = new JLabel("\uC804\uD654\uBC88\uD638");
+			lblNewLabel_5.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
 			lblNewLabel_5.setBounds(400, 126, 82, 21);
 		}
 		return lblNewLabel_5;
@@ -311,6 +318,8 @@ public class h_RentRent extends JPanel {
 	private JButton getBtnNewButton_1() {
 		if (btnNewButton_1 == null) {
 			btnNewButton_1 = new JButton("\uAC80\uC0C9");
+			btnNewButton_1.setBackground(new Color(176, 224, 230));
+			btnNewButton_1.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
 			btnNewButton_1.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					//Ã¥°Ë»ö(°Ë»ö¹öÆ°)
@@ -325,6 +334,7 @@ public class h_RentRent extends JPanel {
 	private JLabel getLblNewLabel_6() {
 		if (lblNewLabel_6 == null) {
 			lblNewLabel_6 = new JLabel("\uB3C4\uC11C\uBA85");
+			lblNewLabel_6.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
 			lblNewLabel_6.setBounds(47, 315, 82, 21);
 		}
 		return lblNewLabel_6;
@@ -332,6 +342,7 @@ public class h_RentRent extends JPanel {
 	private JLabel getTt() {
 		if (tt == null) {
 			tt = new JLabel("\uBD84\uB958\uAE30\uD638");
+			tt.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
 			tt.setBounds(47, 370, 82, 21);
 		}
 		return tt;
@@ -339,6 +350,7 @@ public class h_RentRent extends JPanel {
 	private JLabel getLblNewLabel_8() {
 		if (lblNewLabel_8 == null) {
 			lblNewLabel_8 = new JLabel("\uC800\uC790");
+			lblNewLabel_8.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
 			lblNewLabel_8.setBounds(47, 424, 82, 21);
 		}
 		return lblNewLabel_8;
@@ -373,6 +385,7 @@ public class h_RentRent extends JPanel {
 	private JLabel getLblNewLabel_9() {
 		if (lblNewLabel_9 == null) {
 			lblNewLabel_9 = new JLabel("\uCD9C\uD310\uC0AC");
+			lblNewLabel_9.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
 			lblNewLabel_9.setBounds(396, 315, 82, 21);
 		}
 		return lblNewLabel_9;
@@ -380,6 +393,7 @@ public class h_RentRent extends JPanel {
 	private JLabel getLblNewLabel_10() {
 		if (lblNewLabel_10 == null) {
 			lblNewLabel_10 = new JLabel("\uBC18\uB0A9\uAE30\uD55C");
+			lblNewLabel_10.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
 			lblNewLabel_10.setBounds(396, 370, 82, 21);
 		}
 		return lblNewLabel_10;
@@ -387,6 +401,7 @@ public class h_RentRent extends JPanel {
 	private JLabel getLblNewLabel_11() {
 		if (lblNewLabel_11 == null) {
 			lblNewLabel_11 = new JLabel("\uB300\uCD9C\uAC00\uB2A5\uC5EC\uBD80");
+			lblNewLabel_11.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
 			lblNewLabel_11.setBounds(396, 424, 123, 21);
 		}
 		return lblNewLabel_11;
@@ -422,6 +437,8 @@ public class h_RentRent extends JPanel {
 	private JButton getBtnNewButton_2() {
 		if (btnNewButton_2 == null) {
 			btnNewButton_2 = new JButton("\uB300\uC5EC");
+			btnNewButton_2.setBackground(new Color(176, 224, 230));
+			btnNewButton_2.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
 			btnNewButton_2.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					//´ë¿© --> ´ë¿©½Ã ´ëÃâ»óÅÂ 0À¸·Î 
@@ -505,6 +522,7 @@ public class h_RentRent extends JPanel {
 	private JLabel getLblNewLabel_12() {
 		if (lblNewLabel_12 == null) {
 			lblNewLabel_12 = new JLabel("\uCCAD\uAD6C\uAE30\uD638");
+			lblNewLabel_12.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
 			lblNewLabel_12.setBounds(316, 259, 82, 21);
 		}
 		return lblNewLabel_12;
@@ -512,6 +530,7 @@ public class h_RentRent extends JPanel {
 	private JLabel getLblNewLabel_7() {
 		if (lblNewLabel_7 == null) {
 			lblNewLabel_7 = new JLabel("\uB300\uC5EC\uAC00\uB2A5\uCC45\uC218");
+			lblNewLabel_7.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
 			lblNewLabel_7.setBounds(48, 182, 139, 21);
 		}
 		return lblNewLabel_7;
@@ -528,8 +547,8 @@ public class h_RentRent extends JPanel {
 	private JLabel getLblNewLabel_13() {
 		if (lblNewLabel_13 == null) {
 			lblNewLabel_13 = new JLabel("\uB3C4\uC11C\uC815\uBCF4");
-			lblNewLabel_13.setFont(new Font("±¼¸²", Font.BOLD, 20));
-			lblNewLabel_13.setBounds(24, 259, 105, 21);
+			lblNewLabel_13.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 34));
+			lblNewLabel_13.setBounds(32, 240, 182, 39);
 		}
 		return lblNewLabel_13;
 	}

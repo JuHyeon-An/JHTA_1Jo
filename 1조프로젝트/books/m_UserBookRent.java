@@ -15,6 +15,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import java.awt.Font;
+import java.awt.Color;
 
 public class m_UserBookRent extends JPanel {
 	
@@ -36,7 +38,8 @@ public class m_UserBookRent extends JPanel {
 	 * Create the panel.
 	 */
 	public m_UserBookRent() {
-		setPreferredSize(new Dimension(533, 444));
+		setBackground(new Color(240, 248, 255));
+		setPreferredSize(new Dimension(878, 631));
 		setLayout(null);
 		add(getComboBox());
 		add(getTextField());
@@ -54,7 +57,10 @@ public class m_UserBookRent extends JPanel {
 	public JComboBox getComboBox() {
 		if (comboBox == null) {
 			comboBox = new JComboBox();
-			comboBox.setBounds(31, 36, 68, 21);
+			comboBox.setBorder(null);
+			comboBox.setBackground(new Color(230, 230, 250));
+			comboBox.setFont(new Font("나눔바른고딕", Font.PLAIN, 16));
+			comboBox.setBounds(12, 22, 103, 21);
 
 			comboBox.addItem("도서명");
 			comboBox.addItem("저자");
@@ -66,6 +72,7 @@ public class m_UserBookRent extends JPanel {
 	public JTextField getTextField() {
 		if (textField == null) {
 			textField = new JTextField();
+			textField.setFont(new Font("나눔바른고딕", Font.PLAIN, 16));
 			textField.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyReleased(KeyEvent ke) {
@@ -79,7 +86,7 @@ public class m_UserBookRent extends JPanel {
 					}
 				}
 			});
-			textField.setBounds(111, 36, 296, 21);
+			textField.setBounds(127, 22, 608, 21);
 			textField.setColumns(10);
 		}
 		return textField;
@@ -88,6 +95,9 @@ public class m_UserBookRent extends JPanel {
 	public JButton getBtnNewButton() {
 		if (btnNewButton == null) {
 			btnNewButton = new JButton("\uAC80\uC0C9");
+			btnNewButton.setBorder(null);
+			btnNewButton.setBackground(new Color(173, 216, 230));
+			btnNewButton.setFont(new Font("나눔바른고딕", Font.PLAIN, 16));
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					// 검색 버튼
@@ -101,7 +111,7 @@ public class m_UserBookRent extends JPanel {
 
 				}
 			});
-			btnNewButton.setBounds(419, 35, 97, 23);
+			btnNewButton.setBounds(747, 21, 119, 23);
 		}
 		return btnNewButton;
 	}
@@ -109,7 +119,9 @@ public class m_UserBookRent extends JPanel {
 	public JScrollPane getScrollPane() {
 		if (scrollPane == null) {
 			scrollPane = new JScrollPane();
-			scrollPane.setBounds(32, 103, 462, 282);
+			scrollPane.setBackground(new Color(230, 230, 250));
+			scrollPane.setFont(new Font("나눔바른고딕", Font.PLAIN, 16));
+			scrollPane.setBounds(12, 53, 854, 504);
 			scrollPane.setViewportView(getTable());
 		}
 		return scrollPane;
@@ -118,6 +130,9 @@ public class m_UserBookRent extends JPanel {
 	public JButton getBtnNewButton_1() {
 		if (btnNewButton_1 == null) {
 			btnNewButton_1 = new JButton("\uC608\uC57D \uC2E0\uCCAD");
+			btnNewButton_1.setBorder(null);
+			btnNewButton_1.setBackground(new Color(173, 216, 230));
+			btnNewButton_1.setFont(new Font("나눔바른고딕", Font.PLAIN, 16));
 			btnNewButton_1.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					// 책 선택하고 예약 신청 버튼 누르면
@@ -126,7 +141,7 @@ public class m_UserBookRent extends JPanel {
 
 					int r = dao.rentRequest(bCode, keyId);
 					if (r > 0) {
-						if(       !((String)table.getValueAt(table.getSelectedRow(), 4)).equals("예약 가능")                   ) {
+						if(       ((String)table.getValueAt(table.getSelectedRow(), 4))=="예약 가능"                   ) {
 							int a = dao.bookStatusRent(bCode);
 							msg = "신청 되었습니다.";
 							String rent = textField.getText();
@@ -134,7 +149,7 @@ public class m_UserBookRent extends JPanel {
 							
 							table.setModel(model);							
 						}else {
-							msg = "신청불가입니다.";
+							msg = "이미 예약중 입니다.";
 						}
 						dm = new DialogMessage(msg);
 						dm.setLocationRelativeTo(m_UserBookRent.this);
@@ -143,7 +158,7 @@ public class m_UserBookRent extends JPanel {
 				}
 
 			});
-			btnNewButton_1.setBounds(203, 395, 97, 23);
+			btnNewButton_1.setBounds(769, 572, 97, 35);
 		}
 		return btnNewButton_1;
 
@@ -152,6 +167,11 @@ public class m_UserBookRent extends JPanel {
 	public JTable getTable() {
 		if (table == null) {
 			table = new JTable();
+			table.setBackground(Color.decode("#F7FAFC"));
+			table.getTableHeader().setBackground(Color.decode("#54B5BF"));
+			table.setFont(new Font("나눔바른고딕", Font.PLAIN, 15));
+			table.getTableHeader().setFont(new Font("나눔바른고딕", Font.PLAIN, 15));
+			table.setRowHeight(25);
 		}
 		return table;
 	}

@@ -94,6 +94,7 @@ public class h_RentReturn extends JPanel {
 	private JLabel getLblNewLabel() {
 		if (lblNewLabel == null) {
 			lblNewLabel = new JLabel("\uC544\uC774\uB514");
+			lblNewLabel.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
 			lblNewLabel.setBounds(321, 49, 82, 21);
 		}
 		return lblNewLabel;
@@ -118,6 +119,8 @@ public class h_RentReturn extends JPanel {
 	private JButton getBtnNewButton() {
 		if (btnNewButton == null) {
 			btnNewButton = new JButton("\uAC80\uC0C9");
+			btnNewButton.setBackground(new Color(176, 224, 230));
+			btnNewButton.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					//¾ÆÀÌµð°Ë»ö(°Ë»ö¹öÆ°)
@@ -133,14 +136,15 @@ public class h_RentReturn extends JPanel {
 	private JLabel getLblNewLabel_1() {
 		if (lblNewLabel_1 == null) {
 			lblNewLabel_1 = new JLabel("\uD68C\uC6D0\uC815\uBCF4");
-			lblNewLabel_1.setFont(new Font("±¼¸²", Font.BOLD, 20));
-			lblNewLabel_1.setBounds(34, 28, 114, 35);
+			lblNewLabel_1.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 34));
+			lblNewLabel_1.setBounds(34, 23, 138, 40);
 		}
 		return lblNewLabel_1;
 	}
 	private JLabel getLblNewLabel_2() {
 		if (lblNewLabel_2 == null) {
 			lblNewLabel_2 = new JLabel("\uC544\uC774\uB514");
+			lblNewLabel_2.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
 			lblNewLabel_2.setBounds(34, 110, 82, 21);
 		}
 		return lblNewLabel_2;
@@ -148,6 +152,7 @@ public class h_RentReturn extends JPanel {
 	private JLabel getLblNewLabel_3() {
 		if (lblNewLabel_3 == null) {
 			lblNewLabel_3 = new JLabel("\uC774\uB984");
+			lblNewLabel_3.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
 			lblNewLabel_3.setBounds(34, 163, 82, 21);
 		}
 		return lblNewLabel_3;
@@ -173,6 +178,7 @@ public class h_RentReturn extends JPanel {
 	private JLabel getLblNewLabel_4() {
 		if (lblNewLabel_4 == null) {
 			lblNewLabel_4 = new JLabel("\uB300\uCD9C\uC911\uC778\uCC45\uC218");
+			lblNewLabel_4.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
 			lblNewLabel_4.setBounds(404, 110, 114, 21);
 		}
 		return lblNewLabel_4;
@@ -180,6 +186,7 @@ public class h_RentReturn extends JPanel {
 	private JLabel getLblNewLabel_5() {
 		if (lblNewLabel_5 == null) {
 			lblNewLabel_5 = new JLabel("\uC804\uD654\uBC88\uD638");
+			lblNewLabel_5.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
 			lblNewLabel_5.setBounds(404, 163, 95, 21);
 		}
 		return lblNewLabel_5;
@@ -221,12 +228,20 @@ public class h_RentReturn extends JPanel {
 	public JTable getTable() {
 		if (table == null) {
 			table = new JTable();
+			table.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
+			table.getTableHeader().setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
+			table.setBackground(Color.decode("#F7FAFC")); 
+			table.getTableHeader().setBackground(Color.decode("#54B5BF")); 
+			table.setRowHeight(25);
+			
 		}
 		return table;
 	}
 	private JButton getBtnNewButton_1() {
 		if (btnNewButton_1 == null) {
 			btnNewButton_1 = new JButton("\uBC18\uB0A9");
+			btnNewButton_1.setBackground(new Color(176, 224, 230));
+			btnNewButton_1.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
 			btnNewButton_1.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					//¹Ý³³¹öÆ°

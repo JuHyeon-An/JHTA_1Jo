@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
+import java.awt.Color;
 
 public class j_BookDetail extends JInternalFrame {
 	private JLabel label;
@@ -118,6 +119,7 @@ public class j_BookDetail extends JInternalFrame {
 	
 	public j_BookDetail() {
 		super("»ó¼¼º¸±â",false,true,true,true);
+		getContentPane().setBackground(new Color(240, 248, 255));
 		
 		setBounds(100, 100, 741, 552);
 		getContentPane().setLayout(null);
@@ -161,7 +163,7 @@ public class j_BookDetail extends JInternalFrame {
 		if (label == null) {
 			label = new JLabel("\uC0C1\uC138\uBCF4\uAE30");
 			label.setHorizontalAlignment(SwingConstants.CENTER);
-			label.setFont(new Font("±¼¸²", Font.PLAIN, 30));
+			label.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 34));
 			label.setBounds(14, 18, 697, 65);
 		}
 		return label;
@@ -169,56 +171,64 @@ public class j_BookDetail extends JInternalFrame {
 	public JLabel getLabel_1() {
 		if (label_1 == null) {
 			label_1 = new JLabel("\uB3C4\uC11C\uBA85");
-			label_1.setBounds(136, 170, 62, 18);
+			label_1.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
+			label_1.setBounds(116, 170, 62, 18);
 		}
 		return label_1;
 	}
 	public JLabel getLabel_2() {
 		if (label_2 == null) {
 			label_2 = new JLabel("\uC800\uC790");
-			label_2.setBounds(136, 210, 62, 18);
+			label_2.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
+			label_2.setBounds(116, 210, 62, 18);
 		}
 		return label_2;
 	}
 	public JLabel getLabel_3() {
 		if (label_3 == null) {
 			label_3 = new JLabel("\uCD9C\uD310\uC0AC");
-			label_3.setBounds(136, 250, 62, 18);
+			label_3.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
+			label_3.setBounds(116, 250, 62, 18);
 		}
 		return label_3;
 	}
 	public JLabel getLabel_4() {
 		if (label_4 == null) {
 			label_4 = new JLabel("\uCD9C\uD310\uB144\uB3C4");
-			label_4.setBounds(136, 290, 62, 18);
+			label_4.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
+			label_4.setBounds(116, 290, 62, 18);
 		}
 		return label_4;
 	}
 	public JLabel getLabel_5() {
 		if (label_5 == null) {
 			label_5 = new JLabel("\uAC00\uACA9");
-			label_5.setBounds(136, 330, 62, 18);
+			label_5.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
+			label_5.setBounds(116, 330, 62, 18);
 		}
 		return label_5;
 	}
 	public JLabel getLabel_6() {
 		if (label_6 == null) {
 			label_6 = new JLabel("\uCCAD\uAD6C\uAE30\uD638");
-			label_6.setBounds(136, 129, 62, 18);
+			label_6.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
+			label_6.setBounds(116, 122, 62, 18);
 		}
 		return label_6;
 	}
 	public JLabel getLabel_7() {
 		if (label_7 == null) {
 			label_7 = new JLabel("\uBD84\uB958\uAE30\uD638");
-			label_7.setBounds(136, 364, 62, 18);
+			label_7.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
+			label_7.setBounds(116, 364, 62, 18);
 		}
 		return label_7;
 	}
 	public JLabel getLabel_8() {
 		if (label_8 == null) {
 			label_8 = new JLabel("\uD398\uC774\uC9C0\uC218");
-			label_8.setBounds(136, 404, 62, 18);
+			label_8.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
+			label_8.setBounds(116, 404, 62, 18);
 		}
 		return label_8;
 	}
@@ -226,7 +236,7 @@ public class j_BookDetail extends JInternalFrame {
 		if (tBook == null) {
 			tBook = new JTextField();
 			tBook.setColumns(10);
-			tBook.setBounds(212, 160, 170, 24);
+			tBook.setBounds(192, 160, 170, 24);
 		}
 		return tBook;
 	}
@@ -234,7 +244,7 @@ public class j_BookDetail extends JInternalFrame {
 		if (tWriter == null) {
 			tWriter = new JTextField();
 			tWriter.setColumns(10);
-			tWriter.setBounds(212, 201, 170, 24);
+			tWriter.setBounds(192, 201, 170, 24);
 		}
 		return tWriter;
 	}
@@ -242,7 +252,7 @@ public class j_BookDetail extends JInternalFrame {
 		if (tPublisher == null) {
 			tPublisher = new JTextField();
 			tPublisher.setColumns(10);
-			tPublisher.setBounds(212, 242, 170, 24);
+			tPublisher.setBounds(192, 242, 170, 24);
 		}
 		return tPublisher;
 	}
@@ -250,7 +260,7 @@ public class j_BookDetail extends JInternalFrame {
 		if (tDate == null) {
 			tDate = new JTextField();
 			tDate.setColumns(10);
-			tDate.setBounds(212, 283, 116, 24);
+			tDate.setBounds(192, 283, 116, 24);
 		}
 		return tDate;
 	}
@@ -258,7 +268,7 @@ public class j_BookDetail extends JInternalFrame {
 		if (tPrice == null) {
 			tPrice = new JTextField();
 			tPrice.setColumns(10);
-			tPrice.setBounds(212, 324, 116, 24);
+			tPrice.setBounds(192, 324, 116, 24);
 		}
 		return tPrice;
 	}
@@ -266,7 +276,7 @@ public class j_BookDetail extends JInternalFrame {
 		if (tCode == null) {
 			tCode = new JTextField();
 			tCode.setColumns(10);
-			tCode.setBounds(212, 124, 116, 24);
+			tCode.setBounds(192, 117, 116, 24);
 		}
 		return tCode;
 	}
@@ -274,7 +284,7 @@ public class j_BookDetail extends JInternalFrame {
 		if (tGroup == null) {
 			tGroup = new JTextField();
 			tGroup.setColumns(10);
-			tGroup.setBounds(212, 360, 116, 24);
+			tGroup.setBounds(192, 360, 116, 24);
 		}
 		return tGroup;
 	}
@@ -282,13 +292,15 @@ public class j_BookDetail extends JInternalFrame {
 		if (tPages == null) {
 			tPages = new JTextField();
 			tPages.setColumns(10);
-			tPages.setBounds(212, 401, 116, 24);
+			tPages.setBounds(192, 401, 116, 24);
 		}
 		return tPages;
 	}
 	public JButton getButton() {
 		if (button == null) {
 			button = new JButton("¼öÁ¤");
+			button.setBackground(new Color(176, 224, 230));
+			button.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
 			button.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 				
@@ -321,13 +333,15 @@ public class j_BookDetail extends JInternalFrame {
 
 				
 			});
-			button.setBounds(136, 453, 105, 27);
+			button.setBounds(250, 453, 105, 27);
 		}
 		return button;
 	}
 	public JButton getButton_1() {
 		if (button_1 == null) {
 			button_1 = new JButton("»èÁ¦");
+			button_1.setBackground(new Color(176, 224, 230));
+			button_1.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
 			button_1.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 				
@@ -349,28 +363,31 @@ public class j_BookDetail extends JInternalFrame {
 				
 				}
 			});
-			button_1.setBounds(255, 453, 105, 27);
+			button_1.setBounds(392, 453, 105, 27);
 		}
 		return button_1;
 	}
 	public JLabel getLabel_9() {
 		if (label_9 == null) {
 			label_9 = new JLabel("\uB300\uCD9C\uC0C1\uD0DC");
-			label_9.setBounds(439, 149, 62, 18);
+			label_9.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
+			label_9.setBounds(428, 163, 62, 18);
 		}
 		return label_9;
 	}
 	public JLabel getLabel_10() {
 		if (label_10 == null) {
 			label_10 = new JLabel("\uC608\uC57D\uC790\uC218");
-			label_10.setBounds(439, 190, 62, 18);
+			label_10.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
+			label_10.setBounds(428, 207, 62, 18);
 		}
 		return label_10;
 	}
 	public JLabel getLabel_11() {
 		if (label_11 == null) {
 			label_11 = new JLabel("\uB300\uCD9C\uC790");
-			label_11.setBounds(439, 234, 62, 18);
+			label_11.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
+			label_11.setBounds(428, 247, 62, 18);
 		}
 		return label_11;
 	}
@@ -379,7 +396,7 @@ public class j_BookDetail extends JInternalFrame {
 			tStatus = new JTextField();
 			tStatus.setEditable(false);
 			tStatus.setColumns(10);
-			tStatus.setBounds(503, 146, 116, 24);
+			tStatus.setBounds(492, 160, 116, 24);
 		}
 		return tStatus;
 	}
@@ -388,7 +405,7 @@ public class j_BookDetail extends JInternalFrame {
 			tCnt = new JTextField();
 			tCnt.setEditable(false);
 			tCnt.setColumns(10);
-			tCnt.setBounds(503, 187, 116, 24);
+			tCnt.setBounds(492, 204, 116, 24);
 		}
 		return tCnt;
 	}
@@ -397,14 +414,15 @@ public class j_BookDetail extends JInternalFrame {
 			tRent = new JTextField();
 			tRent.setEditable(false);
 			tRent.setColumns(10);
-			tRent.setBounds(503, 231, 116, 24);
+			tRent.setBounds(492, 244, 116, 24);
 		}
 		return tRent;
 	}
 	public JLabel getLabel_12() {
 		if (label_12 == null) {
 			label_12 = new JLabel("\uBC18\uB0A9\uAE30\uD55C");
-			label_12.setBounds(439, 275, 62, 18);
+			label_12.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
+			label_12.setBounds(428, 281, 62, 18);
 		}
 		return label_12;
 	}
@@ -413,13 +431,15 @@ public class j_BookDetail extends JInternalFrame {
 			tUntil = new JTextField();
 			tUntil.setEditable(false);
 			tUntil.setColumns(10);
-			tUntil.setBounds(503, 276, 116, 24);
+			tUntil.setBounds(492, 282, 116, 24);
 		}
 		return tUntil;
 	}
 	public JButton getButton_2() {
 		if (button_2 == null) {
 			button_2 = new JButton("\uC5F0\uC7A5");
+			button_2.setBackground(new Color(176, 224, 230));
+			button_2.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
 			button_2.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 				
@@ -440,14 +460,15 @@ public class j_BookDetail extends JInternalFrame {
 
 				
 			});
-			button_2.setBounds(620, 275, 62, 27);
+			button_2.setBounds(620, 281, 62, 27);
 		}
 		return button_2;
 	}
 	public JLabel getLabel_14() {
 		if (label_14 == null) {
 			label_14 = new JLabel("\uB4F1\uB85D\uC77C\uC790");
-			label_14.setBounds(439, 117, 62, 18);
+			label_14.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
+			label_14.setBounds(428, 117, 62, 18);
 		}
 		return label_14;
 	}
@@ -456,7 +477,7 @@ public class j_BookDetail extends JInternalFrame {
 			eDate = new JTextField();
 			eDate.setEditable(false);
 			eDate.setColumns(10);
-			eDate.setBounds(503, 114, 116, 24);
+			eDate.setBounds(492, 114, 116, 24);
 		}
 		return eDate;
 	}

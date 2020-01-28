@@ -106,7 +106,7 @@ public class j_BookManagement extends JPanel {
 		if (btnNewButton_1 == null) {
 			btnNewButton_1 = new JButton("\uC0C1\uC138\uBCF4\uAE30");
 			};
-			btnNewButton_1.setBounds(309, 423, 105, 27);
+			btnNewButton_1.setBounds(360, 440, 119, 47);
 		
 		return btnNewButton_1;
 	}

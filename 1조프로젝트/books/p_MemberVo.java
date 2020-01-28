@@ -5,19 +5,19 @@ import java.util.Date;
 
 public class p_MemberVo {
 	String mId;
-	int pwd;
+	String pwd;
 	String mName;
-	Date birth;
-	Date rDate;
+	String birth;
+	String rDate;
 	String email;
 	String phone;
 	String state;
-
+    String overdue;	
 	public p_MemberVo() {
 	}
 
-	public p_MemberVo(String mId, int pwd, String mName, Date birth, Date rDate, String email, String phone,
-			String state) {
+	public p_MemberVo(String mId, String pwd, String mName, String birth, String rDate, String email, String phone,
+			String state,String overdue) {
 		this.mId = mId;
 		this.pwd = pwd;
 		this.mName = mName;
@@ -26,17 +26,15 @@ public class p_MemberVo {
 		this.email = email;
 		this.phone = phone;
 		this.state = state;
+		this.overdue = overdue;
 	}
 
-	public String toString() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd(E)");
-		String d = sdf.format(rDate);
-		String date = sdf.format(birth);
+	public String getOverdue() {
+		return overdue;
+	}
 
-		String tmep = String.format("%10s\t%15s\t%15s\t%15s\t%10s\t%10s\t%5s\tn", mId, mName, date, d, email, phone,
-				state);
-
-		return tmep;
+	public void setOverdue(String overdue) {
+		this.overdue = overdue;
 	}
 
 	public String getmId() {
@@ -47,11 +45,11 @@ public class p_MemberVo {
 		this.mId = mId;
 	}
 
-	public int getPwd() {
+	public String getPwd() {
 		return pwd;
 	}
 
-	public void setPwd(int pwd) {
+	public void setPwd(String pwd) {
 		this.pwd = pwd;
 	}
 
@@ -63,19 +61,19 @@ public class p_MemberVo {
 		this.mName = mName;
 	}
 
-	public Date getBirth() {
+	public String getBirth() {
 		return birth;
 	}
 
-	public void setBirth(Date birth) {
+	public void setBirth(String birth) {
 		this.birth = birth;
 	}
 
-	public Date getrDate() {
+	public String getrDate() {
 		return rDate;
 	}
 
-	public void setrDate(Date rDate) {
+	public void setrDate(String rDate) {
 		this.rDate = rDate;
 	}
 

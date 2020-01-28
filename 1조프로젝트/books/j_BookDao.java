@@ -130,9 +130,11 @@ public class j_BookDao {
 					row.add(rs.getString(i));
 				}
 				model.addRow(row);
+				
 			}
 
 			table.setModel(model);
+			table.setRowHeight(25);
 			table.setRowSorter(new TableRowSorter(model)); // Á¤·Ä ¤µ¤²
 			
 			rs.close();
@@ -186,6 +188,7 @@ public class j_BookDao {
 				}
 				model.addRow(row);
 			}
+			
 			rs.close();
 			ps.close();
 

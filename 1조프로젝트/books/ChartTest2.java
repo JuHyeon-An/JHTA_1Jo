@@ -146,9 +146,9 @@ public class ChartTest2 {
 
                      );
 
-        Font f = new Font("Gulim", Font.BOLD, 14);
+        Font f = new Font("나눔바른고딕 Light", Font.PLAIN, 14);
 
-        Font axisF = new Font("Gulim", Font.PLAIN, 14);
+        Font axisF = new Font("나눔바른고딕 Light", Font.PLAIN, 14);
 
        
 
@@ -170,7 +170,7 @@ public class ChartTest2 {
 
 //        renderer.setSeriesPaint(0, new GradientPaint(1.0f, 1.0f, Color.white, 0.0f, 0.0f, Color.blue));
 
-        renderer.setSeriesPaint(0, new Color(0,162,255));
+        renderer.setSeriesPaint(0, new Color(100,149,237));
 
  
 
@@ -235,6 +235,7 @@ public class ChartTest2 {
         final JFreeChart chart = new JFreeChart(plot);
 
         chart.setTitle("장르별 이용자 수 "); // 차트 타이틀
+        chart.setBackgroundPaint(new Color(240,248,255));
 
 //        TextTitle copyright = new TextTitle("JFreeChart WaferMapPlot", new Font("SansSerif", Font.PLAIN, 9));
 
