@@ -55,6 +55,8 @@ public class h_RentRent extends JPanel {
 	private JLabel lblNewLabel_7;
 	private JTextField countRent;
 	private JLabel lblNewLabel_13;
+	private DialogMessage dm;
+	private String msg = "";
 
 	/**
 	 * Create the panel.
@@ -159,7 +161,10 @@ public class h_RentRent extends JPanel {
 				tmState.setText("대출불가");
 			}
 		}else {
-			JOptionPane.showMessageDialog(h_RentRent.this, "아이디가 존재하지 않습니다");
+			msg = "아이디가 존재하지 않습니다";
+			dm = new DialogMessage(msg);
+			dm.setLocationRelativeTo(h_RentRent.this);
+			//JOptionPane.showMessageDialog(h_RentRent.this, "아이디가 존재하지 않습니다");
 		}
 		
 	}
@@ -187,7 +192,10 @@ public class h_RentRent extends JPanel {
 				tBookState.setText("대출불가");
 			}
 		}else {
-			JOptionPane.showMessageDialog(h_RentRent.this,"존재하지 않는 책입니다");
+			msg = "존재하지 않는 책입니다";
+			dm = new DialogMessage(msg);
+			dm.setLocationRelativeTo(h_RentRent.this);
+			//JOptionPane.showMessageDialog(h_RentRent.this,"존재하지 않는 책입니다");
 		}
 	}
 	private JButton getBtnNewButton() {
@@ -418,7 +426,11 @@ public class h_RentRent extends JPanel {
 				public void actionPerformed(ActionEvent e) {
 					//대여 --> 대여시 대출상태 0으로 
 					if(findId.getText().equals("")||findBookCode.getText().equals("")) {
-						JOptionPane.showMessageDialog(h_RentRent.this,"먼저 아이디나 청구기호를 검색해주세요");
+						msg = "먼저 아이디나 청구기호를 검색해주세요";
+						dm = new DialogMessage(msg);
+						dm.setLocationRelativeTo(h_RentRent.this);
+						
+						//JOptionPane.showMessageDialog(h_RentRent.this,"먼저 아이디나 청구기호를 검색해주세요");
 					}else {
 				
 						String find = findId.getText();
@@ -426,7 +438,11 @@ public class h_RentRent extends JPanel {
 						
 						
 						if(r>0) {
-							JOptionPane.showMessageDialog(h_RentRent.this, "대여되었습니다");
+							
+							msg = "대여되었습니다";
+							dm = new DialogMessage(msg);
+							dm.setLocationRelativeTo(h_RentRent.this);
+							//JOptionPane.showMessageDialog(h_RentRent.this, "대여되었습니다");
 							
 							dao.bStatus();
 							bookCount = dao.bookCount(find);
@@ -455,7 +471,10 @@ public class h_RentRent extends JPanel {
 							findId.selectAll();
 							
 						}else {
-							JOptionPane.showMessageDialog(h_RentRent.this, "대여가 불가능합니다");
+							msg = "대여가 불가능합니다";
+							dm = new DialogMessage(msg);
+							dm.setLocationRelativeTo(h_RentRent.this);
+							//JOptionPane.showMessageDialog(h_RentRent.this, "대여가 불가능합니다");
 						}
 						
 						mId.setText("");

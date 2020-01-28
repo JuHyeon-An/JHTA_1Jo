@@ -2,7 +2,6 @@ package books;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -11,6 +10,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class m_UserHopeBook extends JPanel {
+	private DialogMessage dm;
+	private String msg = "";
 	String keyId;
 	private JLabel label;
 	private JLabel label_1;
@@ -126,8 +127,10 @@ public class m_UserHopeBook extends JPanel {
 					j_BookDao dao = new j_BookDao();
 					int r = dao.hopeBookInsert(vo,keyId);
 					
-					if(r>0) JOptionPane.showMessageDialog(null, "신청완료");
-					else JOptionPane.showMessageDialog(null, "신청 오류");
+					if(r>0) msg = "신청완료";
+					else msg = "신청 오류";
+					dm = new DialogMessage(msg);
+					dm.setLocationRelativeTo(m_UserHopeBook.this);
 
 				}
 			});

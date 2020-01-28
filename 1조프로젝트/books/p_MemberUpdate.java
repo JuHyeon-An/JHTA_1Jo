@@ -18,6 +18,8 @@ import java.util.Date;
 import java.awt.event.ActionEvent;
 
 public class p_MemberUpdate extends JPanel {
+	private DialogMessage dm;
+	private String msg = "";
 	private JComboBox comboBox;
 	private JTextField tfind;
 	private JButton btnNewButton;
@@ -278,16 +280,25 @@ public class p_MemberUpdate extends JPanel {
 						vo.setmId(tmId.getText());
 						int r = dao.update(vo);
 						if (r > 0) {
-							JOptionPane.showMessageDialog(null, "정보수정이 완료되었습니다");
+							msg = "정보수정이 완료되었습니다";
+							dm = new DialogMessage(msg);
+							dm.setLocationRelativeTo(p_MemberUpdate.this);
+							//JOptionPane.showMessageDialog(null, "정보수정이 완료되었습니다");
 						} else {
-							JOptionPane.showMessageDialog(null, "정보수정중 오류발생");
+							msg = "정보수정중 오류발생";
+							dm = new DialogMessage(msg);
+							dm.setLocationRelativeTo(p_MemberUpdate.this);
+							//JOptionPane.showMessageDialog(null, "정보수정중 오류발생");
 						}
 
 					} catch (Exception ex) {
 						ex.printStackTrace();
 					}
 				  }else {
-					  JOptionPane.showMessageDialog(null, "빈공백이 있습니다 모든항목을 입력해주세요!");
+					msg = "빈공백이 있습니다 모든항목을 입력해주세요!";
+					dm = new DialogMessage(msg);
+					dm.setLocationRelativeTo(p_MemberUpdate.this);
+					  //JOptionPane.showMessageDialog(null, "빈공백이 있습니다 모든항목을 입력해주세요!");
 				  }
 				}
 			});
@@ -307,11 +318,14 @@ public class p_MemberUpdate extends JPanel {
                     try { 
 					int r = dao.delete(mId);
 					if (r > 0) { 
-						JOptionPane.showMessageDialog(null, "탈퇴완료");
+						msg = "탈퇴완료";
+						//JOptionPane.showMessageDialog(null, "탈퇴완료");
 					} else {
-						JOptionPane.showMessageDialog(null, "탈퇴 오류발생");
-					
+						msg = "탈퇴 오류발생";
+						//JOptionPane.showMessageDialog(null, "탈퇴 오류발생");
 					}
+					dm = new DialogMessage(msg);
+					dm.setLocationRelativeTo(p_MemberUpdate.this);
 					//삭제하고나서 깨끗하게 비워주는곳
 					tmId.setText("");
 					tPwd.setText("");

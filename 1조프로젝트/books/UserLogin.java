@@ -5,21 +5,16 @@ import java.awt.EventQueue;
 import javax.swing.JInternalFrame;
 import java.awt.Dimension;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
 import java.awt.Font;
 import javax.swing.SwingConstants;
-
 import books.DialogMessage;
 import books.UserDao;
 import books.UserLogin;
 import books.UserMain;
 import books.UserVo;
-
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -134,7 +129,7 @@ public class UserLogin extends JInternalFrame {
 							if (cnt > 0) {
 								UserMain frame = new UserMain(vo.getTmId());
 								frame.setVisible(true);
-								msg = vo.getTmId()+"님 환영합니다.";
+								msg = "환영합니다!";
 							} else {
 								msg = "아이디 또는 비밀번호가 틀렸습니다.";
 							}
@@ -177,9 +172,7 @@ public class UserLogin extends JInternalFrame {
 				public void actionPerformed(ActionEvent e) {
 					// 회원가입 버튼 누르면
 					MemberJoin a = new MemberJoin();
-					//getContentPane().add(a);
 					a.toFront();
-					// a.updateUI();
 				}
 			});
 			btnNewButton_1.setBounds(488, 468, 117, 45);

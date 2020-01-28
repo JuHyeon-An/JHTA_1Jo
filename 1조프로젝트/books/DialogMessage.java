@@ -59,7 +59,7 @@ public class DialogMessage extends JDialog {
 		contentPanel.add(getMsg());
 		{
 			JLabel lblNewLabel = new JLabel("");
-			lblNewLabel.setIcon(new ImageIcon(DialogMessage.class.getResource("/iconBox/read (1).png")));
+			lblNewLabel.setIcon(new ImageIcon(DialogMessage.class.getResource("/iconBox (2)/read (1).png")));
 			lblNewLabel.setBounds(14, 0, 67, 74);
 			contentPanel.add(lblNewLabel);
 		}
@@ -77,7 +77,7 @@ public class DialogMessage extends JDialog {
 						dispose();
 					}
 				});
-				okButton.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
+				okButton.setFont(new Font("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½", Font.PLAIN, 15));
 				okButton.setBackground(new Color(255, 215, 0));
 				okButton.setBounds(148, 0, 89, 37);
 				okButton.setActionCommand("OK");
@@ -96,10 +96,11 @@ public class DialogMessage extends JDialog {
 	public JLabel getMsg() {
 		if (msg == null) {
 			msg = new JLabel("\uBA54\uC2DC\uC9C0");
-			msg.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
-			msg.setHorizontalAlignment(SwingConstants.LEFT);
+			msg.setFont(new Font("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½", Font.PLAIN, 15));
+			msg.setHorizontalAlignment(SwingConstants.CENTER);
 			msg.setBounds(79, 12, 283, 47);
 		}
 		return msg;
 	}
 }
+

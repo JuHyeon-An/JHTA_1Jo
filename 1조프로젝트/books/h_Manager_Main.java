@@ -47,7 +47,6 @@ public class h_Manager_Main extends JFrame {
 	private JMenuItem mntmNewMenuItem_7;
 	private JMenuItem mntmNewMenuItem_8;
 	private JMenuItem mntmNewMenuItem_9;
-	private JMenuItem mntmNewMenuItem_10;
 
 	/**
 	 * Launch the application.
@@ -129,7 +128,6 @@ public class h_Manager_Main extends JFrame {
 		if (mnNewMenu_2 == null) {
 			mnNewMenu_2 = new JMenu("\uD68C\uC6D0\uAD00\uB9AC");
 			mnNewMenu_2.add(getMntmNewMenuItem_2());
-			mnNewMenu_2.add(getMntmNewMenuItem_10());
 			mnNewMenu_2.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 				
@@ -192,12 +190,10 @@ public class h_Manager_Main extends JFrame {
 	}
 	public JMenuItem getMntmNewMenuItem_2() {
 		if (mntmNewMenuItem_2 == null) {
-			mntmNewMenuItem_2 = new JMenuItem("\uD68C\uC6D0\uC218\uC815\uC0AD\uC81C");
+			mntmNewMenuItem_2 = new JMenuItem("\uD68C\uC6D0\uAD00\uB9AC");
 			mntmNewMenuItem_2.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					panel_8.removeAll();
-					panel_8.add(new h_Manager_Member(0));
-					panel_8.updateUI();
+					panel_8.add(new h_Manager_Member());
 					panel_8.setVisible(true);
 
 					
@@ -318,20 +314,5 @@ public class h_Manager_Main extends JFrame {
 			});
 		}
 		return mntmNewMenuItem_9;
-	}
-	public JMenuItem getMntmNewMenuItem_10() {
-		if (mntmNewMenuItem_10 == null) {
-			mntmNewMenuItem_10 = new JMenuItem("회원조회");
-			mntmNewMenuItem_10.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					
-					panel_8.removeAll();
-					panel_8.add(new h_Manager_Member(1));
-					panel_8.updateUI();
-					panel_8.setVisible(true);
-				}
-			});
-		}
-		return mntmNewMenuItem_10;
 	}
 }

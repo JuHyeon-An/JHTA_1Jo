@@ -5,13 +5,14 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
-import javax.swing.JOptionPane;
 
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class m_UserBookSearch extends JPanel {
+	private DialogMessage dm;
+	private String msg = "";
 	String keyId;
 	private JScrollPane scrollPane;
 	private JTable table;
@@ -24,7 +25,6 @@ public class m_UserBookSearch extends JPanel {
 	public m_UserBookSearch() {
 		setPreferredSize(new Dimension(660, 580));
 		setLayout(null);
-		//add(getScrollPane());
 		add(getBtnNewButton());
 	} 
 	public m_UserBookSearch(String keyId) {
@@ -64,9 +64,11 @@ public class m_UserBookSearch extends JPanel {
 					if(r>0)	{
 						model=dao.rentBookSearch(keyId);
 						table.setModel(model);
-						JOptionPane.showMessageDialog(null, "신청 되었습니다.");
+						msg = "신청 되었습니다.";
 					}else
-						JOptionPane.showMessageDialog(null, "신청 불가");
+						msg = "신청 불가";
+					dm = new DialogMessage(msg);
+					dm.setLocationRelativeTo(m_UserBookSearch.this);
 				}
 			});
 			btnNewButton.setBounds(228, 517, 153, 23);

@@ -5,13 +5,14 @@ import java.awt.Dimension;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
-import javax.swing.JOptionPane;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 
 public class h_RentOverdueM extends JPanel {
+	private DialogMessage dm;
+	private String msg = "";
 	private JScrollPane scrollPane;
 	private JTable table;
 	private JButton btnNewButton;
@@ -30,7 +31,9 @@ public class h_RentOverdueM extends JPanel {
 			h_RentDao dao = new h_RentDao();
 			dao.selectOverMember(this);
 		}catch(IndexOutOfBoundsException ex) {
-			JOptionPane.showMessageDialog(this, "메세지를 보낼 회원을 선택해 주세요");
+			msg = "메세지를 보낼 회원을 선택해 주세요";
+			dm = new DialogMessage(msg);
+			dm.setLocationRelativeTo(h_RentOverdueM.this);
 		}
 
 	}
@@ -62,7 +65,10 @@ public class h_RentOverdueM extends JPanel {
 					j_BookDao dao = new j_BookDao();
 					try {
 						dao.sendEmail(email);
-						JOptionPane.showMessageDialog(h_RentOverdueM.this,mName+"님에게 메일을 보냈습니다");
+						msg = mName+"님에게 메일을 보냈습니다";
+						dm = new DialogMessage(msg);
+						dm.setLocationRelativeTo(h_RentOverdueM.this);
+						//JOptionPane.showMessageDialog(h_RentOverdueM.this,mName+"님에게 메일을 보냈습니다");
 						
 					} catch (Exception e1) {
 					

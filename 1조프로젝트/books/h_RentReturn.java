@@ -17,6 +17,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class h_RentReturn extends JPanel {
+	private DialogMessage dm;
+	private String msg = "";
 	private JLabel lblNewLabel;
 	private JTextField tFind;
 	private JButton btnNewButton;
@@ -80,7 +82,11 @@ public class h_RentReturn extends JPanel {
 			
 			dao.selectRent(find,h_RentReturn.this);
 		}else {
-			JOptionPane.showMessageDialog(h_RentReturn.this,"아이디가 존재하지 않습니다");
+			msg = "아이디가 존재하지 않습니다";
+			dm = new DialogMessage(msg);
+			dm.setLocationRelativeTo(h_RentReturn.this);
+			
+			//JOptionPane.showMessageDialog(h_RentReturn.this,"아이디가 존재하지 않습니다");
 		}
 		
 	}
@@ -226,12 +232,18 @@ public class h_RentReturn extends JPanel {
 					//반납버튼
 					try {
 						if(tFind.getText().equals("")) {
-							JOptionPane.showMessageDialog(h_RentReturn.this,"먼저 아이디를 입력해주세요");
+							msg = "먼저 아이디를 입력해주세요";
+							dm = new DialogMessage(msg);
+							dm.setLocationRelativeTo(h_RentReturn.this);
+							//JOptionPane.showMessageDialog(h_RentReturn.this,"먼저 아이디를 입력해주세요");
 						}else {
 							String find =(String)table.getValueAt(table.getSelectedRow(), 0);
 						    int r = dao.deleteRent(find);
 						    if(r>0) {
-						    	JOptionPane.showMessageDialog(h_RentReturn.this,"반납이 완료되었습니다");
+						    	msg = "반납이 완료되었습니다";
+								dm = new DialogMessage(msg);
+								dm.setLocationRelativeTo(h_RentReturn.this);
+						    	//JOptionPane.showMessageDialog(h_RentReturn.this,"반납이 완료되었습니다");
 						    	vo = dao.selectId(find);
 						    	bookCount = dao.bookCount(tFind.getText());
 						    	tbookCount.setText(bookCount+"");
@@ -269,7 +281,10 @@ public class h_RentReturn extends JPanel {
 						
 						
 					}catch(IndexOutOfBoundsException ex) {
-						JOptionPane.showMessageDialog(h_RentReturn.this, "반납할 도서를 선택해주세요");
+						msg = "반납할 도서를 선택해주세요";
+						dm = new DialogMessage(msg);
+						dm.setLocationRelativeTo(h_RentReturn.this);
+						//JOptionPane.showMessageDialog(h_RentReturn.this, "반납할 도서를 선택해주세요");
 					}
 					
 				

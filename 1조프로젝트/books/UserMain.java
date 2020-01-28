@@ -62,7 +62,6 @@ public class UserMain extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		//contentPane.add(getTabbedPane());
 	}
 	public UserMain(String keyId) {
 		this();

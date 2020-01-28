@@ -7,7 +7,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 
 import java.awt.Component;
 import javax.swing.Box;
@@ -19,6 +18,8 @@ import java.awt.Font;
 import java.awt.Color;
 
 public class IdAndPwdSearch extends JFrame {
+	private DialogMessage dm;
+	private String msg = "";
 
 	private JPanel contentPane;
 	private JLabel lblNewLabel;
@@ -187,14 +188,16 @@ public class IdAndPwdSearch extends JFrame {
 					if(! tName.getText().isEmpty() && !tEmail.getText().isEmpty()) {
 						String findId = dao.idSearch(tName.getText(), tEmail.getText());
 						if(findId == null) {
-							JOptionPane.showMessageDialog(null, "아이디를 찾을 수 없습니다.");
+							msg = "아이디를 찾을 수 없습니다.";
 						}
 						else {
-							JOptionPane.showMessageDialog(null, "ID : " + findId);
+							msg = "ID : " + findId;
 						}
 					}else {
-						JOptionPane.showMessageDialog(null, "공백없이 입력하세요");
+						msg = "공백없이 입력하세요";
 					}
+					dm = new DialogMessage(msg);
+					dm.setLocationRelativeTo(IdAndPwdSearch.this);
 					
 				}
 			});
@@ -214,23 +217,19 @@ public class IdAndPwdSearch extends JFrame {
 					// 비밀번호 찾기 누르면
 					m_UserDao dao = new m_UserDao();
 					if(! tId.getText().isEmpty() && !tEmail2.getText().isEmpty()) {
-						
 						boolean b = dao.pwdSearch(tId.getText(), tEmail2.getText());
 						
-						
 						if(b==false) {
-							JOptionPane.showMessageDialog(null, "비밀번호를 찾을 수 없습니다.");
+							msg = "비밀번호를 찾을 수 없습니다.";
 						}
 						else {
-							JOptionPane.showMessageDialog(null, "비밀번호를 이메일로 전송했습니다.");
+							msg = "이메일로 비밀번호를 전송했습니다.";
 						}
 					}else {
-						JOptionPane.showMessageDialog(null, "공백없이 입력하세요");
+						msg =  "공백없이 입력하세요";
 					}
-					
-				
-					
-					
+					dm = new DialogMessage(msg);
+					dm.setLocationRelativeTo(IdAndPwdSearch.this);
 				}
 			});
 			btnNewButton_1.setBounds(357, 211, 157, 66);

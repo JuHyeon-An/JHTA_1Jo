@@ -15,7 +15,6 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -30,8 +29,9 @@ public class MemberJoin extends JFrame {
 	static String namePattern = "[가-힇]{2,20}"; // 한글만 2~20자리
 	static String phonePattern = "\\d{2,3}-\\d{3,4}-\\d{4}";
 	static String emailPattern = "^[_a-zA-Z0-9-\\.]+@[\\.a-zA-Z0-9-]+\\.[a-zA-Z]+$";
-			
+	private String msg = "";
 
+	private DialogMessage dm;
 	private JLabel lblNewLabel;
 	private JLabel lblNewLabel_1;
 	private JTextField mId;
@@ -135,22 +135,30 @@ public class MemberJoin extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					// 중복 체크 누르면
 					d_MemberDao dao = new d_MemberDao();
+					String msg = "";
 
 					if (Pattern.matches(idPattern, mId.getText())) { // 아이디가 패턴에 일치하면
 						int r = dao.idCheck(mId.getText());
 						if (r > 0) {
 							checkId = 1;
-							JOptionPane.showMessageDialog(null, "사용가능");
+							msg = "사용가능";
+							dm = new DialogMessage(msg);
+							dm.setLocationRelativeTo(MemberJoin.this);
 						} else {
 							checkId = 0;
-							JOptionPane.showMessageDialog(null, "아이디가 중복됩니다.");
+							msg = "아이디가 중복됩니다.";
+							dm = new DialogMessage(msg);
+							dm.setLocationRelativeTo(MemberJoin.this);
 						}
 					} else {
-						JOptionPane.showMessageDialog(null, "아이디 양식에 맞게 작성하세요");
+						msg = "아이디 양식에 맞게 작성하세요.";
+						dm = new DialogMessage(msg);
+						dm.setLocationRelativeTo(MemberJoin.this);
 					}
+				
 				}
 			});
-			btnNewButton.setBounds(552, 110, 110, 33);
+			btnNewButton.setBounds(552, 110, 127, 33);
 		}
 		return btnNewButton;
 	}
@@ -289,26 +297,40 @@ public class MemberJoin extends JFrame {
 							if (checkId > 0 && checkPwd > 0) { // 아이디가 중복이 아니고 비밀번호가 일치하면
 								int r = dao.cJoin(vo);
 								if (r > 0) {
-									JOptionPane.showMessageDialog(null, "가입성공");
+									msg = "가입성공";
+									dm = new DialogMessage(msg);
+									dm.setLocationRelativeTo(MemberJoin.this);
 									dispose();
 								} else {
+									msg = "양식에 맞게 입력하세요";
 									if (dao.emailCheck(email.getText())) { // 이메일이 중복되면
-										JOptionPane.showMessageDialog(null, "중복된 이메일 입니다.");
+										msg = "중복된 이메일 입니다.";
+										
 									}
 									if (dao.phoneCheck(phone.getText())) { // 핸드폰 번호가 중복되면
-										JOptionPane.showMessageDialog(null, "중복된 번호 입니다.");
+										msg = "중복된 번호 입니다.";
+										
 									}
+									dm = new DialogMessage(msg);
+									dm.setLocationRelativeTo(MemberJoin.this);
 								}
 							} else {
 								if (checkId == 0) {
-									JOptionPane.showMessageDialog(null, "아이디 중복체크 하세요");
+									msg = "아이디 중복체크 하세요";
+									dm = new DialogMessage(msg);
+									dm.setLocationRelativeTo(MemberJoin.this);
+									
 								} else if (checkPwd == 0) {
-									JOptionPane.showMessageDialog(null, "비밀번호를 확인하세요");
+									msg = "비밀번호를 확인하세요";
+									dm = new DialogMessage(msg);
+									dm.setLocationRelativeTo(MemberJoin.this);
 								}
 							}
 
 						} else {
-							JOptionPane.showMessageDialog(null, "공백없이 입력하세요");
+							msg = "공백없이 입력하세요";
+							dm = new DialogMessage(msg);
+							dm.setLocationRelativeTo(MemberJoin.this);
 						}
 					} catch (Exception ex) {
 						ex.printStackTrace();

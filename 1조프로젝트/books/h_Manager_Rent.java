@@ -21,7 +21,6 @@ import javax.swing.Box;
 import java.awt.BorderLayout;
 
 public class h_Manager_Rent extends JPanel {
-
 	private JTabbedPane tabbedPane;
 	private JPanel delayBook;
 	private JPanel delayMember;
@@ -30,6 +29,9 @@ public class h_Manager_Rent extends JPanel {
 	private JPanel panel_4;
 	int index;
 
+	/**
+	 * Create the panel.
+	 */
 	
 	public h_Manager_Rent(int index) {
 		this();
@@ -44,6 +46,7 @@ public class h_Manager_Rent extends JPanel {
 		setVisible(true);
 	}
 	
+
 	public JTabbedPane getTabbedPane() {
 		if (tabbedPane == null) {
 			tabbedPane = new JTabbedPane(JTabbedPane.TOP);
@@ -53,6 +56,7 @@ public class h_Manager_Rent extends JPanel {
 			tabbedPane.addTab("대출관리", null, getRentManage(), null);
 			tabbedPane.addTab("반납관리", null, getReturnManage(), null);
 			tabbedPane.setSelectedIndex(index);
+			
 			
 			// @주현 tabbedPane 폰트, 배경 설정
 			tabbedPane.setFont(new Font("맑은 고딕 Semilight", Font.PLAIN, 15));

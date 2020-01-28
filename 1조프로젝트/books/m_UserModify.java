@@ -20,6 +20,8 @@ import java.awt.Component;
 public class m_UserModify extends JPanel {
 
 	protected static final int YES_NO_CANCEL_OPTION = 0;
+	private DialogMessage dm;
+	private String msg = "";
 	private String keyId;
 	private JLabel lblNewLabel;
 	private JLabel lblNewLabel_1;
@@ -214,7 +216,7 @@ public class m_UserModify extends JPanel {
 					//vo.setmPhone(tPhone.getText());
 
 					if (tPwd.getText().isEmpty() || tEmail.getText().isEmpty() || tPhone.getText().isEmpty()) {
-						JOptionPane.showMessageDialog(null, "공백없이 입력하세요.");
+						msg = "공백없이 입력하세요.";
 					} else {
 
 						vo.setmId(tId.getText()); // 아이디 받아오고
@@ -233,16 +235,19 @@ public class m_UserModify extends JPanel {
 						} else {
 							phoneS.setText("(-)를 포함하여 입력해주세요.");
 						}
+						
+						int r = dao.update(vo);
+						if (r > 0)
+							msg = "수정이 완료되었습니다.";
+						else {
+							msg = "양식에 맞게 입력하세요.";
+						}
 
 					}
+					dm = new DialogMessage(msg);
+					dm.setLocationRelativeTo(m_UserModify.this);
 
-					//////////////////////////////////
-					int r = dao.update(vo);
-					if (r > 0)
-						JOptionPane.showMessageDialog(null, "수정이 완료되었습니다.");
-					else {
-						JOptionPane.showMessageDialog(null, "양식에 맞게 입력하세요.");
-					}
+					
 				}
 
 			});
@@ -259,6 +264,8 @@ public class m_UserModify extends JPanel {
 				public void actionPerformed(ActionEvent e) {
 					m_UserModify umf = new m_UserModify();
 					m_UserDao dao = new m_UserDao();
+					
+					
 					int result = JOptionPane.showConfirmDialog(null, "탈퇴하시겠습니까?", null, JOptionPane.YES_NO_OPTION);
 					int r = 0;
 					if (result == JOptionPane.NO_OPTION) {
@@ -268,6 +275,7 @@ public class m_UserModify extends JPanel {
 						JOptionPane.showMessageDialog(null, "탈퇴가 완료되었습니다.");
 						System.exit(0);
 					}
+					
 				}
 			});
 			btnNewButton_1.setBounds(689, 560, 130, 45);

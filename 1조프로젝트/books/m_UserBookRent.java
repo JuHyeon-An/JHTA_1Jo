@@ -9,7 +9,6 @@ import java.awt.event.KeyEvent;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -18,6 +17,9 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 public class m_UserBookRent extends JPanel {
+	
+	private DialogMessage dm;
+	private String msg = "";
 
 	String keyId;
 	DefaultTableModel model = new DefaultTableModel();
@@ -95,8 +97,6 @@ public class m_UserBookRent extends JPanel {
 
 					model = (DefaultTableModel) dao.rent(comboBox.getSelectedIndex(), rent);
 
-					
-					
 					table.setModel(model);
 
 				}
@@ -126,16 +126,18 @@ public class m_UserBookRent extends JPanel {
 
 					int r = dao.rentRequest(bCode, keyId);
 					if (r > 0) {
-						if(       !((String)table.getValueAt(table.getSelectedRow(), 4)).equals("예약불가")                   ) {
+						if(       !((String)table.getValueAt(table.getSelectedRow(), 4)).equals("예약 가능")                   ) {
 							int a = dao.bookStatusRent(bCode);
-							JOptionPane.showMessageDialog(null, "신청 되었습니다.");
+							msg = "신청 되었습니다.";
 							String rent = textField.getText();
 							model = (DefaultTableModel) dao.rent(comboBox.getSelectedIndex(), rent);
 							
 							table.setModel(model);							
 						}else {
-							JOptionPane.showMessageDialog(null, "추가하기");
+							msg = "신청불가입니다.";
 						}
+						dm = new DialogMessage(msg);
+						dm.setLocationRelativeTo(m_UserBookRent.this);
 
 					}
 				}
