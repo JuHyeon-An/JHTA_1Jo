@@ -44,17 +44,16 @@ public class j_BookDetail extends JInternalFrame {
 	private JLabel label_12;
 	private JTextField tUntil;
 	private JButton button_2;
-	private JLabel lblNewLabel;
 	j_BookManagement panel;
 	j_BookDao dao = new j_BookDao();
 	j_BookVo vo = new j_BookVo();
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	String msg;
-	private JLabel label_13;
 	h_Manager_Main main;
 	private JLabel label_14;
 	private JTextField eDate;
 	int index;
+	DialogMessage dm = new DialogMessage();
 	
 	
 	
@@ -111,6 +110,11 @@ public class j_BookDetail extends JInternalFrame {
 		text.setText(panel.table.getValueAt(panel.table.getSelectedRow(), column)+"");
 	}
 	
+	public void showMessage(String msg) {
+		dm = new DialogMessage(msg);
+		dm.setLocationRelativeTo(j_BookDetail.this);
+	}
+	
 	
 	public j_BookDetail() {
 		super("상세보기",false,true,true,true);
@@ -145,13 +149,13 @@ public class j_BookDetail extends JInternalFrame {
 		getContentPane().add(getLabel_12());
 		getContentPane().add(getTUntil());
 		getContentPane().add(getButton_2());
-		getContentPane().add(getLblNewLabel());
-		getContentPane().add(getLabel_13());
 		getContentPane().add(getLabel_14());
 		getContentPane().add(getEDate());
 		setVisible(true);
 
 	}
+
+
 
 	public JLabel getLabel() {
 		if (label == null) {
@@ -304,13 +308,18 @@ public class j_BookDetail extends JInternalFrame {
 					int r = dao.bookModify(vo);
 
 					msg = r > 0? "수정이 완료되었습니다." : "오류발생";
-					JOptionPane.showMessageDialog(null, msg);
+					
+					panel.getButton().doClick();
+					
 					}catch(Exception ex) {
 						ex.printStackTrace();
 					}
+					showMessage(msg);
 				// 텍스트필드 값 vo에 담아서 수정
 				
 				}
+
+				
 			});
 			button.setBounds(136, 453, 105, 27);
 		}
@@ -329,9 +338,9 @@ public class j_BookDetail extends JInternalFrame {
 					int r = dao.bookDelete(tCode.getText());
 
 					msg = r > 0? "삭제가 완료되었습니다." : "오류발생";
-					JOptionPane.showMessageDialog(null, msg);
+					showMessage(msg);
 					j_BookDetail.this.dispose();
-					
+					panel.getButton().doClick();
 					
 					}catch(Exception ex) {
 						ex.printStackTrace();
@@ -417,36 +426,23 @@ public class j_BookDetail extends JInternalFrame {
 				int r = dao.addDate(tCode.getText(), tRent.getText());
 				
 				if(r>0) {
-					JOptionPane.showMessageDialog(null, "성공적으로 연장되었습니다.");
+					msg = "성공적으로 연장되었습니다.";
 					tUntil.setText(dao.getRentMember(tCode.getText(), '1')); // 바로 업데이트
 				}else {
 					if(tUntil.getText().equals("정보없음")) {
-						JOptionPane.showMessageDialog(null, "대출중인 도서가 아닙니다.");
+						msg = "대출중인 도서가 아닙니다.";
 					}else {
-						JOptionPane.showMessageDialog(null, "연장은 한번만 가능합니다.");
+						msg = "연장은 한번만 가능합니다.";
 					}
 				}
-				
+				showMessage(msg);
 				}
+
+				
 			});
 			button_2.setBounds(620, 275, 62, 27);
 		}
 		return button_2;
-	}
-	public JLabel getLblNewLabel() {
-		if (lblNewLabel == null) {
-			lblNewLabel = new JLabel("\uC5EC\uAE30\uB294 \uC544\uB9C8.. \uC0AC\uC9C4?\u314E;");
-			lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-			lblNewLabel.setBounds(386, 284, 324, 239);
-		}
-		return lblNewLabel;
-	}
-	public JLabel getLabel_13() {
-		if (label_13 == null) {
-			label_13 = new JLabel("\uC8FC\uD604 ;\uC67C\uCABD\uC5D0 \uC788\uB294 \uAC12\uB4E4\uB9CC \uC218\uC815 \uAC00\uB2A5");
-			label_13.setBounds(14, 95, 227, 18);
-		}
-		return label_13;
 	}
 	public JLabel getLabel_14() {
 		if (label_14 == null) {

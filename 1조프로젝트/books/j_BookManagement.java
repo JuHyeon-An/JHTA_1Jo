@@ -49,7 +49,6 @@ public class j_BookManagement extends JPanel {
 		add(getComboBox());
 		add(getTextField());
 		add(getButton());
-		
 	}
 	
 	

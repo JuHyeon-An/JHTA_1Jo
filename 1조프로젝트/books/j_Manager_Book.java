@@ -10,6 +10,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.SwingConstants;
 
 import java.awt.Dimension;
+import java.awt.EventQueue;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
@@ -18,6 +19,8 @@ import javax.swing.JSeparator;
 import javax.swing.JSlider;
 import java.awt.Component;
 import javax.swing.Box;
+import javax.swing.JOptionPane;
+
 import java.awt.BorderLayout;
 
 public class j_Manager_Book extends JPanel {
@@ -28,7 +31,6 @@ public class j_Manager_Book extends JPanel {
 	private JPanel hopebook; 
 	h_Manager_Main main;
 	j_BookManagement bookPanel;
-	private JPanel panel_4;
 	int index;
 
 	/**
@@ -46,11 +48,11 @@ public class j_Manager_Book extends JPanel {
 		setBackground(new Color(253, 245, 230));
 		setPreferredSize(new Dimension(876, 590));
 		setLayout(new BorderLayout(0, 0));
-		setVisible(true);
+//		add(getTabbedPane());
 
 	}
 	
-
+	
 	public JTabbedPane getTabbedPane() {
 		if (tabbedPane == null) {
 			tabbedPane = new JTabbedPane(JTabbedPane.TOP);
@@ -74,7 +76,7 @@ public class j_Manager_Book extends JPanel {
 			Insertbook = new JPanel();
 			Insertbook.setBackground(new Color(253, 245, 230));
 			Insertbook.setPreferredSize(new Dimension(680, 540));
-			j_BookInsert bookInsert = new j_BookInsert();
+			j_BookInsert bookInsert = new j_BookInsert(this,main);
 			bookInsert.getLblNewLabel().setOpaque(true);
 			bookInsert.getLblNewLabel().setBackground(new Color(253, 245, 230));
 			bookInsert.getLblNewLabel().setFont(new Font("¸¼Àº °íµñ Semilight", Font.PLAIN, 30));
@@ -119,15 +121,23 @@ public class j_Manager_Book extends JPanel {
 			groupbook = new JPanel();
 			groupbook.setLayout(null);
 			j_BookCategoryInsert ci = new j_BookCategoryInsert();
+			ci.getBtnNewButton().addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					
+					groupbook.add(ci);
+					groupbook.updateUI();
+					groupbook.setVisible(true);
+					
+				}
+			});
 			ci.getBtnNewButton().setLocation(151, 234);
 			ci.getTCode().setLocation(177, 183);
 			ci.getTName().setLocation(177, 143);
 			ci.getLabel().setLocation(101, 186);
 			ci.getLblNewLabel_1().setLocation(101, 146);
 			ci.getLblNewLabel().setBounds(0, 31, 399, 90);
-			ci.setBounds(44, 45, 399, 348);
+			ci.setBounds(14, 45, 843, 348);
 			groupbook.add(ci);
-			groupbook.add(getPanel_4_1());
 			
 			groupbook.updateUI();
 			groupbook.setVisible(true);
@@ -146,21 +156,5 @@ public class j_Manager_Book extends JPanel {
 			hopebook.setVisible(true);
 		}
 		return hopebook;
-	}
-	public JPanel getPanel_4_1() {
-		if (panel_4 == null) {
-			panel_4 = new JPanel();
-			panel_4.setBounds(457, 12, 436, 439);
-			panel_4.setLayout(null);
-			
-			j_BookCategorySelect cs = new j_BookCategorySelect();
-			cs.getLblNewLabel().setLocation(33, 22);
-			cs.getScrollPane().setBounds(14, 106, 394, 227);
-			cs.setBounds(14, 33, 422, 345);
-			panel_4.add(cs);
-			panel_4.updateUI();
-			panel_4.setVisible(true);
-		}
-		return panel_4;
 	}
 }

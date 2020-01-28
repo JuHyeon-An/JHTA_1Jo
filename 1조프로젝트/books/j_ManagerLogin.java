@@ -21,6 +21,7 @@ public class j_ManagerLogin extends JInternalFrame {
 	private JTextField tPwd;
 	private JButton btnNewButton;
 	JFrame frame;
+	String msg;
 	
 	/**
 	 * Launch the application.
@@ -45,6 +46,11 @@ public class j_ManagerLogin extends JInternalFrame {
 	public j_ManagerLogin(JFrame frame) {
 		this.frame = frame;
 	}
+	
+	public void showMessage(String msg) {
+		DialogMessage dm = new DialogMessage(msg);
+		dm.setLocationRelativeTo(j_ManagerLogin.this);
+	}	
 	
 	public j_ManagerLogin() {
 		super("login", true, true, true, true);
@@ -116,13 +122,13 @@ public class j_ManagerLogin extends JInternalFrame {
 					m_ManagerDao dao = new m_ManagerDao();
 					int r =dao.login(vo);
 					if(r>0) {
-						JOptionPane.showMessageDialog(null, "로그인 되었습니다.");
+						msg = "로그인 되었습니다.";
 						h_Manager_Main frame = new h_Manager_Main();
 						frame.setVisible(true);
 						
 					}
-					else JOptionPane.showMessageDialog(null, "아이디 또는 패스워드가 잘못 되었습니다.");
-					
+					else msg = "아이디 또는 패스워드가 잘못 되었습니다.";
+					showMessage(msg);
 				}
 			});
 			btnNewButton.setBounds(299, 374, 226, 50);

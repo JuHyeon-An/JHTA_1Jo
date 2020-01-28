@@ -2,6 +2,7 @@ package books;
 
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
+import javax.swing.JTable;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -14,6 +15,8 @@ import java.awt.event.ActionEvent;
 import java.awt.Color;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JScrollPane;
 
 public class j_BookCategoryInsert extends JPanel {
 	private JLabel lblNewLabel;
@@ -22,7 +25,12 @@ public class j_BookCategoryInsert extends JPanel {
 	private JTextField tName;
 	private JTextField tCode;
 	private JButton btnNewButton;
-	j_BookCategorySelect cs = new j_BookCategorySelect();
+	private JSeparator separator;
+	private JLabel label_1;
+	private JScrollPane scrollPane;
+	JTable table;
+	DefaultTableModel model;
+	private JPanel panel;
 
 	/**
 	 * Create the panel.
@@ -30,7 +38,7 @@ public class j_BookCategoryInsert extends JPanel {
 	public j_BookCategoryInsert() {
 		setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 		setBackground(new Color(250, 240, 230));
-		setPreferredSize(new Dimension(348, 340));
+		setPreferredSize(new Dimension(800, 340));
 		setLayout(null);
 		add(getLblNewLabel());
 		add(getLblNewLabel_1());
@@ -38,8 +46,18 @@ public class j_BookCategoryInsert extends JPanel {
 		add(getTName());
 		add(getTCode());
 		add(getBtnNewButton());
+		add(getSeparator_1());
+		add(getPanel());
 
 	}
+	
+	public void tableSetting() {
+		table = new JTable();
+		j_BookDao dao = new j_BookDao();
+		model = dao.TableSetting(table, 2);
+		table.setVisible(true);
+	}
+	
 	public JLabel getLblNewLabel() {
 		if (lblNewLabel == null) {
 			lblNewLabel = new JLabel("\uBD84\uB958\uCF54\uB4DC \uB4F1\uB85D");
@@ -90,22 +108,25 @@ public class j_BookCategoryInsert extends JPanel {
 					j_GroupVo vo = new j_GroupVo();
 					
 					vo.setgCode(Integer.parseInt(tCode.getText()));
+					
 					vo.setgName(tName.getText());
 					
 					int r = dao.CategoryInsert(vo);
-					
+					String msg = "";
 					if(r>0) {
-						JOptionPane.showMessageDialog(null, "분류코드 등록이 완료되었습니다.");
+					
+						msg = "분류코드 등록이 완료되었습니다.";
 						
-						cs.tableSetting();
-						cs.updateUI();
+						remove(panel);
+						model = dao.TableSetting(table, 2);
+						add(panel);
+						updateUI();
 						
 					}else {
-						JOptionPane.showMessageDialog(null, "오류발생");
+						msg = "해당 분류코드가 이미 존재합니다.";
 					}
-				
-					
-					
+					DialogMessage dm = new DialogMessage(msg);
+					dm.setLocationRelativeTo(j_BookCategoryInsert.this);
 				}
 				
 				
@@ -113,5 +134,46 @@ public class j_BookCategoryInsert extends JPanel {
 			btnNewButton.setBounds(126, 223, 105, 27);
 		}
 		return btnNewButton;
+	}
+	public JSeparator getSeparator_1() {
+		if (separator == null) {
+			separator = new JSeparator();
+			separator.setOrientation(SwingConstants.VERTICAL);
+			separator.setBounds(362, 31, 2, 271);
+		}
+		return separator;
+	}
+	public JLabel getLabel_1() {
+		if (label_1 == null) {
+			label_1 = new JLabel("\uBD84\uB958\uCF54\uB4DC  \uB9AC\uC2A4\uD2B8");
+			label_1.setBounds(0, 0, 375, 56);
+			label_1.setHorizontalAlignment(SwingConstants.CENTER);
+			label_1.setFont(new Font("맑은 고딕", Font.PLAIN, 23));
+		}
+		return label_1;
+	}
+	public JScrollPane getScrollPane() {
+		if (scrollPane == null) {
+			scrollPane = new JScrollPane();
+			scrollPane.setBounds(14, 106, 330, 140);
+			scrollPane.setViewportView(getTable());
+		}
+		return scrollPane;
+	}
+	public JTable getTable() {
+		if (table == null) {
+			tableSetting();
+		}
+		return table;
+	}
+	public JPanel getPanel() {
+		if (panel == null) {
+			panel = new JPanel();
+			panel.setBounds(396, 44, 375, 271);
+			panel.setLayout(null);
+			panel.add(getLabel_1());
+			panel.add(getScrollPane());
+		}
+		return panel;
 	}
 }

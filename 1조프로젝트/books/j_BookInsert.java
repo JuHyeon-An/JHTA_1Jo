@@ -21,6 +21,8 @@ import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.text.BadLocationException;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class j_BookInsert extends JPanel {
 	private JLabel lblNewLabel;
@@ -48,8 +50,17 @@ public class j_BookInsert extends JPanel {
 	j_BookVo vo = new j_BookVo();
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	List<j_GroupVo> list = new ArrayList<j_GroupVo>();
+	DialogMessage dm = new DialogMessage();
+	String msg;
+	j_Manager_Book book;
+	h_Manager_Main main;
 	
-
+	public j_BookInsert(j_Manager_Book book,h_Manager_Main main) {
+		this();
+		this.book = book;
+		this.main = main;
+		}
+	
 	public j_BookInsert() {
 		list = dao.getGroupList();
 		setBackground(new Color(253, 245, 230));
@@ -87,6 +98,70 @@ public class j_BookInsert extends JPanel {
 		tPage.setEditable(b);
 		tGroup.setEnabled(b);
 		btnNewButton.setEnabled(b);
+	}
+	
+	public void showMessage(String msg) {
+		dm = new DialogMessage(msg);
+		dm.setLocationRelativeTo(j_BookInsert.this);
+	}
+	
+	public void insert() {
+		if(!tCode.getText().equals("")&&!tDate.getText().equals("")&&!tBook.getText().equals("")&&
+			!tPage.getText().equals("")&&!tPrice.getText().equals("")&&!tPublisher.getText().equals("")&&
+			!tWriter.getText().equals("")){
+			
+		String value = tGroup.getSelectedItem()+"";
+		vo.setbGroup(Integer.parseInt(value.substring(0,3)));
+		vo.setbCode(tCode.getText());
+		vo.setbDate(Integer.parseInt(tDate.getText()));
+		
+		vo.setbName(tBook.getText());
+		vo.setPages(Integer.parseInt(tPage.getText()));
+		vo.setPrice(Integer.parseInt(tPrice.getText()));
+		vo.setPublisher(tPublisher.getText());
+		vo.setWriter(tWriter.getText());
+		vo.setStatus("1"); // 처음 도서 등록하면 대출 가능하도록 초기설정
+		
+		int r = dao.insert(vo);
+		
+		if(r>0) {
+				msg = "입력이 완료되었습니다.";
+				tCode.setText("");
+				tDate.setText("");
+				tGroup.setSelectedIndex(0);
+				tBook.setText("");
+				tPage.setText("");
+				tPrice.setText("");
+				tPublisher.setText("");
+				tWriter.setText("");
+				setEditableAll(false);
+				book.getModifybook().removeAll();
+
+				
+				
+				//업데이트
+				j_BookManagement bookManagement = new j_BookManagement();
+				bookManagement.getBtnNewButton_1().addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+
+						j_BookDetail detail = new j_BookDetail(bookManagement);
+						main.getContentPane().add(detail);
+						detail.toFront();
+					}
+				});
+				bookManagement.getScrollPane().setBounds(6, 59, 817, 353);
+				bookManagement.setPreferredSize(new Dimension(830, 462));
+
+				book.getModifybook().add(bookManagement);
+				book.getModifybook().updateUI();
+			
+		}else {
+			msg = "오류발생";
+		}
+}else {
+	msg= "모든 데이터를 입력해주세요";
+}
+		showMessage(msg);
 	}
 	
 	public JLabel getLblNewLabel() {
@@ -206,6 +281,14 @@ public class j_BookInsert extends JPanel {
 	public JTextField getTCode() {
 		if (tCode == null) {
 			tCode = new JTextField();
+			tCode.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyReleased(KeyEvent arg0) {
+					if(arg0.getKeyChar() == arg0.VK_ENTER) {
+						insert();
+						}
+				}
+			});
 			tCode.setColumns(10);
 			tCode.setBounds(128, 99, 130, 24);
 		}
@@ -248,44 +331,11 @@ public class j_BookInsert extends JPanel {
 			btnNewButton.addActionListener(new ActionListener() {
 				
 				public void actionPerformed(ActionEvent e) {
-					
-					if(!tCode.getText().equals("")&&!tDate.getText().equals("")&&!tBook.getText().equals("")&&
-						!tPage.getText().equals("")&&!tPrice.getText().equals("")&&!tPublisher.getText().equals("")&&
-						!tWriter.getText().equals("")){
-						
-					String value = tGroup.getSelectedItem()+"";
-					vo.setbGroup(Integer.parseInt(value.substring(0,3)));
-					vo.setbCode(tCode.getText());
-					vo.setbDate(Integer.parseInt(tDate.getText()));
-					
-					vo.setbName(tBook.getText());
-					vo.setPages(Integer.parseInt(tPage.getText()));
-					vo.setPrice(Integer.parseInt(tPrice.getText()));
-					vo.setPublisher(tPublisher.getText());
-					vo.setWriter(tWriter.getText());
-					vo.setStatus("1"); // 처음 도서 등록하면 대출 가능하도록 초기설정
-					
-					int r = dao.insert(vo);
-					
-					if(r>0) {
-						JOptionPane.showMessageDialog(null, "입력이 완료되었습니다.");
-						tCode.setText("");
-						tDate.setText("");
-						tGroup.setSelectedIndex(0);
-						tBook.setText("");
-						tPage.setText("");
-						tPrice.setText("");
-						tPublisher.setText("");
-						tWriter.setText("");
-						setEditableAll(false);
-					}else {
-						JOptionPane.showMessageDialog(null, "오류발생");
-					}
-			}else {
-				JOptionPane.showMessageDialog(null, "모든 데이터를 입력해주세요");
-			}
-					
+
+					insert();
 				}
+
+
 			});
 			btnNewButton.setBounds(232, 422, 105, 27);
 		}
@@ -307,15 +357,16 @@ public class j_BookInsert extends JPanel {
 						boolean r = dao.bookCodeCheck(tCode.getText());
 
 						if (r) {
-							JOptionPane.showMessageDialog(j_BookInsert.this, "이미 해당 청구기호가 존재합니다.");
+							msg  ="이미 해당 청구기호가 존재합니다.";
 							setEditableAll(false);
 						} else {
-							JOptionPane.showMessageDialog(j_BookInsert.this, "입력 가능");
+							msg = "입력가능합니다.";
 							setEditableAll(true);
 						}
 					} else {
-						JOptionPane.showMessageDialog(j_BookInsert.this, "청구기호를 입력해주세요");
+						msg = "청구기호를 입력해주세요";
 					}
+					showMessage(msg);
 				}
 			});
 			btnNewButton_1.setBounds(260, 97, 91, 27);

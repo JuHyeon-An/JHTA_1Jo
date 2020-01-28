@@ -97,7 +97,7 @@ public class DialogMessage extends JDialog {
 		if (msg == null) {
 			msg = new JLabel("\uBA54\uC2DC\uC9C0");
 			msg.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
-			msg.setHorizontalAlignment(SwingConstants.CENTER);
+			msg.setHorizontalAlignment(SwingConstants.LEFT);
 			msg.setBounds(79, 12, 283, 47);
 		}
 		return msg;

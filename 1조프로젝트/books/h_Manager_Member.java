@@ -12,15 +12,18 @@ public class h_Manager_Member extends JPanel {
 	private JTabbedPane tabbedPane;
 	private JPanel panel;
 	private JPanel panel_1;
+	int index;
 
-
+	public h_Manager_Member(int index) {
+		this();
+		this.index = index;
+		add(getTabbedPane());
+	}
+	
 	public h_Manager_Member() {
 		setPreferredSize(new Dimension(990, 610));
 		setLayout(null);
-		add(getTabbedPane());
 		setVisible(true);
-		
-
 		
 	}
 
@@ -31,7 +34,7 @@ public class h_Manager_Member extends JPanel {
 			tabbedPane.addTab("회원수정·삭제", null, getPanel(), null);
 			tabbedPane.addTab("회원조회", null, getPanel_1(), null);
 			tabbedPane.setFont(new Font("맑은 고딕 Semilight", Font.PLAIN, 15));
-			
+			tabbedPane.setSelectedIndex(index);
 		}
 		return tabbedPane;
 	}

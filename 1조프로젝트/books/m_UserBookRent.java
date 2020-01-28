@@ -124,7 +124,7 @@ public class m_UserBookRent extends JPanel {
 
 					int r = dao.rentRequest(bCode, keyId);
 					if (r > 0) {
-						if(       ((String)table.getValueAt(table.getSelectedRow(), 4))=="예약 가능"                   ) {
+						if(       !((String)table.getValueAt(table.getSelectedRow(), 4)).equals("예약불가")                   ) {
 							int a = dao.bookStatusRent(bCode);
 							JOptionPane.showMessageDialog(null, "신청 되었습니다.");
 							String rent = textField.getText();
