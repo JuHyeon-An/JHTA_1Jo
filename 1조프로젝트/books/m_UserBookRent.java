@@ -95,6 +95,8 @@ public class m_UserBookRent extends JPanel {
 
 					model = (DefaultTableModel) dao.rent(comboBox.getSelectedIndex(), rent);
 
+					
+					
 					table.setModel(model);
 
 				}
@@ -132,7 +134,7 @@ public class m_UserBookRent extends JPanel {
 							
 							table.setModel(model);							
 						}else {
-							JOptionPane.showMessageDialog(null, "신청불가입니다.");
+							JOptionPane.showMessageDialog(null, "추가하기");
 						}
 
 					}
