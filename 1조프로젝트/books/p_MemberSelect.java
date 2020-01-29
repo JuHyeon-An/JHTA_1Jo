@@ -6,8 +6,6 @@ import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import m_jdbc.MemberVo;
-
 import javax.swing.JButton;
 import javax.swing.JTable;
 import java.awt.Dimension;
