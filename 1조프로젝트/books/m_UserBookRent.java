@@ -19,7 +19,7 @@ import java.awt.Font;
 import java.awt.Color;
 
 public class m_UserBookRent extends JPanel {
-	
+
 	private DialogMessage dm;
 	private String msg = "";
 
@@ -80,7 +80,7 @@ public class m_UserBookRent extends JPanel {
 						String rent = textField.getText(); // 검색어
 						j_BookDao dao = new j_BookDao();
 
-						model = (DefaultTableModel) dao.rent(comboBox.getSelectedIndex(), rent);
+						model = (DefaultTableModel) dao.rent(comboBox.getSelectedIndex(), rent, keyId);
 
 						table.setModel(model);
 					}
@@ -105,7 +105,7 @@ public class m_UserBookRent extends JPanel {
 					String rent = textField.getText(); // 검색어
 					j_BookDao dao = new j_BookDao();
 
-					model = (DefaultTableModel) dao.rent(comboBox.getSelectedIndex(), rent);
+					model = (DefaultTableModel) dao.rent(comboBox.getSelectedIndex(), rent, keyId);
 
 					table.setModel(model);
 
@@ -136,32 +136,34 @@ public class m_UserBookRent extends JPanel {
 			btnNewButton_1.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					// 책 선택하고 예약 신청 버튼 누르면
-					String bCode = (String) table.getValueAt(table.getSelectedRow(), 0);
+					String bCode = (String) table.getValueAt(table.getSelectedRow(), 0); // 선택한 책 코드 받아오고
 					j_BookDao dao = new j_BookDao();
 
-					int r = dao.rentRequest(bCode, keyId);
-					if (r > 0) {
-						if(       ((String)table.getValueAt(table.getSelectedRow(), 4))=="예약 가능"                   ) {
-							int a = dao.bookStatusRent(bCode);
+					if (((String) table.getValueAt(table.getSelectedRow(), 4)) == "예약 가능") {
+
+						int r = dao.rentRequest(bCode, keyId); // 예약요청
+						if (r > 0) {
+							int a = dao.bookStatusRent(bCode);  // 실행되면 예약중으로 변경됨 
 							msg = "신청 되었습니다.";
 							String rent = textField.getText();
-							model = (DefaultTableModel) dao.rent(comboBox.getSelectedIndex(), rent);
-							
-							table.setModel(model);							
-						}else {
-							msg = "이미 예약중 입니다.";
+							model = (DefaultTableModel) dao.rent(comboBox.getSelectedIndex(), rent, keyId);
+							table.setModel(model);
+						} else {
+							msg = "예약불가입니다.";
 						}
 						dm = new DialogMessage(msg);
 						dm.setLocationRelativeTo(m_UserBookRent.this);
 
+					} else if (((String) table.getValueAt(table.getSelectedRow(), 4)) == "예약중") {
+						msg = "이미 예약중 입니다.";
+						dm = new DialogMessage(msg);
+						dm.setLocationRelativeTo(m_UserBookRent.this);
 					}
 				}
-
 			});
 			btnNewButton_1.setBounds(769, 572, 97, 35);
 		}
 		return btnNewButton_1;
-
 	}
 
 	public JTable getTable() {

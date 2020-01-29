@@ -253,26 +253,55 @@ public class h_RentReturn extends JPanel {
 							//JOptionPane.showMessageDialog(h_RentReturn.this,"먼저 아이디를 입력해주세요");
 						}else {
 							String find =(String)table.getValueAt(table.getSelectedRow(), 0);
+							String bookCode = (String)table.getValueAt(table.getSelectedRow(), 2);
+	
 						    int r = dao.deleteRent(find);
 						    if(r>0) {
-						    	msg = "반납이 완료되었습니다";
-								dm = new DialogMessage(msg);
-								dm.setLocationRelativeTo(h_RentReturn.this);
-						    	//JOptionPane.showMessageDialog(h_RentReturn.this,"반납이 완료되었습니다");
-						    	vo = dao.selectId(find);
-						    	bookCount = dao.bookCount(tFind.getText());
-						    	tbookCount.setText(bookCount+"");
+						 
+						    	if(dao.bookState(bookCode)==0) {
+							    	msg = "반납이 완료되었습니다";
+									dm = new DialogMessage(msg);
+									dm.setLocationRelativeTo(h_RentReturn.this);
+							    	//JOptionPane.showMessageDialog(h_RentReturn.this,"반납이 완료되었습니다");
+							    	vo = dao.selectId(find);
+							    	bookCount = dao.bookCount(tFind.getText());
+							    	tbookCount.setText(bookCount+"");
+							   
+							    	dao.bStatusBack(bookCode);
+							    	
+							    	String mId = tmId.getText();
+									int cnt = dao.overdueMember(mId);
+									if(dao.bookCountAtReturn(mId)<=5 && cnt == 0) {
+									   dao.mStatusBack(mId);
+									};
+									
+									dao.updateOverdueBook(mId);
+									dao.selectRent(tmId.getText(),h_RentReturn.this);
+							
+								}else if(dao.bookState(bookCode)==2) {
+									msg = "예약중인 책입니다";
+							    	dm = new DialogMessage(msg);
+							    	dm.setLocationRelativeTo(h_RentReturn.this);
+							    	
+							    	vo = dao.selectId(find);
+							    	bookCount = dao.bookCount(tFind.getText());
+							    	tbookCount.setText(bookCount+"");
+							    	
+							    	String mId = tmId.getText();
+									int cnt = dao.overdueMember(mId);
+									if(dao.bookCountAtReturn(mId)<=5 && cnt == 0) {
+									   dao.mStatusBack(mId);
+									};
+									
+									dao.updateOverdueBook(mId);
+									dao.selectRent(tmId.getText(),h_RentReturn.this);
+								}
+						    }else {
+						    	msg = "반납중 오류발생";
+						    	dm = new DialogMessage(msg);
+						    	dm.setLocationRelativeTo(h_RentReturn.this);
 						    }
-						    String bookCode = (String)table.getValueAt(table.getSelectedRow(), 2);
-						    dao.bStatusBack(bookCode);
-						    String mId = tmId.getText();
-						    int cnt = dao.overdueMember(mId);
-						    if(dao.bookCountAtReturn(mId)<=5 && cnt == 0) {
-						    	dao.mStatusBack(mId);
-						    };
-						    dao.updateOverdueBook(mId);
-						    
-						    dao.selectRent(tmId.getText(),h_RentReturn.this);
+						   
 						    tFind.requestFocus();
 						    tFind.selectAll();
 					    

@@ -21,6 +21,7 @@ public class DialogMessage extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JLabel msg;
 	String iconPath = "";
+	private JLabel lblNewLabel_1;
 
 	/**
 	 * Launch the application.
@@ -52,7 +53,7 @@ public class DialogMessage extends JDialog {
 		setTitle("message");
 		setBounds(100, 100, 394, 161);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBackground(new Color(245, 255, 250));
+		contentPanel.setBackground(new Color(255, 228, 181));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
@@ -63,27 +64,34 @@ public class DialogMessage extends JDialog {
 			lblNewLabel.setBounds(14, 0, 67, 74);
 			contentPanel.add(lblNewLabel);
 		}
+		contentPanel.add(getLblNewLabel_1());
 		
 		{
 			JPanel buttonPane = new JPanel();
-			buttonPane.setBackground(new Color(245, 255, 250));
+			buttonPane.setBackground(new Color(255, 228, 181));
 			buttonPane.setPreferredSize(new Dimension(10, 45));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			buttonPane.setLayout(null);
 			{
-				JButton okButton = new JButton("\uD655\uC778");
-				okButton.setBorder(null);
+				JButton okButton = new JButton("");
+				okButton.setIcon(new ImageIcon(DialogMessage.class.getResource("/iconBox/001.jpg")));
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						dispose();
 					}
 				});
-				okButton.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 15));
-				okButton.setBackground(new Color(173, 216, 230));
-				okButton.setBounds(148, 0, 89, 37);
+				okButton.setFont(new Font("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½", Font.PLAIN, 15));
+				okButton.setBackground(new Color(255, 215, 0));
+				okButton.setBounds(148, 0, 85, 34);
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
+			}
+			{
+				JLabel lblNewLabel_2 = new JLabel("");
+				lblNewLabel_2.setIcon(null);
+				lblNewLabel_2.setBounds(0, 0, 378, 45);
+				buttonPane.add(lblNewLabel_2);
 			}
 			{
 //				JButton cancelButton = new JButton("Cancel");
@@ -102,6 +110,14 @@ public class DialogMessage extends JDialog {
 			msg.setBounds(79, 12, 283, 47);
 		}
 		return msg;
+	}
+	private JLabel getLblNewLabel_1() {
+		if (lblNewLabel_1 == null) {
+			lblNewLabel_1 = new JLabel("");
+			lblNewLabel_1.setIcon(null);
+			lblNewLabel_1.setBounds(0, 0, 378, 78);
+		}
+		return lblNewLabel_1;
 	}
 }
 

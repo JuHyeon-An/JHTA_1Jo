@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -319,32 +320,37 @@ public class j_BookDao {
 		return r;
 	}
 
-////////////민호 추가////////////////////
-	// Reserve_book 테이블에 데이터 넣기
+	////////////민호 추가////////////////////
+	//Reserve_book 테이블에 데이터 넣기
 	public int rentRequest(String bCode, String keyId) {
-		int r = 0;
-		String sql = "insert into reserve_book values(seq_reserve.nextval, ?, ?,sysdate)";
-		try {
-			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setString(1, bCode);
-			
-			ps.setString(2, keyId);
-
-			conn.setAutoCommit(false);
-			r = ps.executeUpdate();
-			if (r > 0)
-				conn.commit();
-			else
-				conn.rollback();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			return r;
-		}
-
+	int r = 0;
+	
+	boolean b = rentAble(keyId); // 동일한 아이디가 없으면 예약 가능
+	boolean b1 = bookRentAble(bCode); //동일한 책코드가 없으면 예약가능
+	
+	
+	if (b && b1) {
+	String sql = "insert into reserve_book values(seq_reserve.nextval, ?, ?,sysdate)";
+	try {
+		PreparedStatement ps = conn.prepareStatement(sql);
+		ps.setString(1, bCode);
+		ps.setString(2, keyId);
+	
+		conn.setAutoCommit(false);
+		r = ps.executeUpdate();
+		if (r > 0)
+			conn.commit();
+		else
+			conn.rollback();
+	
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
 	}
 
+	return r;
+	
+	}
 	/*
 	 * 작성 : 민호
 	 */
@@ -870,9 +876,231 @@ public class j_BookDao {
 		return a;
 	}
 	
+	public j_noticeVo notice(int no) {
+		j_noticeVo vo = new j_noticeVo();
+		sql = "select serial_no, title, board_writer, contents, to_char(reg_date, 'rrrr-mm-dd') from notice_board where serial_no = ?";
+		PreparedStatement ps;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, no);
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()) {
+				vo.setTitle(rs.getString("title"));
+				vo.setWriter(rs.getString("board_writer"));
+				vo.setRegDate(rs.getString(5));
+				vo.setContents(rs.getString("contents"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+				return vo;
+		}
+	}
 	
+	public boolean bookRentAble(String bCode) {
+		boolean b = false;
+		String sql = "select count(book_code) from RESERVE_BOOK where book_code = ?";
+		try {
+			PreparedStatement ps =conn.prepareStatement(sql);
+			ps.setString(1, bCode);
+			
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				if(rs.getInt(1)>=1) {
+					b=false;
+				}else {
+					b=true;
+				}
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return b;
+		
+	}
 	
+	// 최근 입고된 책
+		public DefaultTableModel recentBook() {
+
+			DefaultTableModel model = null;
+			PreparedStatement ps = null;
+			ResultSetMetaData meta = null;
+			String sql = null;
+
+			sql = " SELECT book_name, WRITER" + " FROM "
+					+ " (   SELECT book_name, WRITER	  FROM books   ORDER BY enroll_date DESC	 )"
+					+ " WHERE ROWNUM <= 5";
+
+			try {
+				ps = conn.prepareStatement(sql);
+				meta = ps.getMetaData();
+				model = new DefaultTableModel();
+				int cnt = meta.getColumnCount();
+
+				model.addColumn("책 이름");
+				model.addColumn("저자");
+
+				ResultSet rs = ps.executeQuery();
+
+				while (rs.next()) {
+					Vector row = new Vector<>();
+					for (int i = 1; i <= cnt; i++) {
+						row.add(rs.getString(i));
+					}
+
+					model.addRow(row);
+
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			return model;
+		}
 	
+		
+		public boolean rentAble(String keyId) {
+			boolean b = false;
+			String sql = "select count(member_id) from reserve_book where member_id = ?";
+			try {
+				PreparedStatement ps = conn.prepareStatement(sql);
+				ps.setString(1, keyId);
+
+				ResultSet rs = ps.executeQuery();
+				while (rs.next()) {
+					if (rs.getInt(1) >= 1) {
+						b = false;
+					} else {
+						b = true;
+					}
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return b;
+		}
+
+		/*
+		 * 작성 : 민호 사용자가 도서검색에서 검색 버튼 누르면 검색어로 테이블 띄우기 콤보박스에서 선택된 인덱스로 검색
+		 */
+		public DefaultTableModel rent(int selectIndex, String rent, String keyId) {
+			DefaultTableModel model = null;
+			PreparedStatement ps = null;
+			ResultSetMetaData meta = null;
+			String sql = null;
+
+			if (selectIndex == 0) {
+
+				sql = "select Book_Code, book_name, publisher, writer, booK_status " + " from books where book_name like ?";
+
+				try {
+					ps = conn.prepareStatement(sql);
+					meta = ps.getMetaData();
+					model = new DefaultTableModel();
+					int cnt = meta.getColumnCount();
+
+					model.addColumn("책 코드");
+					model.addColumn("책 이름");
+					model.addColumn("출판사");
+					model.addColumn("저자");
+					model.addColumn("상태");
+
+					ps.setString(1, "%" + rent + "%");
+					ResultSet rs = ps.executeQuery();
+
+					while (rs.next()) {
+						Vector row = new Vector<>();
+						for (int i = 1; i <= cnt - 1; i++) {
+							row.add(rs.getString(i));
+						} // 0이면 대출중인거 1이면 대출 가능 2 예약중인거
+						if (Integer.parseInt(rs.getString(5)) == 1 || Integer.parseInt(rs.getString(5)) == 0) {
+							row.add("예약 가능");
+						} else if (Integer.parseInt(rs.getString(5)) == 2) {
+							row.add("예약중");
+						}
+
+						model.addRow(row);
+
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+				return model;
+			} else if (selectIndex == 1) {
+				sql = "select Book_Code, book_name, publisher, writer, booK_status " + " from books where writer like ?";
+				try {
+					ps = conn.prepareStatement(sql);
+					meta = ps.getMetaData();
+					model = new DefaultTableModel();
+					int cnt = meta.getColumnCount();
+
+					model.addColumn("책 코드");
+					model.addColumn("책 이름");
+					model.addColumn("출판사");
+					model.addColumn("저자");
+					model.addColumn("상태");
+
+					ps.setString(1, "%" + rent + "%");
+
+					ResultSet rs = ps.executeQuery();
+					while (rs.next()) {
+						Vector row = new Vector<>();
+						for (int i = 1; i <= cnt - 1; i++) {
+							row.add(rs.getString(i));
+						}
+						if (Integer.parseInt(rs.getString(5)) == 1 || Integer.parseInt(rs.getString(5)) == 0) { // 1이면 이미
+																												// 빌린거
+							row.add("예약 가능");
+						} else if (Integer.parseInt(rs.getString(5)) == 2) {
+							row.add("예약중");
+						}
+						model.addRow(row);
+
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				return model;
+			} else {
+				sql = "select Book_Code, book_name, publisher, writer, booK_status  from books where publisher like ?";
+				try {
+					ps = conn.prepareStatement(sql);
+					meta = ps.getMetaData();
+					model = new DefaultTableModel();
+					int cnt = meta.getColumnCount();
+
+					model.addColumn("책 코드");
+					model.addColumn("책 이름");
+					model.addColumn("출판사");
+					model.addColumn("저자");
+					model.addColumn("상태");
+
+					ps.setString(1, "%" + rent + "%");
+
+					ResultSet rs = ps.executeQuery();
+					while (rs.next()) {
+						Vector row = new Vector<>();
+						for (int i = 1; i <= cnt - 1; i++) {
+							row.add(rs.getString(i));
+						}
+						if (Integer.parseInt(rs.getString(5)) == 1 || Integer.parseInt(rs.getString(5)) == 0) { // 1이면 이미
+																												// 빌린거
+							row.add("예약 가능");
+						} else if (Integer.parseInt(rs.getString(5)) == 2) {
+							row.add("예약중");
+						}
+						model.addRow(row);
+
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				return model;
+			}
+		}
 }
 
 	

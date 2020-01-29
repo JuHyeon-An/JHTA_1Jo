@@ -17,6 +17,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Component;
 import java.awt.Color;
+import javax.swing.ImageIcon;
 
 public class m_UserModify extends JPanel {
 
@@ -41,6 +42,7 @@ public class m_UserModify extends JPanel {
 	private JLabel pwdS;
 	private JLabel emailS;
 	private JLabel phoneS;
+	private JLabel lblNewLabel_6;
 
 	public m_UserModify() {
 		setBorder(null);
@@ -64,6 +66,7 @@ public class m_UserModify extends JPanel {
 		add(getPwdS());
 		add(getEmailS());
 		add(getPhoneS());
+		add(getLblNewLabel_6());
 	}
 
 	public m_UserModify(String keyId) {
@@ -84,7 +87,7 @@ public class m_UserModify extends JPanel {
 		if (lblNewLabel == null) {
 			lblNewLabel = new JLabel("\uC544\uC774\uB514");
 			lblNewLabel.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 16));
-			lblNewLabel.setBounds(30, 35, 100, 45);
+			lblNewLabel.setBounds(30, 35, 51, 45);
 		}
 		return lblNewLabel;
 	}
@@ -93,7 +96,7 @@ public class m_UserModify extends JPanel {
 		if (lblNewLabel_1 == null) {
 			lblNewLabel_1 = new JLabel("\uC774\uB984");
 			lblNewLabel_1.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 16));
-			lblNewLabel_1.setBounds(30, 95, 100, 45);
+			lblNewLabel_1.setBounds(30, 106, 51, 45);
 		}
 		return lblNewLabel_1;
 	}
@@ -102,7 +105,7 @@ public class m_UserModify extends JPanel {
 		if (lblNewLabel_2 == null) {
 			lblNewLabel_2 = new JLabel("\uC0DD\uB144\uC6D0\uC77C");
 			lblNewLabel_2.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 16));
-			lblNewLabel_2.setBounds(30, 155, 100, 45);
+			lblNewLabel_2.setBounds(12, 178, 69, 45);
 		}
 		return lblNewLabel_2;
 	}
@@ -111,7 +114,7 @@ public class m_UserModify extends JPanel {
 		if (lblNewLabel_3 == null) {
 			lblNewLabel_3 = new JLabel("\uBE44\uBC00\uBC88\uD638");
 			lblNewLabel_3.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 16));
-			lblNewLabel_3.setBounds(30, 215, 100, 45);
+			lblNewLabel_3.setBounds(12, 260, 69, 45);
 		}
 		return lblNewLabel_3;
 	}
@@ -120,7 +123,7 @@ public class m_UserModify extends JPanel {
 		if (lblNewLabel_4 == null) {
 			lblNewLabel_4 = new JLabel("\uC774\uBA54\uC77C");
 			lblNewLabel_4.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 16));
-			lblNewLabel_4.setBounds(30, 275, 100, 45);
+			lblNewLabel_4.setBounds(12, 343, 100, 23);
 		}
 		return lblNewLabel_4;
 	}
@@ -129,7 +132,7 @@ public class m_UserModify extends JPanel {
 		if (lblNewLabel_5 == null) {
 			lblNewLabel_5 = new JLabel("\uD578\uB4DC\uD3F0");
 			lblNewLabel_5.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 16));
-			lblNewLabel_5.setBounds(30, 335, 100, 45);
+			lblNewLabel_5.setBounds(12, 413, 61, 45);
 		}
 		return lblNewLabel_5;
 	}
@@ -140,7 +143,7 @@ public class m_UserModify extends JPanel {
 			tId.setAlignmentX(Component.LEFT_ALIGNMENT);
 			tId.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 16));
 			tId.setEnabled(false);
-			tId.setBounds(145, 35, 250, 45);
+			tId.setBounds(148, 43, 250, 29);
 			tId.setColumns(10);
 		}
 		return tId;
@@ -152,7 +155,7 @@ public class m_UserModify extends JPanel {
 			tName.setAlignmentX(Component.LEFT_ALIGNMENT);
 			tName.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 16));
 			tName.setEnabled(false);
-			tName.setBounds(145, 95, 250, 45);
+			tName.setBounds(148, 114, 250, 29);
 			tName.setColumns(10);
 		}
 		return tName;
@@ -164,7 +167,7 @@ public class m_UserModify extends JPanel {
 			tBirth.setAlignmentX(Component.LEFT_ALIGNMENT);
 			tBirth.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 16));
 			tBirth.setEnabled(false);
-			tBirth.setBounds(145, 155, 250, 45);
+			tBirth.setBounds(148, 186, 250, 29);
 			tBirth.setColumns(10);
 		}
 		return tBirth;
@@ -175,7 +178,7 @@ public class m_UserModify extends JPanel {
 			tPwd = new JTextField();
 			tPwd.setAlignmentX(Component.LEFT_ALIGNMENT);
 			tPwd.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 16));
-			tPwd.setBounds(145, 215, 250, 45);
+			tPwd.setBounds(148, 268, 250, 29);
 			tPwd.setColumns(10);
 		}
 		return tPwd;
@@ -186,7 +189,7 @@ public class m_UserModify extends JPanel {
 			tEmail = new JTextField();
 			tEmail.setAlignmentX(Component.LEFT_ALIGNMENT);
 			tEmail.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 16));
-			tEmail.setBounds(145, 275, 250, 45);
+			tEmail.setBounds(148, 340, 250, 29);
 			tEmail.setColumns(10);
 		}
 		return tEmail;
@@ -197,7 +200,7 @@ public class m_UserModify extends JPanel {
 			tPhone = new JTextField();
 			tPhone.setAlignmentX(Component.LEFT_ALIGNMENT);
 			tPhone.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 16));
-			tPhone.setBounds(145, 335, 250, 45);
+			tPhone.setBounds(148, 421, 250, 29);
 			tPhone.setColumns(10);
 		}
 		return tPhone;
@@ -205,7 +208,8 @@ public class m_UserModify extends JPanel {
 
 	public JButton getBtnNewButton() {
 		if (btnNewButton == null) {
-			btnNewButton = new JButton("¼öÁ¤");
+			btnNewButton = new JButton("");
+			btnNewButton.setIcon(new ImageIcon(m_UserModify.class.getResource("/iconBox/14.png")));
 			btnNewButton.setBorder(null);
 			btnNewButton.setBackground(new Color(176, 224, 230));
 			btnNewButton.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 16));
@@ -257,7 +261,7 @@ public class m_UserModify extends JPanel {
 				}
 
 			});
-			btnNewButton.setBounds(530, 560, 130, 45);
+			btnNewButton.setBounds(155, 508, 85, 34);
 		}
 		return btnNewButton;
 
@@ -265,7 +269,8 @@ public class m_UserModify extends JPanel {
 
 	public JButton getBtnNewButton_1() {
 		if (btnNewButton_1 == null) {
-			btnNewButton_1 = new JButton("Å»Åð");
+			btnNewButton_1 = new JButton("");
+			btnNewButton_1.setIcon(new ImageIcon(m_UserModify.class.getResource("/iconBox/15.png")));
 			btnNewButton_1.setBorder(null);
 			btnNewButton_1.setBackground(new Color(176, 224, 230));
 			btnNewButton_1.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 16));
@@ -287,7 +292,7 @@ public class m_UserModify extends JPanel {
 					
 				}
 			});
-			btnNewButton_1.setBounds(689, 560, 130, 45);
+			btnNewButton_1.setBounds(274, 508, 85, 34);
 		}
 		return btnNewButton_1;
 	}
@@ -298,7 +303,7 @@ public class m_UserModify extends JPanel {
 			pwdS.setBackground(new Color(240, 248, 255));
 			pwdS.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 16));
 			pwdS.setOpaque(true);
-			pwdS.setBounds(425, 215, 394, 45);
+			pwdS.setBounds(148, 301, 369, 16);
 		}
 		return pwdS;
 	}
@@ -308,7 +313,7 @@ public class m_UserModify extends JPanel {
 			emailS.setBackground(new Color(240, 248, 255));
 			emailS.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 16));
 			emailS.setOpaque(true);
-			emailS.setBounds(425, 275, 394, 45);
+			emailS.setBounds(148, 372, 394, 16);
 		}
 		return emailS;
 	}
@@ -318,8 +323,16 @@ public class m_UserModify extends JPanel {
 			phoneS.setBackground(new Color(240, 248, 255));
 			phoneS.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 16));
 			phoneS.setOpaque(true);
-			phoneS.setBounds(425, 335, 394, 45);
+			phoneS.setBounds(143, 452, 387, 16);
 		}
 		return phoneS;
+	}
+	private JLabel getLblNewLabel_6() {
+		if (lblNewLabel_6 == null) {
+			lblNewLabel_6 = new JLabel("");
+			lblNewLabel_6.setIcon(new ImageIcon(m_UserModify.class.getResource("/iconBox/004.jpg")));
+			lblNewLabel_6.setBounds(0, 0, 836, 645);
+		}
+		return lblNewLabel_6;
 	}
 }

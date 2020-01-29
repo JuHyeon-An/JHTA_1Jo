@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.util.Vector;
 
 import javax.swing.table.DefaultTableModel;
@@ -151,7 +152,7 @@ public class h_RentDao {
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}finally {
-			System.out.println("책"+r);
+		
 			return r;
 		}
 		
@@ -159,24 +160,24 @@ public class h_RentDao {
 				
 	}
 	
-	public int rent(String find) {
+	public int rent(String find,String bookstate) {
 		//책빌리면 rent_member 데이터 생성 
 		int r=0;
 		int k=0;
+		int b=0;
 		String sql = " insert into rent_member values "
-				+ 	 " (seq_rent.nextval,?,?,sysdate,sysdate+14,greatest(trunc(sysdate-(sysdate+14)),0)) ";
+				+ 	 " (seq_rent.nextval,?,?,sysdate,sysdate+14) ";
 		try {	
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setString(1, mVo.getmId());
-			ps.setString(2, mVo.getBookCode());
+			ps.setString(1, find);
+			ps.setString(2, bookstate);
 			
 			conn.setAutoCommit(false);
 			
 			k=memberStatus(find);
-			if(k==1 && mVo.getbState().equals("1")) {			
+			b=bookState(bookstate);
+			if(k==1 && b==1) {			
 				r = ps.executeUpdate();
-				mVo.setbState("0"); //??
-			
 			}
 			if(r>0) {
 				conn.commit();
@@ -197,6 +198,7 @@ public class h_RentDao {
 	}
 	
 	public int memberStatus(String find) {
+		//검색된 사람의 대출 상태 조회
 		int r=0;
 		String sql = " select member_status from member where member_id=? ";
 		try {
@@ -244,7 +246,7 @@ public class h_RentDao {
 	   }
 	}
 	
-	public void bStatus() {
+/*	public void bStatus() {
 		//빌린 책의 대출상태 0으로 
 		int r=0;
 		
@@ -265,6 +267,30 @@ public class h_RentDao {
 			ps3.close();
 		
 			
+	   }catch(Exception ex) {
+		   ex.printStackTrace();
+	   }
+	}*/
+	public void bStatus(String find) {
+		//대출시 책의 대출상태 0로 
+		int r=0;
+		
+	    try {  
+			String sql = " update books set book_status=? where book_code=?";
+		    
+			PreparedStatement ps3 = conn.prepareStatement(sql);
+			ps3.setString(1,"0");
+			ps3.setString(2,find);
+			
+			conn.setAutoCommit(false);
+	 		r = ps3.executeUpdate();
+			if(r>0) {
+				conn.commit();
+			}else {
+				conn.rollback();
+			}
+			ps3.close();
+				
 	   }catch(Exception ex) {
 		   ex.printStackTrace();
 	   }
@@ -318,20 +344,25 @@ public class h_RentDao {
 		//반납시 rent_member 데이터 삭제
 		String sql = " delete from rent_member where serial=?";
 		int r=0;
+		int k=0;
 	    try{
 	    	PreparedStatement ps = conn.prepareStatement(sql);
 	    	ps.setString(1, find);
 	    	
 	    	conn.setAutoCommit(false);
-	    	r = ps.executeUpdate();
+	    	k=bookState(find);
+	    	if(k==0 || k==2) {
+	    		r = ps.executeUpdate();
+	    	}
 	    	
 	    	if(r>0) {
 	    		conn.commit();
-	    	}else{
+	    	}else if(r==0){
 	    		conn.rollback();
 	    	}
 	    	
 	    	ps.close();
+	    	
 	    	
 	    }catch(Exception ex) {
 	    	ex.printStackTrace();
@@ -500,6 +531,7 @@ public class h_RentDao {
 	}
 	
 	public int idCheck(String find) {
+		//아이디 있는지없는지 확인
 		int r=0;
 		String sql = " select member_id from member where member_id = ? ";
 		try{
@@ -520,6 +552,7 @@ public class h_RentDao {
 	}
 	
 	public int bookCheck(String find) {
+		//책 있는지 없는지 확인
 		int r=0;
 		String sql = " select book_code from books where book_code=?";
 		try {
@@ -538,6 +571,140 @@ public class h_RentDao {
 		}
 		return r;
 	}
+	
+	public int bookState(String find) {
+		//검색된 책의 상태 확인
+		int r=0;
+		String sql = " select book_status from books where book_code = ? ";
+	    try {
+	    	PreparedStatement ps = conn.prepareStatement(sql);
+	    	ps.setString(1,find);
+	    	ResultSet rs  = ps.executeQuery();
+	    	if(rs.next()==true) {
+	    		r = Integer.parseInt(rs.getString("book_status"));  	
+	    	}
+	    	
+	    	ps.close();
+	    	rs.close();
+	    }catch(Exception ex) {
+	    	ex.printStackTrace();
+	    }
+	    return r;	
+	}
+	
+	public String getReserve(String bCode) {
+		//예약한 책의 예약한 사람id 찾기 
+		String r = "";
+		try {
+			String sql = "select member_id from RESERVE_BOOK where book_code = ?";
+
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, bCode);
+
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				r = rs.getString("member_id");
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return r;
+	}
+	public String getReservebook(String bCode) {
+		//예약한 사람의 예약한 책 찾기
+		String r = "";
+		try {
+			String sql = "select book_code from RESERVE_BOOK where member_id = ?";
+
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, bCode);
+
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				r = rs.getString("book_code");
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return r;
+	}
+	
+	public int getReserveIs(String id) {
+		//검색된사람이 예약된 책이 있는지 없는지 
+		int r=0;
+		try {
+			String sql = "select member_id from reserve_book where member_Id=?";
+			
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, id);
+			
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()) {
+				r = 1;
+			}else {
+				r = 0;
+			}
+			rs.close();
+			ps.close();
+			
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return r;
+	}
+	public String[] getUpToDateBook() {
+		String[] book = new String[300];
+		String sql= "select book_name from books where enroll_date > sysdate-7";
+		try {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			int i=0;
+			while(rs.next()) {
+				book[i] = rs.getString("book_name");
+				i++;
+			}
+			
+			rs.close();
+			ps.close();
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		return book;
+		
+	
+	}
+	
+	public int deleteReserve(String id,String book) {
+		String sql = " delete from reserve_book where member_id =?";
+		int r=0;
+		int k=0;
+		try {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1,id);
+			
+			conn.setAutoCommit(false);
+			k=bookState(book);
+			if(k==2) {
+				r= ps.executeUpdate();
+			}
+			if(r>0) {
+				conn.commit();
+			}else if(r==0) {
+				conn.rollback();
+			}
+			
+			ps.close();
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return r;	
+	}
+	
+
+	
+	
 	
 	
 

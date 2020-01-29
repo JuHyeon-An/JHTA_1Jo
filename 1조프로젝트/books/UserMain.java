@@ -4,7 +4,8 @@
 package books;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-import java.awt.Font;
+import java.awt.Image;
+import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
@@ -25,6 +26,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTabbedPane;
 import java.awt.Dimension;
 import java.awt.Color;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
 
 public class UserMain extends JFrame {
 
@@ -34,7 +37,8 @@ public class UserMain extends JFrame {
 	private JPanel panel1;
 	private JPanel panel2;
 	private JPanel panel3;
-	String keyId;
+	private String keyId;
+	private JLabel lblNewLabel;
 
 	/**
 	 * Launch the application.
@@ -56,6 +60,7 @@ public class UserMain extends JFrame {
 	 * Create the frame.
 	 */
 	public UserMain() {
+		setTitle("\uC911\uC559 HTA \uB3C4\uC11C\uAD00");
 		setPreferredSize(new Dimension(950, 800));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 953, 723);
@@ -64,13 +69,16 @@ public class UserMain extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		contentPane.add(getLblNewLabel());
 	}
 	public UserMain(String keyId) {
 		this();
 		this.keyId = keyId;
+		
 		contentPane.add(getTabbedPane());
 		
 	}
+	
 	private static void addPopup(Component component, final JPopupMenu popup) {
 		component.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
@@ -88,6 +96,7 @@ public class UserMain extends JFrame {
 			}
 		});
 	}
+	
 	public JTabbedPane getTabbedPane() {
 		if (tabbedPane == null) {
 			tabbedPane = new JTabbedPane(JTabbedPane.TOP);
@@ -96,16 +105,10 @@ public class UserMain extends JFrame {
 			tabbedPane.addTab("µµ¼­°ü¸®", null, getPanel1(), null);
 			tabbedPane.addTab("µµ¼­°Ë»ö", null, getPanel2(), null);
 			tabbedPane.addTab("Èñ¸Áµµ¼­½ÅÃ»", null, getPanel3(), null);
-			tabbedPane.setFont(new Font("¸¼Àº °íµñ Semilight", Font.PLAIN, 15));
-			tabbedPane.setBackground(new Color(255, 255, 255));
-			tabbedPane.setOpaque(true);
-			tabbedPane.setBackgroundAt(0, Color.decode("#B0E0E6"));
-			tabbedPane.setBackgroundAt(1, Color.decode("#B0E0E6"));
-			tabbedPane.setBackgroundAt(2, Color.decode("#B0E0E6"));
-			tabbedPane.setBackgroundAt(3, Color.decode("#B0E0E6"));
 		}
 		return tabbedPane;
 	}
+	
 	public JPanel getPanel() {
 		if (panel == null) {
 			panel = new JPanel();
@@ -140,21 +143,30 @@ public class UserMain extends JFrame {
 		if (panel3 == null) {
 			panel3 = new JPanel();
 			panel3.setBackground(new Color(240, 248, 255));
-			m_UserHopeBook hope = new m_UserHopeBook(keyId); 
+			m_UserHopeBook hope = new m_UserHopeBook(keyId);
 			panel3.add(hope);
-			panel3.updateUI();
 			hope.getBtnNewButton_1().addActionListener(new ActionListener() {
-
-				@Override
 				public void actionPerformed(ActionEvent e) {
-//					remove(getPanel3());
-//					getPanel1();
 					tabbedPane.setSelectedIndex(2);
-					System.out.println("clicked");
+					
 				}
-				
 			});
+			panel3.updateUI();
 		}
 		return panel3;
+	}
+	public JLabel getLblNewLabel() {
+		if (lblNewLabel == null) {
+			lblNewLabel = new JLabel("");
+			lblNewLabel.setIcon(new ImageIcon(UserMain.class.getResource("/iconBox/bookopen(2).gif")));
+			lblNewLabel.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent arg0) {
+					lblNewLabel.hide();
+				}
+			});
+			lblNewLabel.setBounds(0, 0, 937, 685);
+		}
+		return lblNewLabel;
 	}
 }

@@ -249,6 +249,7 @@ public class m_UserHopeBook extends JPanel {
 	public JButton getBtnNewButton_1() {
 		if (btnNewButton_1 == null) {
 			btnNewButton_1 = new JButton("\uAC80\uC0C9 \uBC14\uB85C\uAC00\uAE30");
+			
 			btnNewButton_1.setBackground(new Color(176, 224, 230));
 			btnNewButton_1.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 18));
 			btnNewButton_1.setBounds(517, 249, 139, 27);

@@ -16,24 +16,22 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.Color;
+import javax.swing.ImageIcon;
 
 public class IdAndPwdSearch extends JFrame {
 	private DialogMessage dm;
 	private String msg = "";
 
 	private JPanel contentPane;
-	private JLabel lblNewLabel;
-	private JLabel lblNewLabel_1;
-	private JLabel lblNewLabel_2;
-	private JLabel lblNewLabel_3;
-	private JLabel lblNewLabel_4;
-	private JLabel lblNewLabel_5;
 	private JTextField tName;
 	private JTextField tEmail;
 	private JTextField tId;
 	private JTextField tEmail2;
 	private JButton btnNewButton;
 	private JButton btnNewButton_1;
+	private JLabel lblNewLabel_6;
+	private JButton btn02;
+	private JButton btnNewButton_3;
 
 	/**
 	 * Launch the application.
@@ -58,73 +56,21 @@ public class IdAndPwdSearch extends JFrame {
 		setTitle("\uC544\uC774\uB514/\uBE44\uBC00\uBC88\uD638 \uCC3E\uAE30");
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 560, 382);
+		setBounds(100, 100, 386, 612);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		contentPane.add(getLblNewLabel());
-		contentPane.add(getLblNewLabel_1());
-		contentPane.add(getLblNewLabel_2());
-		contentPane.add(getLblNewLabel_3());
-		contentPane.add(getLblNewLabel_4());
-		contentPane.add(getLblNewLabel_5());
 		contentPane.add(getTName());
 		contentPane.add(getTEmail());
 		contentPane.add(getTId());
 		contentPane.add(getTEmail2());
 		contentPane.add(getBtnNewButton());
 		contentPane.add(getBtnNewButton_1());
-	}
-
-	private JLabel getLblNewLabel() {
-		if (lblNewLabel == null) {
-			lblNewLabel = new JLabel("\uC544\uC774\uB514 \uCC3E\uAE30");
-			lblNewLabel.setFont(new Font("³ª´®°íµñ", Font.BOLD, 24));
-			lblNewLabel.setBounds(17, 15, 140, 35);
-		}
-		return lblNewLabel;
-	}
-	private JLabel getLblNewLabel_1() {
-		if (lblNewLabel_1 == null) {
-			lblNewLabel_1 = new JLabel("\uBE44\uBC00\uBC88\uD638 \uCC3E\uAE30");
-			lblNewLabel_1.setFont(new Font("³ª´®°íµñ", Font.BOLD, 24));
-			lblNewLabel_1.setBounds(17, 161, 150, 35);
-		}
-		return lblNewLabel_1;
-	}
-	private JLabel getLblNewLabel_2() {
-		if (lblNewLabel_2 == null) {
-			lblNewLabel_2 = new JLabel("\uC774\uB984");
-			lblNewLabel_2.setFont(new Font("³ª´®°íµñ", Font.PLAIN, 22));
-			lblNewLabel_2.setBounds(37, 64, 70, 25);
-		}
-		return lblNewLabel_2;
-	}
-	private JLabel getLblNewLabel_3() {
-		if (lblNewLabel_3 == null) {
-			lblNewLabel_3 = new JLabel("e-Mail");
-			lblNewLabel_3.setFont(new Font("³ª´®°íµñ", Font.PLAIN, 22));
-			lblNewLabel_3.setBounds(37, 100, 70, 25);
-		}
-		return lblNewLabel_3;
-	}
-	private JLabel getLblNewLabel_4() {
-		if (lblNewLabel_4 == null) {
-			lblNewLabel_4 = new JLabel("ID");
-			lblNewLabel_4.setFont(new Font("³ª´®°íµñ", Font.PLAIN, 22));
-			lblNewLabel_4.setBounds(37, 211, 70, 25);
-		}
-		return lblNewLabel_4;
-	}
-	private JLabel getLblNewLabel_5() {
-		if (lblNewLabel_5 == null) {
-			lblNewLabel_5 = new JLabel("e_Mail");
-			lblNewLabel_5.setFont(new Font("³ª´®°íµñ", Font.PLAIN, 22));
-			lblNewLabel_5.setBounds(37, 251, 70, 25);
-		}
-		return lblNewLabel_5;
+		contentPane.add(getBtnNewButton_3());
+		contentPane.add(getBtn02());
+		contentPane.add(getLblNewLabel_6());
 	}
 	private JTextField getTName() {
 		if (tName == null) {
@@ -133,7 +79,7 @@ public class IdAndPwdSearch extends JFrame {
 			tName.setBackground(new Color(224, 255, 255));
 			tName.setForeground(new Color(0, 0, 0));
 			tName.setFont(new Font("³ª´®°íµñ", Font.PLAIN, 20));
-			tName.setBounds(124, 64, 200, 30);
+			tName.setBounds(116, 75, 200, 30);
 			tName.setColumns(10);
 		}
 		return tName;
@@ -145,7 +91,7 @@ public class IdAndPwdSearch extends JFrame {
 			tEmail.setBackground(new Color(224, 255, 255));
 			tEmail.setForeground(new Color(0, 0, 0));
 			tEmail.setFont(new Font("³ª´®°íµñ", Font.PLAIN, 20));
-			tEmail.setBounds(124, 100, 200, 30);
+			tEmail.setBounds(116, 123, 200, 30);
 			tEmail.setColumns(10);
 		}
 		return tEmail;
@@ -157,7 +103,7 @@ public class IdAndPwdSearch extends JFrame {
 			tId.setBackground(new Color(224, 255, 255));
 			tId.setForeground(new Color(0, 0, 0));
 			tId.setFont(new Font("³ª´®°íµñ", Font.PLAIN, 20));
-			tId.setBounds(124, 211, 200, 30);
+			tId.setBounds(116, 270, 200, 30);
 			tId.setColumns(10);
 		}
 		return tId;
@@ -169,14 +115,15 @@ public class IdAndPwdSearch extends JFrame {
 			tEmail2.setBackground(new Color(224, 255, 255));
 			tEmail2.setForeground(new Color(0, 0, 0));
 			tEmail2.setFont(new Font("³ª´®°íµñ", Font.PLAIN, 20));
-			tEmail2.setBounds(124, 250, 200, 30);
+			tEmail2.setBounds(116, 321, 200, 30);
 			tEmail2.setColumns(10);
 		}
 		return tEmail2;
 	}
 	private JButton getBtnNewButton() {
 		if (btnNewButton == null) {
-			btnNewButton = new JButton("\uC544\uC774\uB514 \uCC3E\uAE30");
+			btnNewButton = new JButton("");
+			btnNewButton.setIcon(new ImageIcon(IdAndPwdSearch.class.getResource("/iconBox/12.png")));
 			btnNewButton.setBorder(null);
 			btnNewButton.setForeground(Color.WHITE);
 			btnNewButton.setBackground(new Color(0, 153, 255));
@@ -201,13 +148,14 @@ public class IdAndPwdSearch extends JFrame {
 					
 				}
 			});
-			btnNewButton.setBounds(357, 63, 157, 62);
+			btnNewButton.setBounds(116, 163, 85, 34);
 		}
 		return btnNewButton;
 	}
 	private JButton getBtnNewButton_1() {
 		if (btnNewButton_1 == null) {
-			btnNewButton_1 = new JButton("\uBE44\uBC00\uBC88\uD638 \uCC3E\uAE30");
+			btnNewButton_1 = new JButton("");
+			btnNewButton_1.setIcon(new ImageIcon(IdAndPwdSearch.class.getResource("/iconBox/12.png")));
 			btnNewButton_1.setBorder(null);
 			btnNewButton_1.setForeground(Color.WHITE);
 			btnNewButton_1.setBackground(new Color(0, 153, 255));
@@ -232,8 +180,44 @@ public class IdAndPwdSearch extends JFrame {
 					dm.setLocationRelativeTo(IdAndPwdSearch.this);
 				}
 			});
-			btnNewButton_1.setBounds(357, 211, 157, 66);
+			btnNewButton_1.setBounds(116, 371, 85, 34);
 		}
 		return btnNewButton_1;
+	}
+	private JLabel getLblNewLabel_6() {
+		if (lblNewLabel_6 == null) {
+			lblNewLabel_6 = new JLabel("");
+			lblNewLabel_6.setIcon(new ImageIcon(IdAndPwdSearch.class.getResource("/iconBox/search.jpg")));
+			lblNewLabel_6.setBounds(0, 0, 370, 574);
+		}
+		return lblNewLabel_6;
+	}
+	private JButton getBtn02() {
+		if (btn02 == null) {
+			btn02 = new JButton("");
+			btn02.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {				
+					tName.setText(" ");					
+					tEmail.setText(" ");					
+				}
+			});
+			btn02.setIcon(new ImageIcon(IdAndPwdSearch.class.getResource("/iconBox/13.png")));
+			btn02.setBounds(231, 163, 85, 34);
+		}
+		return btn02;
+	}
+	private JButton getBtnNewButton_3() {
+		if (btnNewButton_3 == null) {
+			btnNewButton_3 = new JButton("");
+			btnNewButton_3.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {					
+					tId.setText(" ");				
+					tEmail2.setText(" ");
+				}
+			});
+			btnNewButton_3.setIcon(new ImageIcon(IdAndPwdSearch.class.getResource("/iconBox/13.png")));
+			btnNewButton_3.setBounds(231, 371, 85, 34);
+		}
+		return btnNewButton_3;
 	}
 }

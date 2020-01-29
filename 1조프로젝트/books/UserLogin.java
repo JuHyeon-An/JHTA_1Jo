@@ -17,25 +17,22 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import java.awt.Color;
 import java.awt.event.ActionListener;
-import java.net.MalformedURLException;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
 import java.awt.SystemColor;
-import javax.swing.JPanel;
+import javax.swing.ImageIcon;
+import java.awt.Insets;
 
 public class UserLogin extends JInternalFrame {
-	private JLabel lblNewLabel;
-	private JLabel lblNewLabel_1;
 	private JTextField tmId;
-	private JLabel lblPassword;
 	private JButton btnNewButton;
-	private JLabel lblNewLabel_2;
 	private JButton btnNewButton_1;
 	private JFrame frame;
 	private JPasswordField tpwd;
 	private JButton btnNewButton_2;
 	private DialogMessage dm;
-	private JPanel panel;
+	private JLabel label;
+	private JButton btnNewButton_3;
 
 	
 	public static void main(String[] args) {
@@ -55,58 +52,42 @@ public class UserLogin extends JInternalFrame {
 		super("·Î±×ÀÎ", true, true, true, true);
 		getContentPane().setBackground(new Color(255, 255, 255));
 		setVisible(true);
-		setBounds(100, 100, 663, 652);
+		setBounds(370, 523, 388, 565);
 		getContentPane().setLayout(null);
-		getContentPane().add(getPanel());
+		getContentPane().add(getTmId());
+		getContentPane().add(getBtnNewButton());
+		getContentPane().add(getBtnNewButton_1());
+		getContentPane().add(getTpwd());
+		getContentPane().add(getBtnNewButton_2());
+		getContentPane().add(getBtnNewButton_3());
+		getContentPane().add(getLabel());
 	}
 
-	private JLabel getLblNewLabel() {
-		if (lblNewLabel == null) {
-			lblNewLabel = new JLabel("\uB85C\uADF8\uC778");
-			lblNewLabel.setBounds(19, 36, 255, 94);
-			lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
-			lblNewLabel.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 60));
-		}
-		return lblNewLabel;
+	public void showMessage(String msg) {
+		dm = new DialogMessage(msg);
+		dm.setLocationRelativeTo(UserLogin.this);
 	}
-
-	private JLabel getLblNewLabel_1() {
-		if (lblNewLabel_1 == null) {
-			lblNewLabel_1 = new JLabel("\uC544\uC774\uB514");
-			lblNewLabel_1.setBounds(48, 216, 109, 40);
-			lblNewLabel_1.setHorizontalAlignment(SwingConstants.RIGHT);
-			lblNewLabel_1.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 32));
-		}
-		return lblNewLabel_1;
-	}
-
+	
 	private JTextField getTmId() {
 		if (tmId == null) {
 			tmId = new JTextField();
-			tmId.setBounds(184, 216, 416, 50);
 			tmId.setBorder(null);
 			tmId.setSelectionColor(new Color(255, 250, 240));
 			tmId.setBackground(new Color(224, 255, 255));
 			tmId.setFont(new Font("³ª´®°íµñ", Font.PLAIN, 22));
+			tmId.setBounds(149, 72, 182, 27);
 			tmId.setColumns(10);
 		}
 		return tmId;
 	}
 
-	private JLabel getLblPassword() {
-		if (lblPassword == null) {
-			lblPassword = new JLabel("\uBE44\uBC00\uBC88\uD638");
-			lblPassword.setBounds(0, 306, 157, 40);
-			lblPassword.setHorizontalAlignment(SwingConstants.RIGHT);
-			lblPassword.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 32));
-		}
-		return lblPassword;
-	}
-
 	private JButton getBtnNewButton() {
 		if (btnNewButton == null) {
-			btnNewButton = new JButton("\uB85C\uADF8\uC778");
-			btnNewButton.setBounds(19, 397, 581, 94);
+			btnNewButton = new JButton("");
+			btnNewButton.setMargin(new Insets(0, 0, 0, 0));
+			btnNewButton.setSize(new Dimension(85, 34));
+			btnNewButton.setIcon(new ImageIcon(UserLogin.class.getResource("/iconBox/03.png")));
+			btnNewButton.setActionCommand("");
 			btnNewButton.setBorderPainted(false);
 			btnNewButton.setForeground(new Color(255, 255, 255));
 			btnNewButton.setBackground(new Color(30, 144, 255));
@@ -125,41 +106,34 @@ public class UserLogin extends JInternalFrame {
 							if (cnt > 0) {
 								UserMain frame = new UserMain(vo.getTmId());
 								frame.setVisible(true);
-								msg = "È¯¿µÇÕ´Ï´Ù!";
+								
 							} else {
 								msg = "¾ÆÀÌµð ¶Ç´Â ºñ¹Ð¹øÈ£°¡ Æ²·È½À´Ï´Ù.";
+								showMessage(msg);
 							}
 						} else {
 							msg = "¾ÆÀÌµð ¶Ç´Â ºñ¹Ð¹øÈ£¿¡ °ø¹éÀÌ ÀÖ½À´Ï´Ù.";
+							showMessage(msg);
 						}
 					} catch (Exception ex) {
 						ex.printStackTrace();
 					}
 				
-					dm = new DialogMessage(msg);
-					dm.setLocationRelativeTo(UserLogin.this);
+					
 				}
+
+				
 			});
+			btnNewButton.setBounds(149, 210, 85, 35);
 		}
 		return btnNewButton;
 	}
 
-
-
-	private JLabel getLblNewLabel_2() {
-		if (lblNewLabel_2 == null) {
-			lblNewLabel_2 = new JLabel(
-					"\uC911\uC559HTA \uB3C4\uC11C\uAD00 \uD68C\uC6D0\uC774 \uC544\uB2C8\uC2E0\uAC00\uC694?");
-			lblNewLabel_2.setBounds(126, 514, 360, 45);
-			lblNewLabel_2.setFont(new Font("³ª´®°íµñ", Font.BOLD, 20));
-		}
-		return lblNewLabel_2;
-	}
-
 	private JButton getBtnNewButton_1() {
 		if (btnNewButton_1 == null) {
-			btnNewButton_1 = new JButton("\uD68C\uC6D0\uAC00\uC785");
-			btnNewButton_1.setBounds(464, 514, 117, 45);
+			btnNewButton_1 = new JButton("");
+			btnNewButton_1.setIcon(new ImageIcon(UserLogin.class.getResource("/iconBox/05.png")));
+			btnNewButton_1.setSize(new Dimension(72, 24));
 			btnNewButton_1.setBorder(null);
 			btnNewButton_1.setIconTextGap(1);
 			btnNewButton_1.setBackground(new Color(255, 255, 255));
@@ -171,58 +145,54 @@ public class UserLogin extends JInternalFrame {
 					a.toFront();
 				}
 			});
+			btnNewButton_1.setBounds(246, 171, 85, 27);
 		}
 		return btnNewButton_1;
 	}
 	public JPasswordField getTpwd() {
 		if (tpwd == null) {
 			tpwd = new JPasswordField();
-			tpwd.setBounds(184, 306, 416, 50);
 			tpwd.setBorder(null);
 			tpwd.setBackground(new Color(224, 255, 255));
 			tpwd.setFont(new Font("³ª´®°íµñ", Font.PLAIN, 22));
+			tpwd.setBounds(149, 134, 182, 27);
 		}
 		return tpwd;
 	}
 	private JButton getBtnNewButton_2() {
 		if (btnNewButton_2 == null) {
-			btnNewButton_2 = new JButton("\uC544\uC774\uB514/\uBE44\uBC00\uBC88\uD638 \uCC3E\uAE30");
-			btnNewButton_2.setBounds(172, 564, 255, 40);
+			btnNewButton_2 = new JButton("");
+			btnNewButton_2.setIcon(new ImageIcon(UserLogin.class.getResource("/iconBox/11.png")));
 			btnNewButton_2.setBackground(Color.WHITE);
 			btnNewButton_2.setFont(new Font("³ª´®°íµñ", Font.BOLD, 20));
 			btnNewButton_2.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					// ¾ÆÀÌµð / ÆÐ½º¿öµå Ã£±â
 					IdAndPwdSearch frame = new IdAndPwdSearch();
-					
+					updateUI();
 					frame.toFront();
 					
 				}
 			});
 			btnNewButton_2.setBorder(null);
+			btnNewButton_2.setBounds(149, 254, 183, 34);
 		}
 		return btnNewButton_2;
 	}
-	public JPanel getPanel() {
-		if (panel == null) {
-			try {
-				panel = new AddPanelImage("img/userLogin.gif");
-			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			panel.setBounds(0, 0, 647, 616);
-			panel.setLayout(null);
-			panel.add(getLblNewLabel());
-			panel.add(getLblNewLabel_1());
-			panel.add(getTmId());
-			panel.add(getLblPassword());
-			panel.add(getBtnNewButton());
-			panel.add(getLblNewLabel_2());
-			panel.add(getBtnNewButton_1());
-			panel.add(getTpwd());
-			panel.add(getBtnNewButton_2());
+	private JLabel getLabel() {
+		if (label == null) {
+			label = new JLabel("");
+			label.setIcon(new ImageIcon(UserLogin.class.getResource("/iconBox/UserLogin.gif")));
+			label.setBounds(0, 0, 370, 523);
 		}
-		return panel;
+		return label;
+	}
+	private JButton getBtnNewButton_3() {
+		if (btnNewButton_3 == null) {
+			btnNewButton_3 = new JButton("");
+			btnNewButton_3.setIcon(new ImageIcon(UserLogin.class.getResource("/iconBox/04.png")));
+			btnNewButton_3.setBounds(246, 210,  85, 35);
+		}
+		return btnNewButton_3;
 	}
 }

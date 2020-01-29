@@ -1,31 +1,29 @@
 package books;
 
-import javax.swing.JPanel;
-import java.awt.BorderLayout;
-import javax.swing.JComboBox;
-import javax.swing.JTextField;
-import javax.swing.table.DefaultTableModel;
-
-import javax.swing.JButton;
-import javax.swing.JTable;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
-import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
-import javax.swing.ComboBoxModel;
-import javax.swing.DefaultComboBoxModel;
-import java.awt.event.ActionListener;
-import java.util.Vector;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.awt.Color;
-import java.awt.Font;
+
+import javax.swing.ComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+import java.awt.event.KeyEvent;
 
 public class p_MemberSelect extends JPanel {
 	DefaultTableModel model = new DefaultTableModel();
-	
+
 	private JComboBox comboBox;
 	private JTextField textField;
 	private JButton btnNewButton;
@@ -37,12 +35,12 @@ public class p_MemberSelect extends JPanel {
 
 	private Object gettable;
 	private JButton btnNewButton_1;
+
 	/**
 	 * Create the panel.
 	 */
 
-
-	public p_MemberSelect(JTabbedPane tab,p_MemberUpdate update) {
+	public p_MemberSelect(JTabbedPane tab, p_MemberUpdate update) {
 		setBackground(new Color(240, 248, 255));
 		setPreferredSize(new Dimension(900, 600));
 		setLayout(null);
@@ -57,13 +55,15 @@ public class p_MemberSelect extends JPanel {
 		table.setModel(model);
 		add(getBtnNewButton_1());
 		this.tab = tab;
-		this.update= update;
+		this.update = update;
 
 	}
+
 	private ComboBoxModel ComboBoxModel() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 	public JComboBox getComboBox() {
 		if (comboBox == null) {
 			comboBox = new JComboBox();
@@ -73,7 +73,7 @@ public class p_MemberSelect extends JPanel {
 			comboBox.setBounds(97, 38, 123, 38);
 			comboBox.addItem("아이디");
 			comboBox.addItem("성명");
-			
+
 		}
 		return comboBox;
 	}
@@ -81,8 +81,21 @@ public class p_MemberSelect extends JPanel {
 	public JTextField getTextField() {
 		if (textField == null) {
 			textField = new JTextField();
+			textField.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyReleased(KeyEvent e) {
+					if(e.getKeyCode()==e.VK_ENTER) {
+						String find = textField.getText();
+						p_MemberDao dao = new p_MemberDao();
+						model = (DefaultTableModel) dao.select(find);
+	                      
+						table.setModel(model);
+					}
+				}
+			});
 			textField.setFont(new Font("나눔바른고딕 Light", Font.PLAIN, 15));
 			textField.setBounds(255, 39, 487, 38);
+			
 			textField.setColumns(10);
 		}
 		return textField;
@@ -97,19 +110,21 @@ public class p_MemberSelect extends JPanel {
 			btnNewButton.addKeyListener(new KeyAdapter() {
 			});
 			btnNewButton.addActionListener(new ActionListener() {
-				//find 의 값을 가져와서 테이블에 뿌려준다
+				// find 의 값을 가져와서 테이블에 뿌려준다
 				public void actionPerformed(ActionEvent arg0) {
+					
 					String find = textField.getText();
 					p_MemberDao dao = new p_MemberDao();
 					model = (DefaultTableModel) dao.select(find);
-
+                      
 					table.setModel(model);
 				}
 			});
 			btnNewButton.setBounds(772, 38, 111, 38);
 		}
 		return btnNewButton;
-	} 
+	}
+
 	public JScrollPane getScrollPane() {
 		if (scrollPane == null) {
 			scrollPane = new JScrollPane();
@@ -118,10 +133,11 @@ public class p_MemberSelect extends JPanel {
 		}
 		return scrollPane;
 	}
+
 	public JTable getTable_1() {
 		if (table == null) {
 			table = new JTable();
-			table.setBackground(new Color(240, 248, 255)); 
+			table.setBackground(new Color(240, 248, 255));
 			table.getTableHeader().setBackground(Color.decode("#54B5BF"));
 			table.setBackground(Color.decode("#F7FAFC"));
 			table.setFont(new Font("나눔바른고딕 Light", Font.PLAIN, 15));
@@ -130,18 +146,19 @@ public class p_MemberSelect extends JPanel {
 		}
 		return table;
 	}
+
 	public JButton getBtnNewButton_1() {
 		if (btnNewButton_1 == null) {
 			btnNewButton_1 = new JButton("\uC0C1\uC138\uBCF4\uAE30");
 			btnNewButton_1.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					//상세보기
+					// 상세보기
 					tab.setSelectedIndex(1);
-					String mid= (String)table.getValueAt(table.getSelectedRow(),0);
-					p_MemberDao dao =new p_MemberDao();
+					String mid = (String) table.getValueAt(table.getSelectedRow(), 0);
+					p_MemberDao dao = new p_MemberDao();
 					p_MemberVo vo = new p_MemberVo();
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-					vo=dao.search(mid);
+					vo = dao.search(mid);
 					update.getTmId().setText(vo.getmId());
 					update.getTPwd().setText(vo.getPwd());
 					update.getTmName().setText(vo.getmName());
@@ -149,18 +166,16 @@ public class p_MemberSelect extends JPanel {
 						update.getTBirth().setText(sdf.format(sdf.parse(vo.getBirth())));
 						update.getTrDate().setText(sdf.format(sdf.parse(vo.getrDate())));
 					} catch (ParseException e1) {
-						e1.printStackTrace();
+
 					}
 					update.getTEmail().setText(vo.getEmail());
 					update.getTPhone().setText(vo.getPhone());
-					if(vo.getState().equals("1")) {
+					if (vo.getState().equals("1")) {
 						update.getTState().setText("대출가능");
-					}else {
+					} else {
 						update.getTState().setText("대출불가");
 					}
-			
-					
-					
+
 				}
 			});
 			btnNewButton_1.setBackground(new Color(176, 224, 230));

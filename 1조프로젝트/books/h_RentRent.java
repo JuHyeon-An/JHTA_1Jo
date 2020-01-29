@@ -57,6 +57,7 @@ public class h_RentRent extends JPanel {
 	private JLabel lblNewLabel_13;
 	private DialogMessage dm;
 	private String msg = "";
+	private String msg2= "";
 
 	/**
 	 * Create the panel.
@@ -161,6 +162,13 @@ public class h_RentRent extends JPanel {
 			}else if(dao.memberStatus(find)==0){
 				tmState.setText("대출불가");
 			}
+			
+			if(dao.getReserveIs(find)==1) {
+				msg = "예약한 책이 있습니다";
+				msg2= "청구기호:"+dao.getReservebook(find);
+				dm = new DialogMessage(msg+"\n"+msg2);
+				dm.setLocationRelativeTo(h_RentRent.this);
+			}
 		}else {
 			msg = "아이디가 존재하지 않습니다";
 			dm = new DialogMessage(msg);
@@ -187,10 +195,12 @@ public class h_RentRent extends JPanel {
 			tGenre.setText(vo.getGenre()+"");
 			tWriter.setText(vo.getWriter());
 			tDueDate.setText(sdf.format(cal.getTime()));
-			if(vo.getbState().equals("1")) {
+			if(dao.bookState(findBookCode.getText())==1) {
 				tBookState.setText("대출가능");
-			}else if(vo.getbState().equals("0")) {
-				tBookState.setText("대출불가");
+			}else if(dao.bookState(findBookCode.getText())==0) {
+				tBookState.setText("대출중");
+			}else if(dao.bookState(findBookCode.getText())==2) {
+				tBookState.setText("예약중");
 			}
 		}else {
 			msg = "존재하지 않는 책입니다";
@@ -449,10 +459,15 @@ public class h_RentRent extends JPanel {
 						
 						//JOptionPane.showMessageDialog(h_RentRent.this,"먼저 아이디나 청구기호를 검색해주세요");
 					}else {
+						if(dao.bookState(findBookCode.getText())==2) {
+							if(dao.getReserve(findBookCode.getText()).equals(findId.getText())) {
+								dao.deleteReserve(findId.getText(), findBookCode.getText());
+								dao.bStatusBack(findBookCode.getText());
+							}
+						}
 				
 						String find = findId.getText();
-						int r = dao.rent(find);
-						
+						int r = dao.rent(find,findBookCode.getText());			
 						
 						if(r>0) {
 							
@@ -461,10 +476,11 @@ public class h_RentRent extends JPanel {
 							dm.setLocationRelativeTo(h_RentRent.this);
 							//JOptionPane.showMessageDialog(h_RentRent.this, "대여되었습니다");
 							
-							dao.bStatus();
+							dao.bStatus(findBookCode.getText());
 							bookCount = dao.bookCount(find);
 							
 							countRent.setText((6-bookCount)+"");
+							
 							
 							if(bookCount>=6) {	
 								dao.mStatus(find);

@@ -10,6 +10,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JTabbedPane;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
 import java.awt.event.ActionEvent;
 import javax.swing.JMenuItem;
 import java.awt.Dimension;
@@ -176,7 +177,12 @@ public class h_Manager_Main extends JFrame {
 	}
 	public JPanel getPanel_8() {
 		if (panel_8 == null) {
-			panel_8 = new JPanel();
+			try {
+				panel_8 = new AddPanelImage("iconBox/bookopen.gif");
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			panel_8.setPreferredSize(new Dimension(813, 540));
 			panel_8.setBounds(12, 10, 991, 641);
 			panel_8.setLayout(new BorderLayout(0, 0));
