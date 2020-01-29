@@ -162,4 +162,26 @@ public class p_MemberDao {
 			return model;
 		}
 	}
+	
+	
+	public int idCheck(String find) {
+		int r = 0;
+		try {
+		String sql = "select member_id from member where member_id = ?";
+		PreparedStatement ps = conn.prepareStatement(sql);
+		ps.setString(1, find );
+		ResultSet rs = ps.executeQuery();
+		if(rs.next()) {
+		r=1;
+		}else {
+		r=0;
+		}
+		rs.close();
+		ps.close();
+		}catch(Exception ex) {
+		ex.printStackTrace();
+		}finally {
+		return r;
+		}
+		}
 }

@@ -54,6 +54,7 @@ public class j_BookInsert extends JPanel {
 	String msg;
 	j_Manager_Book book;
 	h_Manager_Main main;
+	private JLabel status;
 	
 	public j_BookInsert(j_Manager_Book book,h_Manager_Main main) {
 		this();
@@ -86,6 +87,7 @@ public class j_BookInsert extends JPanel {
 		add(getBtnNewButton());
 		add(getSeparator());
 		add(getBtnNewButton_1());
+		add(getStatus());
 
 	}
 	
@@ -98,6 +100,7 @@ public class j_BookInsert extends JPanel {
 		tPage.setEditable(b);
 		tGroup.setEnabled(b);
 		btnNewButton.setEnabled(b);
+		status.setVisible(b);
 	}
 	
 	public void showMessage(String msg) {
@@ -358,19 +361,30 @@ public class j_BookInsert extends JPanel {
 
 						if (r) {
 							msg  ="이미 해당 청구기호가 존재합니다.";
+							showMessage(msg);
 							setEditableAll(false);
 						} else {
-							msg = "입력가능합니다.";
 							setEditableAll(true);
 						}
 					} else {
 						msg = "청구기호를 입력해주세요";
+						showMessage(msg);
 					}
-					showMessage(msg);
+					
 				}
 			});
 			btnNewButton_1.setBounds(260, 97, 91, 27);
 		}
 		return btnNewButton_1;
+	}
+	public JLabel getStatus() {
+		if (status == null) {
+			status = new JLabel("\uC785\uB825 \uAC00\uB2A5\uD55C \uCCAD\uAD6C\uAE30\uD638\uC785\uB2C8\uB2E4.");
+			status.setVisible(false);
+			status.setForeground(new Color(100, 149, 237));
+			status.setFont(new Font("나눔바른고딕 Light", Font.PLAIN, 15));
+			status.setBounds(129, 125, 185, 18);
+		}
+		return status;
 	}
 }

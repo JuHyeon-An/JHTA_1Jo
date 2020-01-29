@@ -47,6 +47,7 @@ public class p_MemberUpdate extends JPanel {
 	private JLabel label_6;
 	private JTextField tPwd;
 	private JSeparator separator;
+	DialogMessage dm;
 
 	/**
 	 * Create the panel.
@@ -85,6 +86,9 @@ public class p_MemberUpdate extends JPanel {
 		p_MemberVo vo = dao.search(find);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
+		if(dao.idCheck(find)==1) {
+			
+		
 		tmId.setText(vo.getmId());			
 		tPwd.setText(vo.getPwd());
 		tmName.setText(vo.getmName());
@@ -97,9 +101,15 @@ public class p_MemberUpdate extends JPanel {
 		tEmail.setText(vo.getEmail());
 		tPhone.setText(vo.getPhone());
 		if(vo.getState().equals("1")) {
-		tState.setText("占쏙옙�빊占썲첎占쏙옙占�");
+		tState.setText("대출가능");
 		}else {
-		tState.setText("占쏙옙�빊占썽겫占썲첎占쏙옙占�");
+		tState.setText("대출불가");
+		}
+		}else {
+			String msg = "해당 아이디가 존재하지 않습니다.";
+			dm = new DialogMessage(msg);
+			dm.setLocationRelativeTo(p_MemberUpdate.this);
+			
 		}
 	} 
 	
@@ -327,9 +337,10 @@ public class p_MemberUpdate extends JPanel {
 					String em = tEmail.getText();
 					String ph = tPhone.getText();
 					String st = tState.getText();
+					String msg = "";
 					p_MemberDao dao = new p_MemberDao();
 					p_MemberVo vo = new p_MemberVo();
-					System.out.println("占쏙옙占쏙옙1");
+
 					if(!p.equals("")&&!m.equals("")&&!b.equals("")&&!d.equals("")&&!em.equals("")&&!ph.equals("")&&!st.equals("")) {
 						
 					try {
@@ -340,7 +351,7 @@ public class p_MemberUpdate extends JPanel {
 						vo.setrDate(trDate.getText());
 						vo.setEmail(tEmail.getText());
 						vo.setPhone(tPhone.getText());
-						if(tState.getText().equals("占쏙옙�빊占썲첎占쏙옙占�")) {
+						if(tState.getText().equals("대출가능")) {
 							vo.setState("1");							
 						}else {
 							vo.setState("0");
@@ -349,18 +360,19 @@ public class p_MemberUpdate extends JPanel {
 						
 						int r = dao.update(vo);
 						
-						if (r > 0) {
-							JOptionPane.showMessageDialog(null, "占쏙옙癰귣똻占쏙옙占쏙옙占쏙옙 占쏙옙�뙴占쏙옙占쏙옙占쏙옙�벉占쏙옙占쏙옙");
-						} else {
-							JOptionPane.showMessageDialog(null, "占쏙옙癰귣똻占쏙옙占쏙옙餓ο옙 占썬끇占썼쳸占쏙옙占�");
-						}
+						
+						msg = r>0? "수정이 완료되었습니다." : "수정 중 오류발생";
+						
 
 					} catch (Exception ex) {
 						ex.printStackTrace();
 					}
 				  }else {
-					  JOptionPane.showMessageDialog(null, "�뜮占썸�⑤벉媛싷옙占� 占쏙옙占쎈벉占쏙옙占쏙옙 筌뤴뫀占쏙옙占쏙옙筌뤴뫗占쏙옙 占쏙옙占싸쏙옙�똻竊쒙옙紐꾬옙占�!");
+					  msg = "모든 항목을 입력해주세요";
 				  }
+					
+					dm = new DialogMessage(msg);
+					dm.setLocationRelativeTo(p_MemberUpdate.this);
 				}
 			});
 			btnNewButton_1.setBounds(328, 452, 121, 42);
@@ -382,13 +394,11 @@ public class p_MemberUpdate extends JPanel {
 					String mId = tmId.getText();   
                     try { 
 					int r = dao.delete(mId);
-					if (r > 0) { 
-						JOptionPane.showMessageDialog(null, "占쏙옙占쎈똻占쏙옙�뙴占�");
-					} else {
-						JOptionPane.showMessageDialog(null, "占쏙옙占쏙옙 占썬끇占썼쳸占쏙옙占�");
-					
-					}
+					String msg = r>0 ? "탈퇴가 완료되었습니다." : "탈퇴 중 오류발생";
 	
+					dm = new DialogMessage(msg);
+					dm.setLocationRelativeTo(p_MemberUpdate.this);
+					
 					tmId.setText("");
 					tPwd.setText("");
 					tmName.setText("");

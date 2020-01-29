@@ -81,6 +81,8 @@ public class j_Manager_Book extends JPanel {
 			Insertbook.setBackground(new Color(240, 248, 255));
 			Insertbook.setPreferredSize(new Dimension(680, 540));
 			j_BookInsert bookInsert = new j_BookInsert(this,main);
+			bookInsert.getStatus().setForeground(new Color(119, 136, 153));
+			bookInsert.getStatus().setLocation(128, 166);
 			bookInsert.getBtnNewButton_1().setBackground(new Color(176, 224, 230));
 			bookInsert.getBtnNewButton().setBackground(new Color(176, 224, 230));
 			bookInsert.getLabel_6().setHorizontalAlignment(SwingConstants.RIGHT);

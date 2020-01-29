@@ -14,6 +14,8 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
+import java.awt.Font;
 
 public class SearchFrame extends JInternalFrame {
 	j_BookManagement bm = new j_BookManagement();
@@ -59,6 +61,16 @@ public class SearchFrame extends JInternalFrame {
 			panel = new JPanel();
 			panel.setBounds(0, 0, 834, 517);
 			panel.setLayout(null);
+			bm.getBtnNewButton_1().setVisible(false);
+			bm.getButton().setBackground(new Color(176, 224, 230));
+			bm.getComboBox().setBackground(new Color(176, 224, 230));
+			bm.getTextField().setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
+			bm.getComboBox().setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
+			bm.getButton().setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
+			bm.getTable().setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
+			bm.getTable().setBackground(Color.decode("#F7FAFC"));
+			bm.getTable().getTableHeader().setBackground(Color.decode("#54B5BF"));
+			bm.setBackground(new Color(240, 248, 255));
 			panel.add(bm);
 			bm.getTextField().setLocation(413, 54);
 			bm.getButton().setLocation(723, 53);
@@ -67,6 +79,7 @@ public class SearchFrame extends JInternalFrame {
 			bm.setBounds(0, 0, 834, 517);
 			bm.setVisible(true);
 			bm.updateUI();
+			
 		}
 		return panel;
 	}

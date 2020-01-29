@@ -74,7 +74,7 @@ public class h_RentOverdueM extends JPanel {
 					j_BookDao dao = new j_BookDao();
 					try {
 						dao.sendEmail(email);
-						msg = mName+"님에게 메일을 보냈습니다";
+						msg = mName+"님에게 메일을 전송했습니다.";
 						dm = new DialogMessage(msg);
 						dm.setLocationRelativeTo(h_RentOverdueM.this);
 						//JOptionPane.showMessageDialog(h_RentOverdueM.this,mName+"님에게 메일을 보냈습니다");

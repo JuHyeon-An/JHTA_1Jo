@@ -479,11 +479,10 @@ public class j_BookDao {
 					for (int i = 1; i <= cnt - 1; i++) {
 						row.add(rs.getString(i));
 					}
-					if (Integer.parseInt(rs.getString(5)) == 1) {  // 1이면 이미 빌린거
+					if (Integer.parseInt(rs.getString(5)) == 1 || Integer.parseInt(rs.getString(5)) == 0) {  // 1이면 이미 빌린거
 						row.add("예약 가능");
-					} else if(Integer.parseInt(rs.getString(5)) == 0){
-						row.add("예약 불가능");
-					}else if(Integer.parseInt(rs.getString(5)) == 2){
+					}
+					else if(Integer.parseInt(rs.getString(5)) == 2){
 						row.add("예약중");
 					}
 					model.addRow(row);
@@ -518,10 +517,8 @@ public class j_BookDao {
 					for (int i = 1; i <= cnt - 1; i++) {
 						row.add(rs.getString(i));
 					}
-					if (Integer.parseInt(rs.getString(5)) == 1) {  // 1이면 이미 빌린거
+					if (Integer.parseInt(rs.getString(5)) == 1 || Integer.parseInt(rs.getString(5)) == 0) {  // 1이면 이미 빌린거
 						row.add("예약 가능");
-					} else if(Integer.parseInt(rs.getString(5)) == 0){
-						row.add("예약 불가능");
 					}else if(Integer.parseInt(rs.getString(5)) == 2){
 						row.add("예약중");
 					}
@@ -555,10 +552,8 @@ public class j_BookDao {
 					for (int i = 1; i <= cnt - 1; i++) {
 						row.add(rs.getString(i));
 					}
-					if (Integer.parseInt(rs.getString(5)) == 1) {  // 1이면 이미 빌린거
+					if (Integer.parseInt(rs.getString(5)) == 1 || Integer.parseInt(rs.getString(5)) == 0) {  // 1이면 이미 빌린거
 						row.add("예약 가능");
-					} else if(Integer.parseInt(rs.getString(5)) == 0){
-						row.add("예약 불가능");
 					}else if(Integer.parseInt(rs.getString(5)) == 2){
 						row.add("예약중");
 					}
@@ -832,7 +827,7 @@ public class j_BookDao {
         MimeMessage msg = new MimeMessage(session);
         msg.setFrom(new InternetAddress(SendEmail.FROM, SendEmail.FROMNAME));
         msg.setRecipient(Message.RecipientType.TO, new InternetAddress(toMember));
-        msg.setSubject(SendEmail.SUBJECT);
+        msg.setSubject("[JHTA도서관] 비밀번호 안내");
         msg.setContent(SendEmail.BODY_sendPwd(pwd), "text/html;charset=euc-kr");
         
         Transport transport = session.getTransport();

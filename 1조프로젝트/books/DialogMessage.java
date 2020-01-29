@@ -52,7 +52,7 @@ public class DialogMessage extends JDialog {
 		setTitle("message");
 		setBounds(100, 100, 394, 161);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBackground(new Color(255, 228, 181));
+		contentPanel.setBackground(new Color(245, 255, 250));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
@@ -66,19 +66,20 @@ public class DialogMessage extends JDialog {
 		
 		{
 			JPanel buttonPane = new JPanel();
-			buttonPane.setBackground(new Color(255, 228, 181));
+			buttonPane.setBackground(new Color(245, 255, 250));
 			buttonPane.setPreferredSize(new Dimension(10, 45));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			buttonPane.setLayout(null);
 			{
 				JButton okButton = new JButton("\uD655\uC778");
+				okButton.setBorder(null);
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						dispose();
 					}
 				});
-				okButton.setFont(new Font("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½", Font.PLAIN, 15));
-				okButton.setBackground(new Color(255, 215, 0));
+				okButton.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 15));
+				okButton.setBackground(new Color(173, 216, 230));
 				okButton.setBounds(148, 0, 89, 37);
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
@@ -96,8 +97,8 @@ public class DialogMessage extends JDialog {
 	public JLabel getMsg() {
 		if (msg == null) {
 			msg = new JLabel("\uBA54\uC2DC\uC9C0");
-			msg.setFont(new Font("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½", Font.PLAIN, 15));
-			msg.setHorizontalAlignment(SwingConstants.CENTER);
+			msg.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 15));
+			msg.setHorizontalAlignment(SwingConstants.LEFT);
 			msg.setBounds(79, 12, 283, 47);
 		}
 		return msg;

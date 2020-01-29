@@ -140,8 +140,20 @@ public class UserMain extends JFrame {
 		if (panel3 == null) {
 			panel3 = new JPanel();
 			panel3.setBackground(new Color(240, 248, 255));
-			panel3.add(new m_UserHopeBook(keyId));
+			m_UserHopeBook hope = new m_UserHopeBook(keyId); 
+			panel3.add(hope);
 			panel3.updateUI();
+			hope.getBtnNewButton_1().addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+//					remove(getPanel3());
+//					getPanel1();
+					tabbedPane.setSelectedIndex(2);
+					System.out.println("clicked");
+				}
+				
+			});
 		}
 		return panel3;
 	}
