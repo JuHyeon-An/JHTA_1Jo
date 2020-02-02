@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.awt.Font;
+import javax.swing.ImageIcon;
 
 public class m_UserBookSearch extends JPanel {
 	private DialogMessage dm;
@@ -61,21 +62,22 @@ public class m_UserBookSearch extends JPanel {
 	}
 	public JButton getBtnNewButton() {
 		if (btnNewButton == null) {
-			btnNewButton = new JButton("\uBC18\uB0A9\uAE30\uD55C \uC5F0\uC7A5 \uC2E0\uCCAD");
+			btnNewButton = new JButton("");
+			btnNewButton.setIcon(new ImageIcon(m_UserBookSearch.class.getResource("/iconBox/16.png")));
 			btnNewButton.setBorder(null);
 			btnNewButton.setBackground(new Color(176, 224, 230));
 			btnNewButton.setFont(new Font("나눔바른고딕", Font.PLAIN, 16));
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					// 연장 신청 버튼 누리면
-					
-					String bCode = (String) table.getValueAt(table.getSelectedRow(), 3);
+					// 연장버튼을 누르면					
 					j_BookDao dao = new j_BookDao();
-					int r = dao.addDate(bCode,keyId);				
 					
-					
+					String bCode = (String) table.getValueAt(table.getSelectedRow(), 3);  // 선택된 행의 책코드를 변수에 담고
+					int r = dao.addDate(bCode);	// addDate메소드를 실행하면서 책코드와 사용자ID를 인자로 전달 			
+														// 반환날짜가 정상적으로 연장되면 1이상을 반환
+														// 반환날짜를 연장할수 없으면 0 반환
 					if(r>0)	{
-						model=dao.rentBookSearch(keyId);
+						model=dao.rentBookSearch(keyId);  
 						table.setModel(model);
 						msg = "신청 되었습니다.";
 					}else
@@ -84,7 +86,7 @@ public class m_UserBookSearch extends JPanel {
 					dm.setLocationRelativeTo(m_UserBookSearch.this);
 				}
 			});
-			btnNewButton.setBounds(379, 541, 177, 41);
+			btnNewButton.setBounds(379, 541, 160, 33);
 		}
 		return btnNewButton;
 	}

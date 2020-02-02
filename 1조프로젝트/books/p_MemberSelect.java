@@ -152,7 +152,7 @@ public class p_MemberSelect extends JPanel {
 			btnNewButton_1 = new JButton("\uC0C1\uC138\uBCF4\uAE30");
 			btnNewButton_1.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					// 상세보기
+			     	// 상세보기
 					tab.setSelectedIndex(1);
 					String mid = (String) table.getValueAt(table.getSelectedRow(), 0);
 					p_MemberDao dao = new p_MemberDao();

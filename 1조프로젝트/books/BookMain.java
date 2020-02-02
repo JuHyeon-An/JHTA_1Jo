@@ -31,6 +31,8 @@ import javax.swing.JFormattedTextField;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.SystemColor;
+import javax.swing.border.MatteBorder;
+import javax.swing.border.TitledBorder;
 
 public class BookMain extends JFrame {
 
@@ -54,6 +56,7 @@ public class BookMain extends JFrame {
 	private JLabel book4;
 	private JLabel book5;
 	private JLabel label_3;
+	private JLabel lblNewLabel;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -72,7 +75,7 @@ public class BookMain extends JFrame {
 		setTitle("\uC911\uC559 HTA\uB3C4\uC11C\uAD00");
 		setPreferredSize(new Dimension(900, 800));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 950, 699);
+		setBounds(100, 100, 939, 699);
 		contentPane = new JDesktopPane();
 		contentPane.setPreferredSize(new Dimension(950, 800));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -99,7 +102,7 @@ public class BookMain extends JFrame {
 			comboBox = new JComboBox();
 			comboBox.setBackground(SystemColor.control);
 			comboBox.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 15));
-			comboBox.setBounds(78, 208, 90, 36);
+			comboBox.setBounds(69, 211, 90, 36);
 			comboBox.addItem("ÀüÃ¼");
 			comboBox.addItem("Ã»±¸±âÈ£");
 			comboBox.addItem("¼­¸í");
@@ -130,7 +133,7 @@ public class BookMain extends JFrame {
 					
 				}
 			});
-			textField.setBounds(171, 209, 593, 36);
+			textField.setBounds(162, 211, 593, 36);
 			textField.setColumns(10);
 		}
 		return textField;
@@ -141,7 +144,7 @@ public class BookMain extends JFrame {
 			button = new JButton("\uAC80\uC0C9");
 			button.setBackground(SystemColor.control);
 			button.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 15));
-			button.setBounds(771, 208, 90, 36);
+			button.setBounds(762, 210, 90, 36);
 			button.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					
@@ -165,7 +168,7 @@ public class BookMain extends JFrame {
 					
 				}
 			});
-			button_1.setBounds(66, 300, 364, 46);
+			button_1.setBounds(78, 300, 364, 46);
 			button_1.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 18));
 		}
 		return button_1;
@@ -183,19 +186,14 @@ public class BookMain extends JFrame {
 				
 				}
 			});
-			button_2.setBounds(473, 300, 364, 46);
+			button_2.setBounds(501, 300, 364, 46);
 			button_2.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 18));
 		}
 		return button_2;
 	}
 	public JPanel getPanel() {
 		if (panel == null) {
-			try {
-				panel = new AddPanelImage("img/aa2.gif");
-			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+				panel = new JPanel();
 			panel.setPreferredSize(new Dimension(950, 800));
 			panel.setBounds(0, 0, 934, 873);
 			panel.setLayout(null);
@@ -210,6 +208,7 @@ public class BookMain extends JFrame {
 			panel.add(getBook3());
 			panel.add(getBook4());
 			panel.add(getBook5());
+			panel.add(getLblNewLabel());
 			panel.add(getLabel_3());
 		}
 		return panel;
@@ -219,8 +218,8 @@ public class BookMain extends JFrame {
 			panel_2 = new JPanel();
 			panel_2.setOpaque(false);
 			panel_2.setBorder(null);
-			panel_2.setBackground(new Color(210, 180, 140));
-			panel_2.setBounds(30, 436, 457, 190);
+			panel_2.setBackground(Color.decode("#ded5b1"));
+			panel_2.setBounds(71, 436, 385, 190);
 			panel_2.setLayout(null);
 			panel_2.add(getNotice1());
 			panel_2.add(getLblHta());
@@ -232,7 +231,7 @@ public class BookMain extends JFrame {
 	public JLabel getNotice1() {
 		if (notice1 == null) {
 			notice1 = new JLabel("");
-			notice1.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 22));
+			notice1.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 19));
 			notice1.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseReleased(MouseEvent arg0) {
@@ -264,8 +263,8 @@ public class BookMain extends JFrame {
 					
 				}
 			});
-			lblHta.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 22));
-			lblHta.setBounds(14, 82, 429, 26);
+			lblHta.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 19));
+			lblHta.setBounds(14, 62, 429, 26);
 		}
 		return lblHta;
 	}
@@ -283,8 +282,8 @@ public class BookMain extends JFrame {
 					
 				}
 			});
-			label_4.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 22));
-			label_4.setBounds(14, 138, 429, 26);
+			label_4.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 19));
+			label_4.setBounds(14, 100, 429, 26);
 		}
 		return label_4;
 	}
@@ -341,8 +340,16 @@ public class BookMain extends JFrame {
 			label_3.setHorizontalAlignment(SwingConstants.LEFT);
 			label_3.setFocusCycleRoot(true);
 			label_3.setAlignmentY(0.0f);
-			label_3.setBounds(9, 1, 927, 662);
+			label_3.setBounds(0, 0, 927, 662);
 		}
 		return label_3;
+	}
+	public JLabel getLblNewLabel() {
+		if (lblNewLabel == null) {
+			lblNewLabel = new JLabel("");
+			lblNewLabel.setIcon(new ImageIcon(BookMain.class.getResource("/iconBox/star.gif")));
+			lblNewLabel.setBounds(601, 28, 251, 33);
+		}
+		return lblNewLabel;
 	}
 }

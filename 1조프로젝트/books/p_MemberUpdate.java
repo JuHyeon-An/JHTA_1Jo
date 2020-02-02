@@ -85,8 +85,8 @@ public class p_MemberUpdate extends JPanel {
 		p_MemberDao dao = new p_MemberDao();
 		p_MemberVo vo = dao.search(find);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
-		if(dao.idCheck(find)==1) {
+		int r = dao.idCheck(find); 
+		if(r==1) {
 			
 		
 		tmId.setText(vo.getmId());			
@@ -152,8 +152,6 @@ public class p_MemberUpdate extends JPanel {
 			btnNewButton.setForeground(new Color(0, 0, 0));
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-				
-				
 					search();
 				}
 
@@ -179,7 +177,7 @@ public class p_MemberUpdate extends JPanel {
 	public JTextField getTmId() {
 		if (tmId == null) {
 			tmId = new JTextField();
-			tmId.setForeground(new Color(34, 139, 34));
+			tmId.setForeground(Color.BLACK);
 			tmId.setFont(new Font("나눔바른고딕 Light", Font.PLAIN, 15));
 			tmId.setEnabled(false);
 			tmId.setBounds(328, 101, 264, 29);
@@ -191,7 +189,7 @@ public class p_MemberUpdate extends JPanel {
 	public JTextField getTmName() {
 		if (tmName == null) {
 			tmName = new JTextField();
-			tmName.setForeground(new Color(34, 139, 34));
+			tmName.setForeground(Color.BLACK);
 			tmName.setFont(new Font("나눔바른고딕 Light", Font.PLAIN, 15));
 			tmName.setColumns(10);
 			tmName.setBounds(328, 183, 264, 29);
@@ -213,7 +211,7 @@ public class p_MemberUpdate extends JPanel {
 	public JTextField getTBirth() {
 		if (tBirth == null) {
 			tBirth = new JTextField();
-			tBirth.setForeground(new Color(34, 139, 34));
+			tBirth.setForeground(Color.BLACK);
 			tBirth.setFont(new Font("나눔바른고딕 Light", Font.PLAIN, 15));
 			tBirth.setColumns(10);
 			tBirth.setBounds(328, 224, 264, 29);
@@ -235,7 +233,7 @@ public class p_MemberUpdate extends JPanel {
 	public JTextField getTrDate() {
 		if (trDate == null) {
 			trDate = new JTextField();
-			trDate.setForeground(new Color(34, 139, 34));
+			trDate.setForeground(Color.BLACK);
 			trDate.setFont(new Font("나눔바른고딕 Light", Font.PLAIN, 15));
 			trDate.setColumns(10);
 			trDate.setBounds(328, 265, 264, 29);
@@ -257,7 +255,7 @@ public class p_MemberUpdate extends JPanel {
 	public JTextField getTEmail() {
 		if (tEmail == null) {
 			tEmail = new JTextField();
-			tEmail.setForeground(new Color(34, 139, 34));
+			tEmail.setForeground(Color.BLACK);
 			tEmail.setFont(new Font("나눔바른고딕 Light", Font.PLAIN, 15));
 			tEmail.setColumns(10);
 			tEmail.setBounds(328, 306, 264, 29);
@@ -279,7 +277,7 @@ public class p_MemberUpdate extends JPanel {
 	public JTextField getTPhone() {
 		if (tPhone == null) {
 			tPhone = new JTextField();
-			tPhone.setForeground(new Color(34, 139, 34));
+			tPhone.setForeground(Color.BLACK);
 			tPhone.setFont(new Font("나눔바른고딕 Light", Font.PLAIN, 15));
 			tPhone.setColumns(10);
 			tPhone.setBounds(328, 347, 264, 29);
@@ -291,7 +289,7 @@ public class p_MemberUpdate extends JPanel {
 		if (label_4 == null) {
 			label_4 = new JLabel("\uC804\uD654\uBC88\uD638");
 			label_4.setHorizontalAlignment(SwingConstants.RIGHT);
-			label_4.setForeground(new Color(0, 0, 0));
+			label_4.setForeground(Color.BLACK);
 			label_4.setFont(new Font("나눔바른고딕 Light", Font.PLAIN, 15));
 			label_4.setBounds(224, 347, 92, 29);
 		}
@@ -301,7 +299,7 @@ public class p_MemberUpdate extends JPanel {
 	public JTextField getTState() {
 		if (tState == null) {
 			tState = new JTextField();
-			tState.setForeground(new Color(34, 139, 34));
+			tState.setForeground(Color.BLACK);
 			tState.setFont(new Font("나눔바른고딕 Light", Font.PLAIN, 15));
 			tState.setColumns(10);
 			tState.setBounds(328, 388, 264, 29);
@@ -357,7 +355,7 @@ public class p_MemberUpdate extends JPanel {
 							vo.setState("0");
 						}
 						vo.setmId(tmId.getText());
-						
+						//업데이트
 						int r = dao.update(vo);
 						
 						
@@ -393,7 +391,7 @@ public class p_MemberUpdate extends JPanel {
 					p_MemberDao dao = new p_MemberDao();
 					String mId = tmId.getText();   
                     try { 
-					int r = dao.delete(mId);
+					int r = dao.delete(mId); //dao 에 있는 메소드
 					String msg = r>0 ? "탈퇴가 완료되었습니다." : "탈퇴 중 오류발생";
 	
 					dm = new DialogMessage(msg);
@@ -433,7 +431,7 @@ public class p_MemberUpdate extends JPanel {
 	public JTextField getTPwd() {
 		if (tPwd == null) {
 			tPwd = new JTextField();
-			tPwd.setForeground(new Color(34, 139, 34));
+			tPwd.setForeground(Color.BLACK);
 			tPwd.setFont(new Font("나눔바른고딕 Light", Font.PLAIN, 15));
 			tPwd.setColumns(10);
 			tPwd.setBounds(328, 142, 264, 29);

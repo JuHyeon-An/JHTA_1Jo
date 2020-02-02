@@ -25,7 +25,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class j_BookInsert extends JPanel {
-	private JLabel lblNewLabel;
 	private JLabel lblNewLabel_1;
 	private JLabel label;
 	private JLabel label_1;
@@ -55,6 +54,7 @@ public class j_BookInsert extends JPanel {
 	j_Manager_Book book;
 	h_Manager_Main main;
 	private JLabel status;
+	private JLabel lblNewLabel;
 	
 	public j_BookInsert(j_Manager_Book book,h_Manager_Main main) {
 		this();
@@ -63,11 +63,11 @@ public class j_BookInsert extends JPanel {
 		}
 	
 	public j_BookInsert() {
+		setOpaque(false);
 		list = dao.getGroupList();
 		setBackground(new Color(253, 245, 230));
 		setPreferredSize(new Dimension(555, 500));
 		setLayout(null);
-		add(getLblNewLabel());
 		add(getLblNewLabel_1());
 		add(getLabel());
 		add(getLabel_1());
@@ -88,6 +88,7 @@ public class j_BookInsert extends JPanel {
 		add(getSeparator());
 		add(getBtnNewButton_1());
 		add(getStatus());
+		add(getLblNewLabel());
 
 	}
 	
@@ -166,16 +167,6 @@ public class j_BookInsert extends JPanel {
 }
 		showMessage(msg);
 	}
-	
-	public JLabel getLblNewLabel() {
-		if (lblNewLabel == null) {
-			lblNewLabel = new JLabel("\uB3C4\uC11C\uB4F1\uB85D");
-			lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-			lblNewLabel.setFont(new Font("±¼¸²", Font.PLAIN, 30));
-			lblNewLabel.setBounds(14, 36, 520, 35);
-		}
-		return lblNewLabel;
-	}
 	public JLabel getLblNewLabel_1() {
 		if (lblNewLabel_1 == null) {
 			lblNewLabel_1 = new JLabel("\uB3C4\uC11C\uBA85");
@@ -207,7 +198,7 @@ public class j_BookInsert extends JPanel {
 	public JLabel getLabel_3() {
 		if (label_3 == null) {
 			label_3 = new JLabel("\uAC00\uACA9");
-			label_3.setBounds(293, 199, 62, 18);
+			label_3.setBounds(293, 237, 62, 18);
 		}
 		return label_3;
 	}
@@ -221,7 +212,7 @@ public class j_BookInsert extends JPanel {
 	public JLabel getLabel_5() {
 		if (label_5 == null) {
 			label_5 = new JLabel("\uBD84\uB958\uAE30\uD638");
-			label_5.setBounds(293, 233, 62, 18);
+			label_5.setBounds(293, 271, 62, 18);
 		}
 		return label_5;
 	}
@@ -230,7 +221,7 @@ public class j_BookInsert extends JPanel {
 	public JLabel getLabel_6() {
 		if (label_6 == null) {
 			label_6 = new JLabel("\uD398\uC774\uC9C0\uC218");
-			label_6.setBounds(293, 273, 62, 18);
+			label_6.setBounds(293, 311, 62, 18);
 		}
 		return label_6;
 	}
@@ -266,18 +257,21 @@ public class j_BookInsert extends JPanel {
 	public JTextField getTDate() {
 		if (tDate == null) {
 			tDate = new JTextField();
+			tDate.setToolTipText("\uC22B\uC790\uB9CC \uC785\uB825\uD574\uC8FC\uC138\uC694. ex) 2019");
 			tDate.setEditable(false);
 			tDate.setColumns(10);
 			tDate.setBounds(132, 310, 126, 24);
+			tDate.setDocument(new JTextFieldLimit(4));
 		}
 		return tDate;
 	}
 	public JTextField getTPrice() {
 		if (tPrice == null) {
 			tPrice = new JTextField();
+			tPrice.setToolTipText("\uC22B\uC790\uB9CC \uC785\uB825\uD574\uC8FC\uC138\uC694. ex)23000");
 			tPrice.setEditable(false);
 			tPrice.setColumns(10);
-			tPrice.setBounds(369, 193, 139, 24);
+			tPrice.setBounds(369, 231, 139, 24);
 		}
 		return tPrice;
 	}
@@ -310,7 +304,7 @@ public class j_BookInsert extends JPanel {
 				tGroup.addItem(vo.getgCode()+" | "+vo.getgName());
 			}
 			tGroup.setEnabled(false);
-			tGroup.setBounds(369, 229, 140, 24);
+			tGroup.setBounds(369, 267, 140, 24);
 			
 		}
 		return tGroup;
@@ -320,9 +314,11 @@ public class j_BookInsert extends JPanel {
 	public JTextField getTPage() {
 		if (tPage == null) {
 			tPage = new JTextField();
+			tPage.setSelectionColor(Color.WHITE);
+			tPage.setToolTipText("\uC22B\uC790\uB9CC \uC785\uB825\uD574\uC8FC\uC138\uC694. ex) 200");
 			tPage.setEditable(false);
 			tPage.setColumns(10);
-			tPage.setBounds(369, 270, 139, 24);
+			tPage.setBounds(369, 308, 139, 24);
 		}
 		return tPage;
 	}
@@ -386,5 +382,14 @@ public class j_BookInsert extends JPanel {
 			status.setBounds(129, 125, 185, 18);
 		}
 		return status;
+	}
+	public JLabel getLblNewLabel() {
+		if (lblNewLabel == null) {
+			lblNewLabel = new JLabel("\uB3C4\uC11C\uC785\uB825");
+			lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+			lblNewLabel.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 31));
+			lblNewLabel.setBounds(46, 23, 462, 62);
+		}
+		return lblNewLabel;
 	}
 }

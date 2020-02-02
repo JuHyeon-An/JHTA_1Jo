@@ -25,9 +25,9 @@ import javax.swing.ImageIcon;
 
 public class MemberJoin extends JFrame {
 
-	static String idPattern = "^[a-zA-Z]{1}[a-zA-Z0-9_]{4,11}$"; // ï¿½ìºï¿½ë¼±,ï¿½ë‹½ï¿½ì˜„ 5~12ï¿½ì˜„ç”±ï¿½
-	static String pwdPattern = "^[a-zA-Z]{1}[a-zA-Z0-9_]{4,11}$"; // ï¿½ìºï¿½ë¼±,ï¿½ë‹½ï¿½ì˜„ 5~12ï¿½ì˜„ç”±ï¿½
-	static String namePattern = "[åª›ï¿½-ï¿½ì—²]{2,20}"; // ï¿½ë¸³æ¹²ï¿½ï§ï¿½ 2~20ï¿½ì˜„ç”±ï¿½
+	static String idPattern = "^[a-zA-Z]{1}[a-zA-Z0-9_]{4,11}$"; 
+	static String pwdPattern = "^[a-zA-Z]{1}[a-zA-Z0-9_]{4,11}$";
+//	static String namePattern = "{2,20}";
 	static String phonePattern = "\\d{2,3}-\\d{3,4}-\\d{4}";
 	static String emailPattern = "^[_a-zA-Z0-9-\\.]+@[\\.a-zA-Z0-9-]+\\.[a-zA-Z]+$";
 	private String msg = "";
@@ -88,7 +88,7 @@ public class MemberJoin extends JFrame {
 	private JTextField getMId() {
 		if (mId == null) {
 			mId = new JTextField();
-			mId.setFont(new Font("ï¿½êµ¹ï¿½ë‹æ€¨ì¢Šëµ“", Font.PLAIN, 22));
+			mId.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.BOLD, 16));
 			mId.setBorder(null);
 			mId.setBackground(new Color(224, 255, 255));
 			mId.setBounds(199, 136, 254, 35);
@@ -104,28 +104,27 @@ public class MemberJoin extends JFrame {
 			btnNewButton.setForeground(Color.WHITE);
 			btnNewButton.setBorderPainted(false);
 			btnNewButton.setBackground(new Color(0, 153, 255));
-			btnNewButton.setFont(new Font("ï¿½êµ¹ï¿½ë‹æ€¨ì¢Šëµ“", Font.BOLD, 20));
+			btnNewButton.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 12));
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					// ä»¥ë¬ë‚¬ ï§£ëŒ„ê²• ï¿½ëŠ»ç‘œëŒ€ãˆƒ
 					d_MemberDao dao = new d_MemberDao();
 					String msg = "";
 
-					if (Pattern.matches(idPattern, mId.getText())) { // ï¿½ë¸˜ï¿½ì” ï¿½ëµ’åª›ï¿½ ï¿½ë™£ï¿½ê½©ï¿½ë¿‰ ï¿½ì”ªç§»ì„‘ë¸¯ï§ï¿½
+					if (Pattern.matches(idPattern, mId.getText())) { 
 						int r = dao.idCheck(mId.getText());
 						if (r > 0) {
 							checkId = 1;
-							msg = "ï¿½ê¶—ï¿½ìŠœåª›ï¿½ï¿½ë’«";
+							msg = "»ç¿ëÇÒ ¼ö ÀÖ´Â ID ÀÔ´Ï´Ù.";
 							dm = new DialogMessage(msg);
 							dm.setLocationRelativeTo(MemberJoin.this);
 						} else {
 							checkId = 0;
-							msg = "ï¿½ë¸˜ï¿½ì” ï¿½ëµ’åª›ï¿½ ä»¥ë¬ë‚¬ï¿½ë§—ï¿½ë•²ï¿½ë–.";
+							msg = "¾ÆÀÌµğ°¡ Áßº¹µË´Ï´Ù.";
 							dm = new DialogMessage(msg);
 							dm.setLocationRelativeTo(MemberJoin.this);
 						}
 					} else {
-						msg = "ï¿½ë¸˜ï¿½ì” ï¿½ëµ’ ï¿½ë¼‡ï¿½ë–‡ï¿½ë¿‰ ï§ìšŠì¾¶ ï¿½ì˜‰ï¿½ê½¦ï¿½ë¸¯ï¿½ê½­ï¿½ìŠ‚.";
+						msg = "¾ÆÀÌµğ ¾ç½Ä¿¡ ¸Â°Ô ÀÛ¼ºÇÏ¼¼¿ä.";
 						dm = new DialogMessage(msg);
 						dm.setLocationRelativeTo(MemberJoin.this);
 					}
@@ -140,7 +139,7 @@ public class MemberJoin extends JFrame {
 	private JTextField getPhone() {
 		if (phone == null) {
 			phone = new JTextField();
-			phone.setFont(new Font("ï¿½êµ¹ï¿½ë‹æ€¨ì¢Šëµ“", Font.PLAIN, 22));
+			phone.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.BOLD, 16));
 			phone.setBorder(null);
 			phone.setBackground(new Color(224, 255, 255));
 			phone.setBounds(199, 469, 274, 35);
@@ -152,7 +151,7 @@ public class MemberJoin extends JFrame {
 	private JTextField getEmail() {
 		if (email == null) {
 			email = new JTextField();
-			email.setFont(new Font("ï¿½êµ¹ï¿½ë‹æ€¨ì¢Šëµ“", Font.PLAIN, 22));
+			email.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.BOLD, 16));
 			email.setBorder(null);
 			email.setBackground(new Color(224, 255, 255));
 			email.setBounds(199, 524, 274, 35);
@@ -168,7 +167,7 @@ public class MemberJoin extends JFrame {
 			btnNewButton_1.setBorder(null);
 			btnNewButton_1.setBackground(new Color(0, 153, 255));
 			btnNewButton_1.setForeground(Color.WHITE);
-			btnNewButton_1.setFont(new Font("ï¿½êµ¹ï¿½ë‹æ€¨ì¢Šëµ“", Font.BOLD, 22));
+			btnNewButton_1.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 12));
 			btnNewButton_1.setBounds(201, 611, 108, 35);
 			btnNewButton_1.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -181,59 +180,53 @@ public class MemberJoin extends JFrame {
 								+ comboBox_2.getSelectedItem(); 
 						if (!mId.getText().equals("") && !pwd.getText().equals("") && !pwdCheck.getText().equals("")
 								&& !mName.getText().equals("") && !phone.getText().equals("")
-								&& !email.getText().equals("")) { // ï¿½ì—¯ï¿½ì °ï¿½ï¿½ï¿½ë¿‰ æ€¨ë“¬ê°šï¿½ì”  ï¿½ë¾¾ï¿½ì“£ï¿½ë»¹ å¯ƒìŒìŠ¦
+								&& !email.getText().equals("")) { 
 							
-							if (Pattern.matches(idPattern, mId.getText())) { // ï¿½ë¸˜ï¿½ì” ï¿½ëµ’ ï¿½ë™£ï¿½ê½©ï¿½ì”  ï¿½ì”ªç§»ì„‘ë¸¯ï§ï¿½
+							if (Pattern.matches(idPattern, mId.getText())) { 
 								vo.setmId(mId.getText());
 							} else {
-								idS.setText("ï¿½ë¸˜ï¿½ì” ï¿½ëµ’ï¿½ë’— ï¿½ìºï¿½ë¼±+ï¿½ë‹½ï¿½ì˜„ 5~12ï¿½ì˜„ç”±ÑŠì—¯ï¿½ë•²ï¿½ë–.");
+								idS.setText("¾ÆÀÌµğ´Â ¿µ¾î+¼ıÀÚ 5~12 ÀÚ¸®ÀÔ´Ï´Ù.");
 							}
-							if (Pattern.matches(pwdPattern, pwd.getText())) { // ï¿½ë™£ï¿½ë’ªï¿½ì™ï¿½ë±¶ ï¿½ë™£ï¿½ê½©ï¿½ì”  ï¿½ì”ªç§»ì„‘ë¸¯ï§ï¿½
+							if (Pattern.matches(pwdPattern, pwd.getText())) { 
 								vo.setmPwd(pwd.getText());
 								if (!(pwd.getText().equals(pwdCheck.getText()))) {
-									status.setText("é®ê¾¨ï¿½è¸°ëŠìƒ‡åª›ï¿½ ï¿½ì”ªç§»ì„‘ë¸¯ï§ï¿½ ï¿½ë¸¡ï¿½ë’¿ï¿½ë•²ï¿½ë–.");
+									status.setText("ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.");
 									checkPwd = 0;
 								} else {
-									status.setText("é®ê¾¨ï¿½è¸°ëŠìƒ‡åª›ï¿½ ï¿½ì”ªç§»ì„‘ë¹€ï¿½ë•²ï¿½ë–.");
 									vo.setmPwdCheck(pwdPattern);
 									checkPwd = 1;
 								}
 							} else {
-								pwdS.setText("é®ê¾¨ï¿½è¸°ëŠìƒ‡ï¿½ë’— ï¿½ìºï¿½ë¼±+ï¿½ë‹½ï¿½ì˜„ 5~12ï¿½ì˜„ç”±ÑŠì—¯ï¿½ë•²ï¿½ë–.");
-							}
-							if (Pattern.matches(namePattern, mName.getText())) {
-								vo.setmName(mName.getText());
-							} else {
-								nameS.setText("ï¿½ë¸³æ¹²ï¿½æ¿¡ï¿½ ï¿½ì˜‰ï¿½ê½¦ï¿½ë¹ äºŒì‡±ê½­ï¿½ìŠ‚.");
+								pwdS.setText("ºñ¹Ğ¹øÈ£´Â ¿µ¾î+¼ıÀÚ 5~12ÀÚ¸®·Î ÀÛ¼ºÇØÁÖ¼¼¿ä.");
 							}
 							if (Pattern.matches(phonePattern, phone.getText())) {
 								vo.setmPhone(phone.getText());
 							} else {
-								phoneS.setText("(-)ç‘œï¿½ ï¿½ë£·ï¿½ë¸¿ï¿½ë¸¯ï¿½ë¿¬ ï¿½ì—¯ï¿½ì °ï¿½ë¹äºŒì‡±ê½­ï¿½ìŠ‚.");
+								phoneS.setText("(-)¸¦ Æ÷ÇÔÇÏ¿© ÀÔ·ÂÇØÁÖ¼¼¿ä.");
 							}
 							if (Pattern.matches(emailPattern, email.getText())) {
 								vo.setmEmail(email.getText());
 							} else {
-								emailS.setText("ï¿½ì‚±è«›ë¶¾â…¤ï§ï¿½ ï¿½ë¸¡ï¿½ï¿½ ï¿½ì” ï§ë¶¿ì”ª ï¿½ì‚ï¿½ë–‡ï¿½ì—¯ï¿½ë•²ï¿½ë–.");
+								emailS.setText("¿Ã¹Ù¸£Áö ¾ÊÀº ÀÌ¸ŞÀÏ Çü½ÄÀÔ´Ï´Ù.");
 							}
 							vo.setmBirth(birth);
-							
+							vo.setmName(mName.getText());
 
-							if (checkId > 0 && checkPwd > 0) { // ï¿½ë¸˜ï¿½ì” ï¿½ëµ’åª›ï¿½ ä»¥ë¬ë‚¬ï¿½ì”  ï¿½ë¸˜ï¿½ë•²æ€¨ï¿½ é®ê¾¨ï¿½è¸°ëŠìƒ‡åª›ï¿½ ï¿½ì”ªç§»ì„‘ë¸¯ï§ï¿½
+							if (checkId > 0 && checkPwd > 0) { 
 								int r = dao.cJoin(vo);
 								if (r > 0) {
-									msg = "åª›ï¿½ï¿½ì—¯ï¿½ê½¦æ€¨ï¿½";
+									msg = "°¡ÀÔÀ» ÃàÇÏÇÕ´Ï´Ù.";
 									dm = new DialogMessage(msg);
 									dm.setLocationRelativeTo(MemberJoin.this);
 									dispose();
 								} else {
-									msg = "ï¿½ë¼‡ï¿½ë–‡ï¿½ë¿‰ ï§ìšŠì¾¶ ï¿½ì—¯ï¿½ì °ï¿½ë¸¯ï¿½ê½­ï¿½ìŠ‚";
-									if (dao.emailCheck(email.getText())) { // ï¿½ì” ï§ë¶¿ì”ªï¿½ì”  ä»¥ë¬ë‚¬ï¿½ë¦ºï§ï¿½
-										msg = "ä»¥ë¬ë‚¬ï¿½ë§‚ ï¿½ì” ï§ë¶¿ì”ª ï¿½ì—¯ï¿½ë•²ï¿½ë–.";
+									msg = "¾ç½Ä¿¡ ¸Â°Ô ÀÔ·ÂÇÏ¼¼¿ä.";
+									if (dao.emailCheck(email.getText())) { 
+										msg = "Áßº¹µÈ ÀÌ¸ŞÀÏÀÔ´Ï´Ù.";
 										
 									}
-									if (dao.phoneCheck(phone.getText())) { // ï¿½ë¹–ï¿½ë±¶ï¿½ë£¿ è¸°ëŠìƒ‡åª›ï¿½ ä»¥ë¬ë‚¬ï¿½ë¦ºï§ï¿½
-										msg = "ä»¥ë¬ë‚¬ï¿½ë§‚ è¸°ëŠìƒ‡ ï¿½ì—¯ï¿½ë•²ï¿½ë–.";
+									if (dao.phoneCheck(phone.getText())) {
+										msg = "Áßº¹µÈ ¹øÈ£ÀÔ´Ï´Ù.";
 										
 									}
 									dm = new DialogMessage(msg);
@@ -241,19 +234,19 @@ public class MemberJoin extends JFrame {
 								}
 							} else {
 								if (checkId == 0) {
-									msg = "ï¿½ë¸˜ï¿½ì” ï¿½ëµ’ ä»¥ë¬ë‚¬ï§£ëŒ„ê²• ï¿½ë¸¯ï¿½ê½­ï¿½ìŠ‚";
+									msg = "¾ÆÀÌµğ Áßº¹Ã¼Å©¸¦ ¸ÕÀú ÇØÁÖ¼¼¿ä.";
 									dm = new DialogMessage(msg);
 									dm.setLocationRelativeTo(MemberJoin.this);
 									
 								} else if (checkPwd == 0) {
-									msg = "é®ê¾¨ï¿½è¸°ëŠìƒ‡ç‘œï¿½ ï¿½ì†—ï¿½ì”¤ï¿½ë¸¯ï¿½ê½­ï¿½ìŠ‚";
+									msg = "ºñ¹Ğ¹øÈ£¸¦ È®ÀÎÇÏ¼¼¿ä.";
 									dm = new DialogMessage(msg);
 									dm.setLocationRelativeTo(MemberJoin.this);
 								}
 							}
 
 						} else {
-							msg = "æ€¨ë“¬ê°šï¿½ë¾¾ï¿½ì”  ï¿½ì—¯ï¿½ì °ï¿½ë¸¯ï¿½ê½­ï¿½ìŠ‚";
+							msg = "°ø¹é¾øÀÌ ÀÔ·ÂÇÏ¼¼¿ä.";
 							dm = new DialogMessage(msg);
 							dm.setLocationRelativeTo(MemberJoin.this);
 						}
@@ -274,7 +267,7 @@ public class MemberJoin extends JFrame {
 			button.setBorder(null);
 			button.setBackground(new Color(0, 153, 255));
 			button.setForeground(Color.WHITE);
-			button.setFont(new Font("ï¿½êµ¹ï¿½ë‹æ€¨ì¢Šëµ“", Font.BOLD, 22));
+			button.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 12));
 			button.setBounds(352, 611, 108, 35);
 			button.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -318,7 +311,7 @@ public class MemberJoin extends JFrame {
 	public JTextField getMName() {
 		if (mName == null) {
 			mName = new JTextField();
-			mName.setFont(new Font("ï¿½êµ¹ï¿½ë‹æ€¨ì¢Šëµ“", Font.PLAIN, 22));
+			mName.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.BOLD, 16));
 			mName.setBorder(null);
 			mName.setBackground(new Color(224, 255, 255));
 			mName.setBounds(199, 336, 257, 35);
@@ -330,7 +323,7 @@ public class MemberJoin extends JFrame {
 	public JLabel getStatus() {
 		if (status == null) {
 			status = new JLabel("");
-			status.setFont(new Font("ï¿½êµ¹ï¿½ë‹æ€¨ì¢Šëµ“", Font.PLAIN, 18));
+			status.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 12));
 			status.setBounds(455, 271, 137, 35);
 		}
 		return status;
@@ -341,7 +334,7 @@ public class MemberJoin extends JFrame {
 			pwdS = new JLabel("");
 			pwdS.setForeground(Color.RED);
 			pwdS.setBackground(Color.WHITE);
-			pwdS.setFont(new Font("ï¿½êµ¹ï¿½ë‹æ€¨ì¢Šëµ“", Font.PLAIN, 18));
+			pwdS.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 12));
 			pwdS.setBounds(199, 187, 385, 20);
 		}
 		return pwdS;
@@ -350,7 +343,7 @@ public class MemberJoin extends JFrame {
 	public JPasswordField getPwd() {
 		if (pwd == null) {
 			pwd = new JPasswordField();
-			pwd.setFont(new Font("ï¿½êµ¹ï¿½ë‹æ€¨ì¢Šëµ“", Font.PLAIN, 22));
+			pwd.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.BOLD, 16));
 			pwd.setBorder(null);
 			pwd.setBackground(new Color(224, 255, 255));
 			pwd.setBounds(201, 205, 254, 35);
@@ -361,7 +354,7 @@ public class MemberJoin extends JFrame {
 	public JPasswordField getPwdCheck() {
 		if (pwdCheck == null) {
 			pwdCheck = new JPasswordField();
-			pwdCheck.setFont(new Font("ï¿½êµ¹ï¿½ë‹æ€¨ì¢Šëµ“", Font.PLAIN, 22));
+			pwdCheck.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.BOLD, 16));
 			pwdCheck.setBorder(null);
 			pwdCheck.setBackground(new Color(224, 255, 255));
 			pwdCheck.setBounds(201, 271, 257, 35);
@@ -372,7 +365,7 @@ public class MemberJoin extends JFrame {
 	public JComboBox getComboBox() {
 		if (comboBox == null) {
 			comboBox = new JComboBox();
-			comboBox.setFont(new Font("ï¿½êµ¹ï¿½ë‹æ€¨ì¢Šëµ“", Font.PLAIN, 22));
+			comboBox.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.BOLD, 16));
 			comboBox.setBackground(Color.WHITE);
 			comboBox.setBounds(189, 402, 95, 35);
 			for (int i = 1950; i < 2020; i++) {
@@ -385,7 +378,7 @@ public class MemberJoin extends JFrame {
 	public JComboBox getComboBox_1() {
 		if (comboBox_1 == null) {
 			comboBox_1 = new JComboBox();
-			comboBox_1.setFont(new Font("ï¿½êµ¹ï¿½ë‹æ€¨ì¢Šëµ“", Font.PLAIN, 22));
+			comboBox_1.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.BOLD, 16));
 			comboBox_1.setBackground(Color.WHITE);
 			comboBox_1.setBounds(301, 402, 75, 35);
 			for (int i = 1; i <= 12; i++) {
@@ -398,7 +391,7 @@ public class MemberJoin extends JFrame {
 	public JComboBox getComboBox_2() {
 		if (comboBox_2 == null) {
 			comboBox_2 = new JComboBox();
-			comboBox_2.setFont(new Font("ï¿½êµ¹ï¿½ë‹æ€¨ì¢Šëµ“", Font.PLAIN, 22));
+			comboBox_2.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.BOLD, 16));
 			comboBox_2.setBackground(Color.WHITE);
 			comboBox_2.setBounds(393, 402, 80, 35);
 			for (int i = 1; i <= 31; i++) {
@@ -412,7 +405,7 @@ public class MemberJoin extends JFrame {
 		if (idS == null) {
 			idS = new JLabel("");
 			idS.setBackground(Color.WHITE);
-			idS.setFont(new Font("ï¿½êµ¹ï¿½ë‹æ€¨ì¢Šëµ“", Font.PLAIN, 18));
+			idS.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 12));
 			idS.setBounds(199, 110, 404, 22);
 		}
 		return idS;
@@ -422,7 +415,7 @@ public class MemberJoin extends JFrame {
 		if (nameS == null) {
 			nameS = new JLabel("");
 			nameS.setBackground(Color.WHITE);
-			nameS.setFont(new Font("ï¿½êµ¹ï¿½ë‹æ€¨ì¢Šëµ“", Font.PLAIN, 18));
+			nameS.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 12));
 			nameS.setBounds(199, 372, 254, 20);
 		}
 		return nameS;
@@ -432,7 +425,7 @@ public class MemberJoin extends JFrame {
 		if (phoneS == null) {
 			phoneS = new JLabel("");
 			phoneS.setBackground(Color.WHITE);
-			phoneS.setFont(new Font("ï¿½êµ¹ï¿½ë‹æ€¨ì¢Šëµ“", Font.PLAIN, 18));
+			phoneS.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 12));
 			phoneS.setBounds(199, 448, 385, 20);
 		}
 		return phoneS;
@@ -442,7 +435,7 @@ public class MemberJoin extends JFrame {
 		if (emailS == null) {
 			emailS = new JLabel("");
 			emailS.setBackground(Color.WHITE);
-			emailS.setFont(new Font("ï¿½êµ¹ï¿½ë‹æ€¨ì¢Šëµ“", Font.PLAIN, 18));
+			emailS.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 12));
 			emailS.setBounds(199, 505, 386, 20);
 		}
 		return emailS;
@@ -450,6 +443,7 @@ public class MemberJoin extends JFrame {
 	private JLabel getLblNewLabel() {
 		if (lblNewLabel == null) {
 			lblNewLabel = new JLabel("");
+			lblNewLabel.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 12));
 			lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 			lblNewLabel.setIcon(new ImageIcon(MemberJoin.class.getResource("/iconBox/aa20014.jpg")));
 			lblNewLabel.setBounds(0, 10, 603, 796);

@@ -82,9 +82,6 @@ public class j_BookDetail extends JInternalFrame {
 		
 		this.panel = panel;
 		
-		tWriter.setText(panel.table.getValueAt(panel.table.getSelectedRow(), 3)+"");
-		
-		
 		getDetail(tCode, 0);
 		getDetail(tBook, 1);
 		getDetail(tPublisher, 2);
@@ -97,16 +94,13 @@ public class j_BookDetail extends JInternalFrame {
 		getDetail(tStatus, 9);
 		
 		
-		// 예약자수 불러오기
-		tCnt.setText(dao.getReserveCnt(tCode.getText()));
-		
+		// 예약자 아이디 불러오기
+		tCnt.setText(dao.getReserveId(tCode.getText()));
 		// 대출한 사람 아이디 불러오기
 		tRent.setText(dao.getRentMember(tCode.getText(), '0'));
-		
 		// 반납기한 불러오기
 		tUntil.setText(dao.getRentMember(tCode.getText(), '1'));
 	}
-	
 	public void getDetail(JTextField text, int column) {
 		text.setText(panel.table.getValueAt(panel.table.getSelectedRow(), column)+"");
 	}
@@ -121,7 +115,7 @@ public class j_BookDetail extends JInternalFrame {
 		super("상세보기",false,true,true,true);
 		getContentPane().setBackground(new Color(240, 248, 255));
 		
-		setBounds(100, 100, 741, 552);
+		setBounds(100, 40, 741, 552);
 		getContentPane().setLayout(null);
 		getContentPane().add(getLabel());
 		getContentPane().add(getLabel_1());
@@ -377,7 +371,7 @@ public class j_BookDetail extends JInternalFrame {
 	}
 	public JLabel getLabel_10() {
 		if (label_10 == null) {
-			label_10 = new JLabel("\uC608\uC57D\uC790\uC218");
+			label_10 = new JLabel("\uC608\uC57D\uC790");
 			label_10.setFont(new Font("나눔바른고딕 Light", Font.PLAIN, 15));
 			label_10.setBounds(428, 207, 62, 18);
 		}
@@ -443,7 +437,7 @@ public class j_BookDetail extends JInternalFrame {
 			button_2.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 				
-				int r = dao.addDate(tCode.getText(), tRent.getText());
+				int r = dao.addDate(tCode.getText());
 				
 				if(r>0) {
 					msg = "성공적으로 연장되었습니다.";

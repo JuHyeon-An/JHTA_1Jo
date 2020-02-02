@@ -19,6 +19,8 @@ import javax.swing.JButton;
 import javax.swing.JDesktopPane;
 import java.awt.Font;
 import java.awt.Color;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
 
 public class h_Manager_Main extends JFrame {
 
@@ -51,6 +53,7 @@ public class h_Manager_Main extends JFrame {
 	private JMenuItem mntmNewMenuItem_8;
 	private JMenuItem mntmNewMenuItem_9;
 	private JMenuItem mntmNewMenuItem_10;
+	private JLabel lblNewLabel;
 
 	/**
 	 * Launch the application.
@@ -78,7 +81,7 @@ public class h_Manager_Main extends JFrame {
 		setPreferredSize(new Dimension(850, 550));
 		setTitle("\uAD00\uB9AC\uC790\uBA54\uC778");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1035, 720);
+		setBounds(100, 100, 1035, 743);
 		setJMenuBar(getMenuBar_1());
 		contentPane = new JDesktopPane();
 		contentPane.setPreferredSize(new Dimension(800, 500));
@@ -177,15 +180,11 @@ public class h_Manager_Main extends JFrame {
 	}
 	public JPanel getPanel_8() {
 		if (panel_8 == null) {
-			try {
-				panel_8 = new AddPanelImage("iconBox/bookopen.gif");
-			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+				panel_8 = new JPanel();
 			panel_8.setPreferredSize(new Dimension(813, 540));
 			panel_8.setBounds(12, 10, 991, 641);
 			panel_8.setLayout(new BorderLayout(0, 0));
+			panel_8.add(getLblNewLabel(), BorderLayout.CENTER);
 		}
 		return panel_8;
 	}
@@ -210,7 +209,7 @@ public class h_Manager_Main extends JFrame {
 	}
 	public JMenuItem getMntmNewMenuItem_2() {
 		if (mntmNewMenuItem_2 == null) {
-			mntmNewMenuItem_2 = new JMenuItem("\uD68C\uC6D0\uC218\uC815\uC0AD\uC81C");
+			mntmNewMenuItem_2 = new JMenuItem("\uD68C\uC6D0\uC870\uD68C");
 			mntmNewMenuItem_2.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
 			mntmNewMenuItem_2.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -347,7 +346,7 @@ public class h_Manager_Main extends JFrame {
 	}
 	public JMenuItem getMntmNewMenuItem_10() {
 		if (mntmNewMenuItem_10 == null) {
-			mntmNewMenuItem_10 = new JMenuItem("È¸¿øÁ¶È¸");
+			mntmNewMenuItem_10 = new JMenuItem("\uD68C\uC6D0\uC218\uC815\uC0AD\uC81C");
 			mntmNewMenuItem_10.setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 15));
 			mntmNewMenuItem_10.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
@@ -360,5 +359,12 @@ public class h_Manager_Main extends JFrame {
 			});
 		}
 		return mntmNewMenuItem_10;
+	}
+	public JLabel getLblNewLabel() {
+		if (lblNewLabel == null) {
+			lblNewLabel = new JLabel("");
+			lblNewLabel.setIcon(new ImageIcon(h_Manager_Main.class.getResource("/iconBox/bookopen.gif")));
+		}
+		return lblNewLabel;
 	}
 }

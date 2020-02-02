@@ -17,6 +17,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Font;
 import java.awt.Color;
+import javax.swing.ImageIcon;
 
 public class m_UserBookRent extends JPanel {
 
@@ -80,7 +81,7 @@ public class m_UserBookRent extends JPanel {
 						String rent = textField.getText(); // 검색어
 						j_BookDao dao = new j_BookDao();
 
-						model = (DefaultTableModel) dao.rent(comboBox.getSelectedIndex(), rent, keyId);
+						model = (DefaultTableModel) dao.rentSearch(comboBox.getSelectedIndex(), rent);
 
 						table.setModel(model);
 					}
@@ -101,12 +102,10 @@ public class m_UserBookRent extends JPanel {
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					// 검색 버튼
-
 					String rent = textField.getText(); // 검색어
 					j_BookDao dao = new j_BookDao();
-
-					model = (DefaultTableModel) dao.rent(comboBox.getSelectedIndex(), rent, keyId);
-
+					// 콤보박스 인덱스와, 검색어를 인자로 넘김
+					model = (DefaultTableModel) dao.rentSearch(comboBox.getSelectedIndex(), rent);
 					table.setModel(model);
 
 				}
@@ -129,25 +128,31 @@ public class m_UserBookRent extends JPanel {
 
 	public JButton getBtnNewButton_1() {
 		if (btnNewButton_1 == null) {
-			btnNewButton_1 = new JButton("\uC608\uC57D \uC2E0\uCCAD");
+			btnNewButton_1 = new JButton("");
+			btnNewButton_1.setIcon(new ImageIcon(m_UserBookRent.class.getResource("/iconBox/17.png")));
 			btnNewButton_1.setBorder(null);
 			btnNewButton_1.setBackground(new Color(173, 216, 230));
 			btnNewButton_1.setFont(new Font("나눔바른고딕", Font.PLAIN, 16));
 			btnNewButton_1.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					// 책 선택하고 예약 신청 버튼 누르면
+					// 예약하고 싶은 책을 선택하고 예약 신청 버튼 누르면
 					String bCode = (String) table.getValueAt(table.getSelectedRow(), 0); // 선택한 책 코드 받아오고
 					j_BookDao dao = new j_BookDao();
-
+					
+					//선택한 책의 상태가 '예약가능' 이면 
 					if (((String) table.getValueAt(table.getSelectedRow(), 4)) == "예약 가능") {
-
-						int r = dao.rentRequest(bCode, keyId); // 예약요청
+						int r = dao.rentRequest(bCode, keyId); // 예약요청, 반환값이 1이상이면 예약가능, 0이면 예약 불가
 						if (r > 0) {
-							int a = dao.bookStatusRent(bCode);  // 실행되면 예약중으로 변경됨 
-							msg = "신청 되었습니다.";
-							String rent = textField.getText();
-							model = (DefaultTableModel) dao.rent(comboBox.getSelectedIndex(), rent, keyId);
-							table.setModel(model);
+							int result = dao.bookStatusRent(bCode);  // 실행되면 예약가능 상태에서 예약중으로 변경됨 
+							if(result>0) {
+								msg = "신청 되었습니다.";
+								// 테이블 갱신
+								String rent = textField.getText();
+								model = (DefaultTableModel) dao.rentSearch(comboBox.getSelectedIndex(), rent);
+								table.setModel(model);
+							}else {
+								msg = "신청 오류입니다.";
+							}
 						} else {
 							msg = "예약불가입니다.";
 						}
@@ -161,7 +166,7 @@ public class m_UserBookRent extends JPanel {
 					}
 				}
 			});
-			btnNewButton_1.setBounds(769, 572, 97, 35);
+			btnNewButton_1.setBounds(769, 572, 102, 33);
 		}
 		return btnNewButton_1;
 	}

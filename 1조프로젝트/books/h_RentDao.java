@@ -246,31 +246,7 @@ public class h_RentDao {
 	   }
 	}
 	
-/*	public void bStatus() {
-		//빌린 책의 대출상태 0으로 
-		int r=0;
-		
-	    try {  
-			String sql = " update books set book_status=? where book_code=?";
-		    
-			PreparedStatement ps3 = conn.prepareStatement(sql);
-			ps3.setString(1,"0");
-			ps3.setString(2,mVo.getBookCode());
-			
-			conn.setAutoCommit(false);
-	 		r = ps3.executeUpdate();
-			if(r>0) {
-				conn.commit();
-			}else {
-				conn.rollback();
-			}
-			ps3.close();
-		
-			
-	   }catch(Exception ex) {
-		   ex.printStackTrace();
-	   }
-	}*/
+
 	public void bStatus(String find) {
 		//대출시 책의 대출상태 0로 
 		int r=0;
@@ -639,7 +615,7 @@ public class h_RentDao {
 			ps.setString(1, id);
 			
 			ResultSet rs = ps.executeQuery();
-			if(rs.next()) {
+			if(rs.next()==true) {
 				r = 1;
 			}else {
 				r = 0;
@@ -700,6 +676,30 @@ public class h_RentDao {
 			ex.printStackTrace();
 		}
 		return r;	
+	}
+	
+	public int rentBookIs(String code) {
+		int r=0;
+		try {
+			String sql = "select rent_code from rent_member where rent_code=?";
+			
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, code);
+			
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()==true) {
+				r = 1;
+			}else {
+				r = 0;
+			}
+			rs.close();
+			ps.close();
+			
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return r;
+		
 	}
 	
 

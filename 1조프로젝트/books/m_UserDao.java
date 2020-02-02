@@ -133,11 +133,10 @@ public class m_UserDao {
 			ps.setString(1, searchId);
 			ps.setString(2, searchEmail);
 			ResultSet rs = ps.executeQuery();
-			while (rs.next()) {
+			if (rs.next()) {
 				b=true;				
 				pwd = rs.getString(1);
 				email = rs.getString(2);
-				
 			}
 			rs.close();
 			ps.close();

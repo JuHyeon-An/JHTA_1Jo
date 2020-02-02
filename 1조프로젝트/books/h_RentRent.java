@@ -165,7 +165,7 @@ public class h_RentRent extends JPanel {
 			
 			if(dao.getReserveIs(find)==1) {
 				msg = "예약한 책이 있습니다";
-				msg2= "청구기호:"+dao.getReservebook(find);
+				msg2= " (청구기호:"+dao.getReservebook(find)+")";
 				dm = new DialogMessage(msg+"\n"+msg2);
 				dm.setLocationRelativeTo(h_RentRent.this);
 			}
@@ -459,7 +459,7 @@ public class h_RentRent extends JPanel {
 						
 						//JOptionPane.showMessageDialog(h_RentRent.this,"먼저 아이디나 청구기호를 검색해주세요");
 					}else {
-						if(dao.bookState(findBookCode.getText())==2) {
+						if(dao.bookState(findBookCode.getText())==2 && dao.rentBookIs(findBookCode.getText())==0) {
 							if(dao.getReserve(findBookCode.getText()).equals(findId.getText())) {
 								dao.deleteReserve(findId.getText(), findBookCode.getText());
 								dao.bStatusBack(findBookCode.getText());

@@ -15,6 +15,8 @@ import javax.swing.JScrollPane;
 public class j_HopeBookList extends JPanel {
 	private JTable table;
 	private JScrollPane scrollPane;
+	private JButton btnNewButton;
+	private JButton button;
 
 	/**
 	 * Create the panel.
@@ -23,6 +25,8 @@ public class j_HopeBookList extends JPanel {
 		setPreferredSize(new Dimension(650, 420));
 		setLayout(null);
 		add(getScrollPane());
+		add(getBtnNewButton());
+		add(getButton());
 		setVisible(true);
 
 	}
@@ -47,9 +51,27 @@ public class j_HopeBookList extends JPanel {
 	public JScrollPane getScrollPane() {
 		if (scrollPane == null) {
 			scrollPane = new JScrollPane();
-			scrollPane.setBounds(14, 12, 624, 398);
+			scrollPane.setBounds(14, 12, 624, 350);
 			scrollPane.setViewportView(getTable());
 		}
 		return scrollPane;
+	}
+	public JButton getBtnNewButton() {
+		if (btnNewButton == null) {
+			btnNewButton = new JButton("\uAC80\uD1A0\uC644\uB8CC");
+			btnNewButton.setBackground(new Color(176, 224, 230));
+			btnNewButton.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 15));
+			btnNewButton.setBounds(209, 374, 105, 27);
+		}
+		return btnNewButton;
+	}
+	public JButton getButton() {
+		if (button == null) {
+			button = new JButton("\uC0AD\uC81C");
+			button.setBackground(new Color(176, 224, 230));
+			button.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 15));
+			button.setBounds(317, 374, 105, 27);
+		}
+		return button;
 	}
 }

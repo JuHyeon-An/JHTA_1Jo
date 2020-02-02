@@ -167,11 +167,11 @@ public class IdAndPwdSearch extends JFrame {
 					if(! tId.getText().isEmpty() && !tEmail2.getText().isEmpty()) {
 						boolean b = dao.pwdSearch(tId.getText(), tEmail2.getText());
 						
-						if(b==false) {
-							msg = "비밀번호를 찾을 수 없습니다.";
+						if(b) {
+							msg = "이메일로 비밀번호를 전송했습니다.";
 						}
 						else {
-							msg = "이메일로 비밀번호를 전송했습니다.";
+							msg = "비밀번호를 찾을 수 없습니다.";
 						}
 					}else {
 						msg =  "공백없이 입력하세요";

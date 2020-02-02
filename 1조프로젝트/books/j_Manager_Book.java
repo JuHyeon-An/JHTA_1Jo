@@ -12,6 +12,7 @@ import javax.swing.SwingConstants;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.Color;
@@ -22,6 +23,8 @@ import javax.swing.Box;
 import javax.swing.JOptionPane;
 
 import java.awt.BorderLayout;
+import javax.swing.JButton;
+import javax.swing.ImageIcon;
 
 public class j_Manager_Book extends JPanel {
 	private JTabbedPane tabbedPane;
@@ -32,6 +35,7 @@ public class j_Manager_Book extends JPanel {
 	h_Manager_Main main;
 	j_BookManagement bookPanel;
 	int index;
+	j_HopeBookList hopebooks = new j_HopeBookList();
 
 	/**
 	 * Create the panel.
@@ -81,6 +85,10 @@ public class j_Manager_Book extends JPanel {
 			Insertbook.setBackground(new Color(240, 248, 255));
 			Insertbook.setPreferredSize(new Dimension(680, 540));
 			j_BookInsert bookInsert = new j_BookInsert(this,main);
+			bookInsert.getBtnNewButton().setText("");
+			bookInsert.getBtnNewButton_1().setText("");
+			bookInsert.getBtnNewButton().setIcon(new ImageIcon(j_Manager_Book.class.getResource("/iconBox/19.png")));
+			bookInsert.getBtnNewButton_1().setIcon(new ImageIcon(j_Manager_Book.class.getResource("/iconBox/18.png")));
 			bookInsert.getStatus().setForeground(new Color(119, 136, 153));
 			bookInsert.getStatus().setLocation(128, 166);
 			bookInsert.getBtnNewButton_1().setBackground(new Color(176, 224, 230));
@@ -92,8 +100,7 @@ public class j_Manager_Book extends JPanel {
 			bookInsert.getLabel_1().setHorizontalAlignment(SwingConstants.RIGHT);
 			bookInsert.getLabel().setHorizontalAlignment(SwingConstants.RIGHT);
 			bookInsert.getLblNewLabel_1().setHorizontalAlignment(SwingConstants.RIGHT);
-			bookInsert.getLblNewLabel().setLocation(15, 36);
-			bookInsert.getBtnNewButton_1().setSize(91, 30);
+			bookInsert.getBtnNewButton_1().setSize(118, 31);
 			bookInsert.getTGroup().setSize(140, 31);
 			bookInsert.getTPage().setSize(139, 31);
 			bookInsert.getTPrice().setSize(139, 31);
@@ -117,10 +124,10 @@ public class j_Manager_Book extends JPanel {
 			bookInsert.getLabel().setLocation(55, 278);
 			bookInsert.getLblNewLabel_1().setLocation(55, 233);
 			bookInsert.getSeparator().setLocation(45, 188);
-			bookInsert.getBtnNewButton_1().setLocation(259, 135);
+			bookInsert.getBtnNewButton_1().setLocation(286, 136);
 			bookInsert.getTCode().setLocation(127, 135);
 			bookInsert.getLabel_4().setLocation(55, 141);
-			bookInsert.getBtnNewButton().setSize(105, 42);
+			bookInsert.getBtnNewButton().setSize(103, 42);
 			bookInsert.setBackground(new Color(240, 248, 255));
 			bookInsert.getBtnNewButton().setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 16));
 			bookInsert.getTPage().setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 16));
@@ -140,15 +147,12 @@ public class j_Manager_Book extends JPanel {
 			bookInsert.getLblNewLabel_1().setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 16));
 			bookInsert.getBtnNewButton_1().setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 16));
 			bookInsert.getLabel_4().setFont(new Font("³ª´®¹Ù¸¥°íµñ Light", Font.PLAIN, 16));
-			bookInsert.getLblNewLabel().setOpaque(true);
-			bookInsert.getLblNewLabel().setBackground(new Color(240, 248, 255));
-			bookInsert.getLblNewLabel().setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 35));
 			bookInsert.setPreferredSize(new Dimension(550, 550));
 			bookInsert.getBtnNewButton().addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 				}
 			});
-			bookInsert.getBtnNewButton().setLocation(222, 458);
+			bookInsert.getBtnNewButton().setLocation(290, 432);
 			Insertbook.add(bookInsert);
 			Insertbook.updateUI();
 			Insertbook.setVisible(true);
@@ -236,12 +240,11 @@ public class j_Manager_Book extends JPanel {
 		if (hopebook == null) {
 			hopebook = new JPanel();
 			hopebook.setLayout(new BorderLayout(0, 0));
-			j_HopeBookList j_HopeBookList_ = new j_HopeBookList();
-			j_HopeBookList_.setBackground(new Color(240, 248, 255));
-			j_HopeBookList_.getScrollPane().setSize(750, 442);
-			j_HopeBookList_.getScrollPane().setLocation(107, 45);
-			j_HopeBookList_.getScrollPane().setBackground(Color.decode("#54B5BF"));
-			hopebook.add(j_HopeBookList_);
+			hopebooks.setBackground(new Color(240, 248, 255));
+			hopebooks.getScrollPane().setSize(750, 459);
+			hopebooks.getScrollPane().setLocation(107, 45);
+			hopebooks.getScrollPane().setBackground(Color.decode("#54B5BF"));
+			hopebook.add(hopebooks);
 			hopebook.updateUI();
 			hopebook.setVisible(true);
 		}

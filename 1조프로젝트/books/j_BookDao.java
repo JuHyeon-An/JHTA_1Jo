@@ -34,7 +34,6 @@ public class j_BookDao {
 	/*
 	 * 작성 : 주현 새로 들어온 도서 입력 : BookInsert에서 사용
 	 */
-	
 
 	public int insert(j_BookVo vo) {
 		int r = 0;
@@ -86,9 +85,8 @@ public class j_BookDao {
 		case 0:
 			sql = "select book_code, book_name, publisher, writer,"
 					+ " book_date, price, page, group_code, to_char(enroll_date, 'rrrr-mm-dd'), s.IsAvailable"
-					+ " from books b join status_table s"
-					+ " on b.book_status = s.book_status";
-			
+					+ " from books b join status_table s" + " on b.book_status = s.book_status";
+
 			model.addColumn("청구기호");
 			model.addColumn("서명");
 			model.addColumn("출판사");
@@ -131,13 +129,13 @@ public class j_BookDao {
 					row.add(rs.getString(i));
 				}
 				model.addRow(row);
-				
+
 			}
 
 			table.setModel(model);
 			table.setRowHeight(25);
 			table.setRowSorter(new TableRowSorter(model)); // 정렬 ㅅㅂ
-			
+
 			rs.close();
 			ps.close();
 
@@ -189,7 +187,7 @@ public class j_BookDao {
 				}
 				model.addRow(row);
 			}
-			
+
 			rs.close();
 			ps.close();
 
@@ -254,6 +252,7 @@ public class j_BookDao {
 
 			conn.setAutoCommit(false);
 			r = ps.executeUpdate();
+			
 			if (r > 0) {
 				conn.commit();
 			} else {
@@ -270,7 +269,6 @@ public class j_BookDao {
 		}
 
 	}
-
 
 	public int CategoryInsert(j_GroupVo vo) {
 		int r = 0;
@@ -302,17 +300,17 @@ public class j_BookDao {
 	 * 작성 : 주현 예약한 사람 count BookDetail 생성자에서 사용
 	 */
 
-	public String getReserveCnt(String bCode) {
+	public String getReserveId(String bCode) {
 		String r = "";
 		try {
-			sql = "select count(book_code) from RESERVE_BOOK where book_code = ?";
+			sql = "select member_id from RESERVE_BOOK where book_code = ?";
 
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, bCode);
 
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
-				r = rs.getInt("count(book_code)") + "";
+				r = rs.getString("member_id");
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -320,37 +318,35 @@ public class j_BookDao {
 		return r;
 	}
 
-	////////////민호 추가////////////////////
-	//Reserve_book 테이블에 데이터 넣기
+	//////////// 민호 추가////////////////////
+	// 예약 요청 기능
 	public int rentRequest(String bCode, String keyId) {
-	int r = 0;
-	
-	boolean b = rentAble(keyId); // 동일한 아이디가 없으면 예약 가능
-	boolean b1 = bookRentAble(bCode); //동일한 책코드가 없으면 예약가능
-	
-	
-	if (b && b1) {
-	String sql = "insert into reserve_book values(seq_reserve.nextval, ?, ?,sysdate)";
-	try {
-		PreparedStatement ps = conn.prepareStatement(sql);
-		ps.setString(1, bCode);
-		ps.setString(2, keyId);
-	
-		conn.setAutoCommit(false);
-		r = ps.executeUpdate();
-		if (r > 0)
-			conn.commit();
-		else
-			conn.rollback();
-	
-	} catch (Exception e) {
-		e.printStackTrace();
-	}
+		int r = 0;
+		boolean b1 = rentAble(keyId); // 동일한 아이디가 없으면 참 반환
+		boolean b2 = bookRentAble(bCode); // 동일한 책코드가 없으면 참 반환
+
+		if (b1 && b2) {
+			String sql = "insert into reserve_book values(seq_reserve.nextval, ?, ?,sysdate)";
+			try {
+				PreparedStatement ps = conn.prepareStatement(sql);
+				ps.setString(1, bCode);
+				ps.setString(2, keyId);
+
+				conn.setAutoCommit(false);
+				r = ps.executeUpdate();
+				if (r > 0)
+					conn.commit();
+				else
+					conn.rollback();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return r;
+
 	}
 
-	return r;
-	
-	}
 	/*
 	 * 작성 : 민호
 	 */
@@ -363,9 +359,8 @@ public class j_BookDao {
 			ResultSetMetaData meta = ps.getMetaData();
 			model = new DefaultTableModel();
 			int cnt = meta.getColumnCount();
-			
+
 			ps.setString(1, keyId);
-			
 			model.addColumn("책 이름");
 			model.addColumn("저자");
 			model.addColumn("출판사");
@@ -389,10 +384,9 @@ public class j_BookDao {
 	/*
 	 * 작성 : 민호
 	 */
-	public int addDate(String bCode, String keyId) {
-		int r = 0;
-
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	// 반납날짜 연장
+	public int addDate(String bCode) { // 연장할 책코드를 전달받음
+		int r = 0; // 연장되면 1이상 반환, 연장 안되면 0 반환
 
 		sql = "select until_date, rent_date+20 from rent_member where Rent_code = ?";
 		try {
@@ -400,22 +394,23 @@ public class j_BookDao {
 			ps.setString(1, bCode);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
+				// 책을 빌리면 14일후 반납해야되고 연장을 하면 +7일이 추가됨 때문에,
+				// 연장할 책의 반납날짜와 빌린날짜+21(최대)일을 더해서 비교
+				// // 반납날짜와 빌린날짜+21(최대)를 비교
 				if (rs.getString(1).compareTo(rs.getString(2)) > 0) {
-					return r = 0;
+					r = 0;
 				} else {
-					r = 1;
+					sql = " update rent_member set until_date = until_date+7 where Rent_code = ?";
+					ps = conn.prepareStatement(sql);
+					ps.setString(1, bCode);
+					conn.setAutoCommit(false);
+					r = ps.executeUpdate();
+					if (r > 0) {
+						conn.commit();
+					} else {
+						conn.rollback();
+					}
 				}
-			}
-			String sql = " update rent_member set until_date = until_date+7 where Rent_code = ?";
-
-			ps = conn.prepareStatement(sql);
-			ps.setString(1, bCode); // 차후 업데이트
-			conn.setAutoCommit(false);
-			r = ps.executeUpdate();
-			if (r > 0) {
-				conn.commit();
-			} else {
-				conn.rollback();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -452,18 +447,16 @@ public class j_BookDao {
 	}
 
 	/*
-	 * 작성 : 민호
-	 * 사용자가 도서검색에서 검색 버튼 누르면 검색어로 테이블 띄우기 콤보박스에서 선택된 인덱스로 검색
+	 * 작성 : 민호 사용자가 도서검색에서 검색 버튼 누르면 검색어로 테이블 띄우기 콤보박스에서 선택된 인덱스로 검색
 	 */
 	public DefaultTableModel rent(int selectIndex, String rent) {
 		DefaultTableModel model = null;
 		PreparedStatement ps = null;
 		ResultSetMetaData meta = null;
 		String sql = null;
-		
+
 		if (selectIndex == 0) {
-			sql = "select Book_Code, book_name, publisher, writer, booK_status "
-					+ " from books where book_name like ?";
+			sql = "select Book_Code, book_name, publisher, writer, booK_status " + " from books where book_name like ?";
 			try {
 				ps = conn.prepareStatement(sql);
 				meta = ps.getMetaData();
@@ -477,7 +470,6 @@ public class j_BookDao {
 				model.addColumn("상태");
 
 				ps.setString(1, "%" + rent + "%");
-				
 
 				ResultSet rs = ps.executeQuery();
 				while (rs.next()) {
@@ -485,23 +477,22 @@ public class j_BookDao {
 					for (int i = 1; i <= cnt - 1; i++) {
 						row.add(rs.getString(i));
 					}
-					if (Integer.parseInt(rs.getString(5)) == 1 || Integer.parseInt(rs.getString(5)) == 0) {  // 1이면 이미 빌린거
+					if (Integer.parseInt(rs.getString(5)) == 1 || Integer.parseInt(rs.getString(5)) == 0) { // 1이면 이미
+																											// 빌린거
 						row.add("예약 가능");
-					}
-					else if(Integer.parseInt(rs.getString(5)) == 2){
+					} else if (Integer.parseInt(rs.getString(5)) == 2) {
 						row.add("예약중");
 					}
 					model.addRow(row);
-					
+
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
+
 			return model;
 		} else if (selectIndex == 1) {
-			sql = "select Book_Code, book_name, publisher, writer, booK_status "
-					+ " from books where writer like ?";
+			sql = "select Book_Code, book_name, publisher, writer, booK_status " + " from books where writer like ?";
 			try {
 				ps = conn.prepareStatement(sql);
 				meta = ps.getMetaData();
@@ -515,7 +506,6 @@ public class j_BookDao {
 				model.addColumn("상태");
 
 				ps.setString(1, "%" + rent + "%");
-				
 
 				ResultSet rs = ps.executeQuery();
 				while (rs.next()) {
@@ -523,19 +513,20 @@ public class j_BookDao {
 					for (int i = 1; i <= cnt - 1; i++) {
 						row.add(rs.getString(i));
 					}
-					if (Integer.parseInt(rs.getString(5)) == 1 || Integer.parseInt(rs.getString(5)) == 0) {  // 1이면 이미 빌린거
+					if (Integer.parseInt(rs.getString(5)) == 1 || Integer.parseInt(rs.getString(5)) == 0) { // 1이면 이미
+																											// 빌린거
 						row.add("예약 가능");
-					}else if(Integer.parseInt(rs.getString(5)) == 2){
+					} else if (Integer.parseInt(rs.getString(5)) == 2) {
 						row.add("예약중");
 					}
 					model.addRow(row);
-					
+
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			return model;
-		} else{
+		} else {
 			sql = "select Book_Code, book_name, publisher, writer, booK_status  from books where publisher like ?";
 			try {
 				ps = conn.prepareStatement(sql);
@@ -550,7 +541,6 @@ public class j_BookDao {
 				model.addColumn("상태");
 
 				ps.setString(1, "%" + rent + "%");
-				
 
 				ResultSet rs = ps.executeQuery();
 				while (rs.next()) {
@@ -558,13 +548,14 @@ public class j_BookDao {
 					for (int i = 1; i <= cnt - 1; i++) {
 						row.add(rs.getString(i));
 					}
-					if (Integer.parseInt(rs.getString(5)) == 1 || Integer.parseInt(rs.getString(5)) == 0) {  // 1이면 이미 빌린거
+					if (Integer.parseInt(rs.getString(5)) == 1 || Integer.parseInt(rs.getString(5)) == 0) { // 1이면 이미
+																											// 빌린거
 						row.add("예약 가능");
-					}else if(Integer.parseInt(rs.getString(5)) == 2){
+					} else if (Integer.parseInt(rs.getString(5)) == 2) {
 						row.add("예약중");
 					}
 					model.addRow(row);
-					
+
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -573,43 +564,37 @@ public class j_BookDao {
 		}
 	}
 
-	
 	/*
-	 * 작성 : 주현
-	 * BookDetail 생성자에서
-	 * 대출한 사람 아이디, 반납기한 불러오는 메소드
-	 * 대출중이 아니라서 정보가 없으면 "정보없음" 출력
+	 * 작성 : 주현 BookDetail 생성자에서 대출한 사람 아이디, 반납기한 불러오는 메소드 대출중이 아니라서 정보가 없으면 "정보없음"
+	 * 출력
 	 */
 	public String getRentMember(String bCode, char flag) {
 		String r = "";
 		try {
-			sql = "select member_id, to_char(until_date, 'rrrr-mm-dd') from rent_member"
-					+ " where rent_code = ? ";
+			sql = "select member_id, to_char(until_date, 'rrrr-mm-dd') from rent_member" + " where rent_code = ? ";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, bCode);
 
 			ResultSet rs = ps.executeQuery();
-			
-			if(rs.next()) {
+
+			if (rs.next()) {
 				r = flag == '0' ? rs.getString(1) : rs.getString(2);
-			}else {
+			} else {
 				r = "정보없음";
 			}
-			
+
 			rs.close();
 			ps.close();
-			
-		}catch(Exception ex) {
+
+		} catch (Exception ex) {
 			ex.printStackTrace();
-		}finally {
+		} finally {
 			return r;
 		}
 	}
 
 	/*
-	 * 작성 : 주현
-	 * BookManagement에서 관리할 책 검색
-	 * 0 : 전체, 1 : 청구기호, 2 : 서명, 3 : 저자, 4 : 출판사
+	 * 작성 : 주현 BookManagement에서 관리할 책 검색 0 : 전체, 1 : 청구기호, 2 : 서명, 3 : 저자, 4 : 출판사
 	 */
 
 	public DefaultTableModel bookSearch(String find, int selectedIndex) {
@@ -617,14 +602,13 @@ public class j_BookDao {
 		DefaultTableModel model = new DefaultTableModel();
 		PreparedStatement ps = null;
 		ResultSetMetaData meta;
-		
+
 		try {
 			switch (selectedIndex) {
-			case 0: //전체
+			case 0: // 전체
 				sql = "select book_code, book_name, publisher, writer, book_date, "
-						+ "price, page, group_code, to_char(enroll_date, 'rrrr-mm-dd'), IsAvailable" 
-						+ " from books b join status_table s"
-						+ " on b.book_status = s.book_status"
+						+ "price, page, group_code, to_char(enroll_date, 'rrrr-mm-dd'), IsAvailable"
+						+ " from books b join status_table s" + " on b.book_status = s.book_status"
 						+ " where book_code like ? or book_name like ? or publisher like ?"
 						+ " or writer like ? or book_date like ? or price like ? or page like ? or"
 						+ " group_code like ? or enroll_date like ? or IsAvailable like ?";
@@ -641,61 +625,56 @@ public class j_BookDao {
 				ps.setString(8, "%" + find + "%");
 				ps.setString(9, "%" + find + "%");
 				ps.setString(10, "%" + find + "%");
-				
+
 				break;
 
-		case 1: // 청구기호
-			
-			sql = "select book_code, book_name, publisher, writer, book_date, "
-					+ "price, page, group_code, to_char(enroll_date, 'rrrr-mm-dd'), IsAvailable" 
-					+ " from books b join status_table s"
-					+ " on b.book_status = s.book_status"
-					+ " where book_code like ?";
+			case 1: // 청구기호
 
-			ps = conn.prepareStatement(sql);
+				sql = "select book_code, book_name, publisher, writer, book_date, "
+						+ "price, page, group_code, to_char(enroll_date, 'rrrr-mm-dd'), IsAvailable"
+						+ " from books b join status_table s" + " on b.book_status = s.book_status"
+						+ " where book_code like ?";
 
-			ps.setString(1, "%" + find + "%");
-			
-			break;
+				ps = conn.prepareStatement(sql);
 
-		case 2: // 서명
-			sql = "select book_code, book_name, publisher, writer, book_date, "
-					+ "price, page, group_code, to_char(enroll_date, 'rrrr-mm-dd'), IsAvailable" 
-					+ " from books b join status_table s"
-					+ " on b.book_status = s.book_status"
-					+ " where book_name like ?";
+				ps.setString(1, "%" + find + "%");
 
-			ps = conn.prepareStatement(sql);
+				break;
 
-			ps.setString(1, "%" + find + "%");
-			break;
+			case 2: // 서명
+				sql = "select book_code, book_name, publisher, writer, book_date, "
+						+ "price, page, group_code, to_char(enroll_date, 'rrrr-mm-dd'), IsAvailable"
+						+ " from books b join status_table s" + " on b.book_status = s.book_status"
+						+ " where book_name like ?";
 
-			
-		case 3: // 저자
-			
-			sql = "select book_code, book_name, publisher, writer, book_date, "
-					+ "price, page, group_code, to_char(enroll_date, 'rrrr-mm-dd'), IsAvailable" 
-					+ " from books b join status_table s"
-					+ " on b.book_status = s.book_status"
-					+ " where writer like ?";
-			
-			ps = conn.prepareStatement(sql);
-			ps.setString(1, "%" + find + "%");
-			
-			break;
-			
-		case 4: // 출판사
-			sql = "select book_code, book_name, publisher, writer, book_date, "
-					+ "price, page, group_code, to_char(enroll_date, 'rrrr-mm-dd'), IsAvailable" 
-					+ " from books b join status_table s"
-					+ " on b.book_status = s.book_status"
-					+ " where publisher like ?";
+				ps = conn.prepareStatement(sql);
 
-			ps = conn.prepareStatement(sql);
-			ps.setString(1, "%" + find + "%");
-			
-			break;
-		}
+				ps.setString(1, "%" + find + "%");
+				break;
+
+			case 3: // 저자
+
+				sql = "select book_code, book_name, publisher, writer, book_date, "
+						+ "price, page, group_code, to_char(enroll_date, 'rrrr-mm-dd'), IsAvailable"
+						+ " from books b join status_table s" + " on b.book_status = s.book_status"
+						+ " where writer like ?";
+
+				ps = conn.prepareStatement(sql);
+				ps.setString(1, "%" + find + "%");
+
+				break;
+
+			case 4: // 출판사
+				sql = "select book_code, book_name, publisher, writer, book_date, "
+						+ "price, page, group_code, to_char(enroll_date, 'rrrr-mm-dd'), IsAvailable"
+						+ " from books b join status_table s" + " on b.book_status = s.book_status"
+						+ " where publisher like ?";
+
+				ps = conn.prepareStatement(sql);
+				ps.setString(1, "%" + find + "%");
+
+				break;
+			}
 			model.addColumn("청구기호");
 			model.addColumn("서명");
 			model.addColumn("출판사");
@@ -706,9 +685,9 @@ public class j_BookDao {
 			model.addColumn("분류기호");
 			model.addColumn("등록일자");
 			model.addColumn("대출가능여부");
-			
+
 			ResultSet rs = ps.executeQuery();
-			
+
 			meta = ps.getMetaData();
 			int cnt = meta.getColumnCount();
 
@@ -723,8 +702,6 @@ public class j_BookDao {
 			rs.close();
 			ps.close();
 
-			
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -732,150 +709,141 @@ public class j_BookDao {
 	}
 
 	public List<j_GroupVo> getGroupList() {
-		
+
 		List<j_GroupVo> list = new ArrayList<j_GroupVo>();
-		
+
 		try {
-		sql = "select * from book_group";
-		PreparedStatement ps = conn.prepareStatement(sql);
-		ResultSet rs = ps.executeQuery();
-		
-		while(rs.next()) {
-			list.add(new j_GroupVo(rs.getInt(1), rs.getString(2)));
-		}
-		
-		}catch(Exception ex) {
+			sql = "select * from book_group";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+				list.add(new j_GroupVo(rs.getInt(1), rs.getString(2)));
+			}
+
+		} catch (Exception ex) {
 			ex.printStackTrace();
-		}finally {
+		} finally {
 			return list;
 		}
-		
+
 	}
 
-	
-	/* 작성 : 주현
-	 * 북코드를 체크해서 boolean 반환
-	 * bookInsert - 중복확인 버튼
-	 * false : 중복 X
-	 * true : 중복
+	/*
+	 * 작성 : 주현 북코드를 체크해서 boolean 반환 bookInsert - 중복확인 버튼 false : 중복 X true : 중복
 	 */
-	
+
 	public boolean bookCodeCheck(String bCode) {
-		
+
 		boolean r = false;
-		
+
 		try {
-		
-		sql = "select book_code from books where book_code = ?";
-		PreparedStatement ps = conn.prepareStatement(sql);
-		ps.setString(1, bCode);
-		
-		ResultSet rs = ps.executeQuery();
-		
-		if(rs.next()) {
-			r=true; // 이미 북코드가 존재
-		}
-		
-		} catch(Exception ex) {
+
+			sql = "select book_code from books where book_code = ?";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, bCode);
+
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()) {
+				r = true; // 이미 북코드가 존재
+			}
+
+		} catch (Exception ex) {
 			ex.printStackTrace();
-		}finally {
+		} finally {
 			return r;
 		}
-		
+
 	}
-	
-	
-	
-	
-	public void sendEmail(String toMember)
-			throws Exception {
+
+	public void sendEmail(String toMember) throws Exception {
 		Properties props = System.getProperties();
-        props.put("mail.transport.protocol", "smtp");
-        props.put("mail.smtp.port", SendEmail.PORT); 
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.auth", "true");
- 
-        Session session = Session.getDefaultInstance(props);
- 
-        MimeMessage msg = new MimeMessage(session);
-        msg.setFrom(new InternetAddress(SendEmail.FROM, SendEmail.FROMNAME));
-        msg.setRecipient(Message.RecipientType.TO, new InternetAddress(toMember));
-        msg.setSubject(SendEmail.SUBJECT);
-        msg.setContent(SendEmail.BODY, "text/html;charset=euc-kr");
-        
-        Transport transport = session.getTransport();
- 
-        try {
-            System.out.println("전송중 . . .");
-            
-            transport.connect(SendEmail.HOST, SendEmail.SMTP_USERNAME, SendEmail.SMTP_PASSWORD);
-            transport.sendMessage(msg, msg.getAllRecipients());
- 
-            System.out.println("이메일 전송이 완료되었습니다.");
-        } catch (Exception ex) {
-            ex.printStackTrace();
- 
-        } finally {
-            transport.close();
-        }
+		props.put("mail.transport.protocol", "smtp");
+		props.put("mail.smtp.port", SendEmail.PORT);
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.auth", "true");
+
+		Session session = Session.getDefaultInstance(props);
+
+		MimeMessage msg = new MimeMessage(session);
+		msg.setFrom(new InternetAddress(SendEmail.FROM, SendEmail.FROMNAME));
+		msg.setRecipient(Message.RecipientType.TO, new InternetAddress(toMember));
+		msg.setSubject(SendEmail.SUBJECT);
+		msg.setContent(SendEmail.BODY, "text/html;charset=euc-kr");
+
+		Transport transport = session.getTransport();
+
+		try {
+			System.out.println("전송중 . . .");
+
+			transport.connect(SendEmail.HOST, SendEmail.SMTP_USERNAME, SendEmail.SMTP_PASSWORD);
+			transport.sendMessage(msg, msg.getAllRecipients());
+
+			System.out.println("이메일 전송이 완료되었습니다.");
+		} catch (Exception ex) {
+			ex.printStackTrace();
+
+		} finally {
+			transport.close();
+		}
 	}
+
 	// 비밀번호 이메일로 전송
-	public void sendEmail_Pwd(String toMember,String pwd)
-			throws Exception {
+	public void sendEmail_Pwd(String toMember, String pwd) throws Exception {
 		Properties props = System.getProperties();
-        props.put("mail.transport.protocol", "smtp");
-        props.put("mail.smtp.port", SendEmail.PORT); 
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.auth", "true");
- 
-        Session session = Session.getDefaultInstance(props);
- 
-        MimeMessage msg = new MimeMessage(session);
-        msg.setFrom(new InternetAddress(SendEmail.FROM, SendEmail.FROMNAME));
-        msg.setRecipient(Message.RecipientType.TO, new InternetAddress(toMember));
-        msg.setSubject("[JHTA도서관] 비밀번호 안내");
-        msg.setContent(SendEmail.BODY_sendPwd(pwd), "text/html;charset=euc-kr");
-        
-        Transport transport = session.getTransport();
- 
-        try {
-            System.out.println("전송중 . . .");
-            
-            transport.connect(SendEmail.HOST, SendEmail.SMTP_USERNAME, SendEmail.SMTP_PASSWORD);
-            transport.sendMessage(msg, msg.getAllRecipients());
- 
-            System.out.println("이메일 전송이 완료되었습니다.");
-        } catch (Exception ex) {
-            ex.printStackTrace();
- 
-        } finally {
-            transport.close();
-        }
+		props.put("mail.transport.protocol", "smtp");
+		props.put("mail.smtp.port", SendEmail.PORT);
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.auth", "true");
+
+		Session session = Session.getDefaultInstance(props);
+
+		MimeMessage msg = new MimeMessage(session);
+		msg.setFrom(new InternetAddress(SendEmail.FROM, SendEmail.FROMNAME));
+		msg.setRecipient(Message.RecipientType.TO, new InternetAddress(toMember));
+		msg.setSubject("[JHTA도서관] 비밀번호 안내");
+		msg.setContent(SendEmail.BODY_sendPwd(pwd), "text/html;charset=euc-kr");
+
+		Transport transport = session.getTransport();
+
+		try {
+			System.out.println("전송중 . . .");
+
+			transport.connect(SendEmail.HOST, SendEmail.SMTP_USERNAME, SendEmail.SMTP_PASSWORD);
+			transport.sendMessage(msg, msg.getAllRecipients());
+
+			System.out.println("이메일 전송이 완료되었습니다.");
+		} catch (Exception ex) {
+			ex.printStackTrace();
+
+		} finally {
+			transport.close();
+		}
 	}
-	
-	
+
 	// 민호 (책 예약을 하면 books 상태를 예약중으로 변경)
 	public int bookStatusRent(String bCode) {
-		int a = 0;
-		
+		int r = 0;
+
 		String sql = "update books set book_status = 2 where book_code = ? ";
 		try {
-			PreparedStatement ps =conn.prepareStatement(sql);
+			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, bCode);
 			conn.setAutoCommit(false);
-			a = ps.executeUpdate();
-			if(a>0) {
+			r = ps.executeUpdate();
+			if (r > 0) {
 				conn.commit();
-			}else {
+			} else {
 				conn.rollback();
-			}			
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		return a;
+
+		return r;
 	}
-	
+
 	public j_noticeVo notice(int no) {
 		j_noticeVo vo = new j_noticeVo();
 		sql = "select serial_no, title, board_writer, contents, to_char(reg_date, 'rrrr-mm-dd') from notice_board where serial_no = ?";
@@ -884,7 +852,7 @@ public class j_BookDao {
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, no);
 			ResultSet rs = ps.executeQuery();
-			if(rs.next()) {
+			if (rs.next()) {
 				vo.setTitle(rs.getString("title"));
 				vo.setWriter(rs.getString("board_writer"));
 				vo.setRegDate(rs.getString(5));
@@ -893,215 +861,203 @@ public class j_BookDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally{
-				return vo;
+		} finally {
+			return vo;
 		}
 	}
-	
+
 	public boolean bookRentAble(String bCode) {
 		boolean b = false;
 		String sql = "select count(book_code) from RESERVE_BOOK where book_code = ?";
 		try {
-			PreparedStatement ps =conn.prepareStatement(sql);
+			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, bCode);
-			
 			ResultSet rs = ps.executeQuery();
-			while(rs.next()) {
-				if(rs.getInt(1)>=1) {
-					b=false;
-				}else {
+			while (rs.next()) { //book_code의 데이터가 없으면
+				if(rs.getInt(1)==0) {
 					b=true;
 				}
+				
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return b;
+
+	}
+
+	// 최근 입고된 책
+	public DefaultTableModel recentBook() {
+
+		DefaultTableModel model = null;
+		PreparedStatement ps = null;
+		ResultSetMetaData meta = null;
+		String sql = null;
+
+		sql = " SELECT book_name, WRITER" + " FROM "
+				+ " (   SELECT book_name, WRITER	  FROM books   ORDER BY enroll_date DESC	 )"
+				+ " WHERE ROWNUM <= 5";
+
+		try {
+			ps = conn.prepareStatement(sql);
+			meta = ps.getMetaData();
+			model = new DefaultTableModel();
+			int cnt = meta.getColumnCount();
+
+			model.addColumn("책 이름");
+			model.addColumn("저자");
+
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+				Vector row = new Vector<>();
+				for (int i = 1; i <= cnt; i++) {
+					row.add(rs.getString(i));
+				}
+
+				model.addRow(row);
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return model;
+	}
+
+	public boolean rentAble(String keyId) {
+		boolean b = false;
+		//reserve_book 테이블에 member_id 정보를 찾고
+		String sql = "select count(member_id) from reserve_book where member_id = ?";
+		try {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, keyId);
+
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) { //member_id의 데이터가 없으면
+				if(rs.getInt(1)==0) {
+					b=true;
+				}
+				
 			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return b;
-		
 	}
-	
-	// 최근 입고된 책
-		public DefaultTableModel recentBook() {
 
-			DefaultTableModel model = null;
-			PreparedStatement ps = null;
-			ResultSetMetaData meta = null;
-			String sql = null;
+	/*
+	 * 작성 : 민호 
+	 */
+	//사용자가 도서검색에서 검색 버튼 누르면 검색어로 테이블 띄우기 콤보박스에서 선택된 인덱스로 검색
+	public DefaultTableModel rentSearch(int selectIndex, String rent) {
+		DefaultTableModel model = null;
+		PreparedStatement ps = null;
+		ResultSetMetaData meta = null;
+		String sql = null;
 
-			sql = " SELECT book_name, WRITER" + " FROM "
-					+ " (   SELECT book_name, WRITER	  FROM books   ORDER BY enroll_date DESC	 )"
-					+ " WHERE ROWNUM <= 5";
+		if (selectIndex == 0) { // 0 = 책 이름
+			sql = "select Book_Code, book_name, publisher, writer, booK_status " + " from books where book_name like ?";
 
+			try {
+				ps = conn.prepareStatement(sql);
+				meta = ps.getMetaData(); // metadata 받아오고
+				int cnt = meta.getColumnCount(); // 컬럼수 받아오고
+				model = new DefaultTableModel();
+
+				model.addColumn("책 코드");
+				model.addColumn("책 이름");
+				model.addColumn("출판사");
+				model.addColumn("저자");
+				model.addColumn("상태");
+
+				ps.setString(1, "%" + rent + "%"); // 검색어를 sql문에 넣고
+				ResultSet rs = ps.executeQuery(); // 쿼리 실행
+
+				while (rs.next()) {
+					Vector row = new Vector<>(); // 백터 생성
+					for (int i = 1; i <= cnt - 1; i++) { // 책코드 ~ 저자 까지의 값을 백터에 저장
+						row.add(rs.getString(i));
+					} // 0이면 대출중인거 1이면 대출 가능 2 예약중인거
+					if (Integer.parseInt(rs.getString(5)) == 2) { //book_State가 2이면(2는 예약중인 책)
+						row.add("예약중"); // 백터에 "예약중" 추가
+					} else { // 0(대출가능),1(대출중) 이면 백터에 "예약 가능"추가
+						row.add("예약 가능"); 
+					}
+					model.addRow(row); // 테이블모델에 행 추가
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return model;
+		} else if (selectIndex == 1) {
+			sql = "select Book_Code, book_name, publisher, writer, booK_status " + " from books where writer like ?";
 			try {
 				ps = conn.prepareStatement(sql);
 				meta = ps.getMetaData();
 				model = new DefaultTableModel();
 				int cnt = meta.getColumnCount();
 
+				model.addColumn("책 코드");
 				model.addColumn("책 이름");
+				model.addColumn("출판사");
 				model.addColumn("저자");
+				model.addColumn("상태");
+
+				ps.setString(1, "%" + rent + "%");
 
 				ResultSet rs = ps.executeQuery();
-
 				while (rs.next()) {
-					Vector row = new Vector<>();
-					for (int i = 1; i <= cnt; i++) {
+					Vector row = new Vector<>(); // 백터 생성
+					for (int i = 1; i <= cnt - 1; i++) { // 책코드 ~ 저자 까지의 값을 백터에 저장
 						row.add(rs.getString(i));
+					} // 0이면 대출중인거 1이면 대출 가능 2 예약중인거
+					if (Integer.parseInt(rs.getString(5)) == 2) { //book_State가 2이면(2는 예약중인 책)
+						row.add("예약중"); // 백터에 "예약중" 추가
+					} else { // 0(대출가능),1(대출중) 이면 백터에 "예약 가능"추가
+						row.add("예약 가능"); 
 					}
-
-					model.addRow(row);
-
+					model.addRow(row); // 테이블모델에 행 추가
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-
 			return model;
-		}
-	
-		
-		public boolean rentAble(String keyId) {
-			boolean b = false;
-			String sql = "select count(member_id) from reserve_book where member_id = ?";
+		} else {
+			sql = "select Book_Code, book_name, publisher, writer, booK_status  from books where publisher like ?";
 			try {
-				PreparedStatement ps = conn.prepareStatement(sql);
-				ps.setString(1, keyId);
+				ps = conn.prepareStatement(sql);
+				meta = ps.getMetaData();
+				model = new DefaultTableModel();
+				int cnt = meta.getColumnCount();
+
+				model.addColumn("책 코드");
+				model.addColumn("책 이름");
+				model.addColumn("출판사");
+				model.addColumn("저자");
+				model.addColumn("상태");
+
+				ps.setString(1, "%" + rent + "%");
 
 				ResultSet rs = ps.executeQuery();
 				while (rs.next()) {
-					if (rs.getInt(1) >= 1) {
-						b = false;
-					} else {
-						b = true;
+					Vector row = new Vector<>(); // 백터 생성
+					for (int i = 1; i <= cnt - 1; i++) { // 책코드 ~ 저자 까지의 값을 백터에 저장
+						row.add(rs.getString(i));
+					} // 0이면 대출중인거 1이면 대출 가능 2 예약중인거
+					if (Integer.parseInt(rs.getString(5)) == 2) { //book_State가 2이면(2는 예약중인 책)
+						row.add("예약중"); // 백터에 "예약중" 추가
+					} else { // 0(대출가능),1(대출중) 이면 백터에 "예약 가능"추가
+						row.add("예약 가능"); 
 					}
+					model.addRow(row); // 테이블모델에 행 추가
 				}
-			} catch (SQLException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			return b;
+			return model;
 		}
-
-		/*
-		 * 작성 : 민호 사용자가 도서검색에서 검색 버튼 누르면 검색어로 테이블 띄우기 콤보박스에서 선택된 인덱스로 검색
-		 */
-		public DefaultTableModel rent(int selectIndex, String rent, String keyId) {
-			DefaultTableModel model = null;
-			PreparedStatement ps = null;
-			ResultSetMetaData meta = null;
-			String sql = null;
-
-			if (selectIndex == 0) {
-
-				sql = "select Book_Code, book_name, publisher, writer, booK_status " + " from books where book_name like ?";
-
-				try {
-					ps = conn.prepareStatement(sql);
-					meta = ps.getMetaData();
-					model = new DefaultTableModel();
-					int cnt = meta.getColumnCount();
-
-					model.addColumn("책 코드");
-					model.addColumn("책 이름");
-					model.addColumn("출판사");
-					model.addColumn("저자");
-					model.addColumn("상태");
-
-					ps.setString(1, "%" + rent + "%");
-					ResultSet rs = ps.executeQuery();
-
-					while (rs.next()) {
-						Vector row = new Vector<>();
-						for (int i = 1; i <= cnt - 1; i++) {
-							row.add(rs.getString(i));
-						} // 0이면 대출중인거 1이면 대출 가능 2 예약중인거
-						if (Integer.parseInt(rs.getString(5)) == 1 || Integer.parseInt(rs.getString(5)) == 0) {
-							row.add("예약 가능");
-						} else if (Integer.parseInt(rs.getString(5)) == 2) {
-							row.add("예약중");
-						}
-
-						model.addRow(row);
-
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-
-				return model;
-			} else if (selectIndex == 1) {
-				sql = "select Book_Code, book_name, publisher, writer, booK_status " + " from books where writer like ?";
-				try {
-					ps = conn.prepareStatement(sql);
-					meta = ps.getMetaData();
-					model = new DefaultTableModel();
-					int cnt = meta.getColumnCount();
-
-					model.addColumn("책 코드");
-					model.addColumn("책 이름");
-					model.addColumn("출판사");
-					model.addColumn("저자");
-					model.addColumn("상태");
-
-					ps.setString(1, "%" + rent + "%");
-
-					ResultSet rs = ps.executeQuery();
-					while (rs.next()) {
-						Vector row = new Vector<>();
-						for (int i = 1; i <= cnt - 1; i++) {
-							row.add(rs.getString(i));
-						}
-						if (Integer.parseInt(rs.getString(5)) == 1 || Integer.parseInt(rs.getString(5)) == 0) { // 1이면 이미
-																												// 빌린거
-							row.add("예약 가능");
-						} else if (Integer.parseInt(rs.getString(5)) == 2) {
-							row.add("예약중");
-						}
-						model.addRow(row);
-
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				return model;
-			} else {
-				sql = "select Book_Code, book_name, publisher, writer, booK_status  from books where publisher like ?";
-				try {
-					ps = conn.prepareStatement(sql);
-					meta = ps.getMetaData();
-					model = new DefaultTableModel();
-					int cnt = meta.getColumnCount();
-
-					model.addColumn("책 코드");
-					model.addColumn("책 이름");
-					model.addColumn("출판사");
-					model.addColumn("저자");
-					model.addColumn("상태");
-
-					ps.setString(1, "%" + rent + "%");
-
-					ResultSet rs = ps.executeQuery();
-					while (rs.next()) {
-						Vector row = new Vector<>();
-						for (int i = 1; i <= cnt - 1; i++) {
-							row.add(rs.getString(i));
-						}
-						if (Integer.parseInt(rs.getString(5)) == 1 || Integer.parseInt(rs.getString(5)) == 0) { // 1이면 이미
-																												// 빌린거
-							row.add("예약 가능");
-						} else if (Integer.parseInt(rs.getString(5)) == 2) {
-							row.add("예약중");
-						}
-						model.addRow(row);
-
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				return model;
-			}
-		}
+	}
 }
-
-	
-

@@ -36,7 +36,7 @@ public class p_MemberDao {
 	 }
 	 rs.close();
 	 ps.close();
-	 conn.close();
+
 	 
 	 }catch(Exception ex){
      ex.printStackTrace();
@@ -70,8 +70,7 @@ public class p_MemberDao {
 		 } else {
 			 conn.rollback();
 		 }
-		 ps.close();
-		 conn.close();
+
 	 }catch(Exception ex) {
 		 ex.printStackTrace();
 	 }finally {
@@ -100,8 +99,6 @@ public class p_MemberDao {
 	  	
 	  	r = ps.executeUpdate();
   	  	
-  	  	
-  			
   		sql = " delete from member where member_id = ? ";
   	    ps = conn.prepareStatement(sql);
   		ps.setString(1, mId);
@@ -167,17 +164,14 @@ public class p_MemberDao {
 	public int idCheck(String find) {
 		int r = 0;
 		try {
-		String sql = "select member_id from member where member_id = ?";
+		String sql = " select member_id from member where member_id = ? ";
+		System.out.println("abc"+r);
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setString(1, find );
 		ResultSet rs = ps.executeQuery();
-		if(rs.next()) {
-		r=1;
-		}else {
-		r=0;
+		while(rs.next()) {
+			r=1;
 		}
-		rs.close();
-		ps.close();
 		}catch(Exception ex) {
 		ex.printStackTrace();
 		}finally {
